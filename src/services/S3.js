@@ -1,11 +1,23 @@
 import { AWS } from '../constants';
-import 'aws/dist/aws-sdk';
+import 'aws-sdk/dist/aws-sdk';
 
+// AWSConfig.configure must have been run first
 export function getBucketContents() {
-  return global.AWS.S3.getBucket(AWS.bucket)
-  .then((response) => {
-    return response.json();
-  }).then((json) => {
-    return json;
+  const S3 = new global.AWS.S3({
+    region: AWS.REGION,
+    credentials: AWS.CREDENTIALS
+  });
+  const S3params = {
+    'Bucket': AWS.BUCKET
+  };
+
+  return new Promise((resolve, reject) => {
+    S3.listObjects(S3params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
   });
 }

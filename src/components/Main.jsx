@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 
 import { getGifsAsync } from '../actions/gifs';
 import GifGrid from './GifGrid';
-import GifSearch from './GifSearch';
 
 function mapStateToProps(state) {
   return {
-    events: state.events
+    gifs: state.gifs
   };
 }
 
@@ -26,12 +25,7 @@ class Main extends Component {
   render() {
     const { gifs } = this.props;
 
-    return (
-      <div>
-        <GifSearch />
-        <GifGrid gifs={ gifs } />
-      </div>
-    );
+    return <GifGrid gifs={ gifs } />;
   }
 }
 

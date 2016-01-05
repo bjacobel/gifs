@@ -31,6 +31,10 @@ module.exports = {
       {
         test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,
         loader: 'file-loader'
+      },
+      {
+        test: /packery/,
+        loader: 'imports?define=>false&this=>window'
       }
     ],
     noParse: [

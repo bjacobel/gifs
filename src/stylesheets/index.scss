@@ -1,1 +1,43 @@
+$gutter: 10px;
 
+// mapping of @media max-width to number of columns
+$cols-maxw: (
+  1: 500px,
+  2: 750px,
+  3: 1000px,
+  4: 1250px,
+  5: 1500px,
+  6: 1750px
+);
+
+$maxw-colw: ();
+
+@each $column in map-keys($cols-maxw) {
+  $maxw-colw: map-merge(
+    $maxw-colw, (
+      map-get($cols-maxw, $column):
+      calc((100% - (#{$gutter} * (#{$column} - 1))) / #{$column})
+    )
+  );
+}
+
+body {
+  margin: $gutter;
+}
+
+.gutter-sizer {
+  width: $gutter;
+}
+
+@each $bp in map-keys($maxw-colw) {
+  @media screen and (min-width: #{$bp}) {
+    .packery-item,
+    .grid-sizer {
+      width: map-get($maxw-colw, $bp);
+    }
+  }
+}
+
+.packery-item > img {
+  width: 100%;
+}
