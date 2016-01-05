@@ -6,14 +6,22 @@ import Gif from './Gif';
 export default class GifGrid extends Component {
   // @TODO: Lazy loading, for now just murder the bowser by trying to load everything
 
-  componentDidUpdate() {
-    new Packery(document.querySelector('#gif-grid'), {  // eslint-disable-line no-new
-      itemSelector: '.packery-item',
-      gutter: document.querySelector('.gutter-sizer'),
-      columnWidth: document.querySelector('.grid-sizer'),
-      percentPosition: true
-    });
+  componentDidMount() {
+    this.packerize = () => {
+      new Packery(document.querySelector('#gif-grid'), {  // eslint-disable-line no-new
+        itemSelector: '.packery-item',
+        gutter: document.querySelector('.gutter-sizer'),
+        columnWidth: document.querySelector('.grid-sizer'),
+        percentPosition: true
+      });
+    };
+    this.packerize();
   }
+
+  componentDidUpdate() {
+    this.packerize();
+  }
+
 
   render() {
     const { gifs } = this.props;
