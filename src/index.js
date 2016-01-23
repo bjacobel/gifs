@@ -10,6 +10,7 @@ import createHistory from 'history/lib/createHashHistory';
 
 import './stylesheets';
 import Main from './components/Main';
+import Err from './components/Err';
 import DevTools from './components/DevTools';
 import reducer from './reducers';
 
@@ -32,6 +33,7 @@ ReactDOM.render(
     <div>
       <Router history={ history }>
         <Route path="/" component={ Main }/>
+        <Route path="/error" component={ Err }/>
       </Router>
       { DevTools ? <DevTools/> : null }
     </div>

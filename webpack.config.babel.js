@@ -4,10 +4,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isProd = process.env.NODE_ENV;
 
-module.exports = {
+const wpconfig = {
   entry: {
     main: [
-      'webpack/hot/dev-server',
       './src/index.js'
     ]
   },
@@ -54,3 +53,9 @@ module.exports = {
     new ExtractTextPlugin(`[name].css`)
   ]
 };
+
+if (!isProd) {
+  wpconfig.entry.main = ['webpack/hot/dev-server', ...wpconfig.entry.main];
+}
+
+module.exports = wpconfig;
