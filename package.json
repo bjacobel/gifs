@@ -24,6 +24,7 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.1.0",
     "chai-properties": "^1.2.1",
+    "classnames": "^2.2.3",
     "css-loader": "^0.23.1",
     "dirty-chai": "^1.2.2",
     "eslint": "^1.10.3",

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 export default class Gif extends Component {
   // @TODO: handle .gifv, .webm, .mp4 (<video> tag)
@@ -20,16 +21,16 @@ export default class Gif extends Component {
   render() {
     const { gif } = this.props;
 
-    const showGif = () => {
-
-    };
-
-    const showCanvas = () => {
-
-    };
+    let enabled = false;
+    const enableMotion = () => { enabled = true; };
+    const disableMotion = () => { enabled = false; };
 
     return (
-      <div onMouseEnter={ showGif() } onMouseLeave={ showCanvas() }>
+      <div
+        onMouseOver={ enableMotion }
+        onMouseOut={ disableMotion }
+        className={ classNames('gif-wrapper', { enabled, disabled: !enabled }) }
+      >
         <canvas id={ `canvas-${ gif.id }` } />
         <img src={ `https://gifs.bjacobel.com/${gif.src}` } />
       </div>

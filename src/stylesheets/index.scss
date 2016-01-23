@@ -38,3 +38,17 @@ body {
 .packery-item > canvas {
   width: 100%;
 }
+
+.gif-wrapper {
+  &.enabled {
+    canvas {
+      display: none;
+    }
+  }
+
+  &.disabled {
+    img {
+      display: none;
+    }
+  }
+}
