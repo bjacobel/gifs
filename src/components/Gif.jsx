@@ -9,7 +9,7 @@ export default class Gif extends Component {
     const { gif } = this.props;
 
     this.img = new Image();
-    this.img.src = `http://gifs.bjacobel.com/${gif.src}`;
+    this.img.src = `https://gifs.bjacobel.com/${gif.src}`;
     this.img.addEventListener('load', () => {
       const canvas = document.getElementById(`canvas-${gif.id}`);
       const ctx = canvas.getContext('2d');
@@ -31,7 +31,7 @@ export default class Gif extends Component {
     return (
       <div onMouseEnter={ showGif() } onMouseLeave={ showCanvas() }>
         <canvas id={ `canvas-${ gif.id }` } />
-        <img src={ `http://gifs.bjacobel.com/${gif.src}` } />
+        <img src={ `https://gifs.bjacobel.com/${gif.src}` } />
       </div>
     );
   }
