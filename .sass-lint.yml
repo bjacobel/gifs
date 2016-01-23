@@ -2,3 +2,4 @@ rules:
   property-sort-order: 0
   no-url-protocols: 0
 files:
+  include: 'src/stylesheets/**/*.s+(a|c)ss'
