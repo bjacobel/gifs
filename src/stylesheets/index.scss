@@ -1,6 +1,5 @@
 $gutter: 10px;
-
-// mapping of @media max-width to number of columns
+$maxw-colw: ();
 $cols-maxw: (
   1: 500px,
   2: 750px,
@@ -9,8 +8,6 @@ $cols-maxw: (
   5: 1500px,
   6: 1750px
 );
-
-$maxw-colw: ();
 
 @each $column in map-keys($cols-maxw) {
   $maxw-colw: map-merge(
@@ -38,6 +35,6 @@ body {
   }
 }
 
-.packery-item > img {
+.packery-item > canvas {
   width: 100%;
 }

@@ -8,3 +8,19 @@ env:
 script:
   - npm run lint
   - npm test
+before_deploy:
+  - NODE_ENV=production npm run build
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - aws configure set preview.cloudfront true
+  - |
+  aws cloudfront create-invalidation \
+    --distribution-id EH49LPYEWBIUB \
+    --paths /index.html /main.js /main.css
+deploy:
+  provider: s3
+  bucket: "gifs.bjacobel.com"
+  acl: public_read
+  skip_cleanup: true
+  on:
+    branch: master
