@@ -2,12 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
 export default class Gif extends Component {
-  // @TODO: handle .gifv, .webm, .mp4 (<video> tag)
-  // also would be cool if it could not animate until mouseover
-  // will probably require a lambda and imagemagick or pillow
-
   componentWillMount() {
     const { gif } = this.props;
+
+    this.setState({ enabled: false });
 
     this.img = new Image();
     this.img.src = `https://gifs.bjacobel.com/${gif.src}`;
@@ -21,15 +19,14 @@ export default class Gif extends Component {
   render() {
     const { gif } = this.props;
 
-    let enabled = false;
-    const enableMotion = () => { enabled = true; };
-    const disableMotion = () => { enabled = false; };
+    const enableMotion = () => { this.setState({ enabled: true }); };
+    const disableMotion = () => { this.setState({ enabled: false }); };
 
     return (
       <div
         onMouseOver={ enableMotion }
         onMouseOut={ disableMotion }
-        className={ classNames('gif-wrapper', { enabled, disabled: !enabled }) }
+        className={ classNames('gif-wrapper', { enabled: this.state.enabled }) }
       >
         <canvas id={ `canvas-${ gif.id }` } />
         <img src={ `https://gifs.bjacobel.com/${gif.src}` } />
@@ -40,6 +37,7 @@ export default class Gif extends Component {
 
 Gif.propTypes = {
   gif: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired
   }).isRequired
 };

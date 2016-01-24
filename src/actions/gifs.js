@@ -9,12 +9,12 @@ export function getGifsRequested() {
 }
 
 export function getGifsSucceeded(gifs) {
-  return { type: GET_GIFS_SUCCEEDED, gifs };
+  return { type: GET_GIFS_SUCCEEDED, payload: { gifs } };
 }
 
 export function getGifsFailed(err) {
   console.warn(err);
-  return { type: GET_GIFS_FAILED };
+  return { type: GET_GIFS_FAILED, payload: { err }, error: true };
 }
 
 export function getGifsAsync() {

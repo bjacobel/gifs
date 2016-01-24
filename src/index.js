@@ -20,7 +20,7 @@ const reduxRouterMiddleware = syncHistory(history);
 const composedCreateStore = compose(
   applyMiddleware(thunk),
   applyMiddleware(reduxRouterMiddleware),
-  persistState('gifs', 'routing'),
+  persistState('routing'),
   DevTools ? DevTools.instrument() : null
 )(createStore);
 
