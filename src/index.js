@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import persistState from 'redux-localstorage';
 import { Router, Route } from 'react-router';
-import { syncHistory } from 'redux-simple-router';
+import { syncHistory } from 'react-router-redux';
 import createHistory from 'history/lib/createHashHistory';
 
 import './stylesheets';
