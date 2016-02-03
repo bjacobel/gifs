@@ -9,10 +9,18 @@ export default class Gif extends Component {
 
     this.img = new Image();
     this.img.src = `https://gifs.bjacobel.com/${gif.src}`;
+
     this.img.addEventListener('load', () => {
       const canvas = document.getElementById(`canvas-${gif.id}`);
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(this.img, 0, 0);
+
+      const colWidth = document.getElementById('grid-sizer').scrollWidth;
+      const scale = this.img.width / colWidth;
+
+      canvas.width = colWidth;
+      canvas.height = this.img.height / scale;
+
+      ctx.drawImage(this.img, 0, 0, canvas.width, canvas.height);
     }, false);
   }
 

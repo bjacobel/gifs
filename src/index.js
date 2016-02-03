@@ -21,7 +21,7 @@ const composedCreateStore = compose(
   applyMiddleware(thunk),
   applyMiddleware(reduxRouterMiddleware),
   persistState('routing'),
-  DevTools ? DevTools.instrument() : null
+  DevTools && DevTools.instrument()
 )(createStore);
 
 const store = composedCreateStore(reducer);
