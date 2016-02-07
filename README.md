@@ -2,18 +2,6 @@
 
 React app for storing & searching gifs.
 
-### Installing
+Uses AWS S3 + CloudFront for storing gifs + the React app and AWS DynamoDB for tag storage.
 
-`npm install`
-
-### Running locally (development)
-
-`npm start`
-
-### Testing
-
-`npm test`
-
-### Release
-
-`NODE_ENV=PRODUCTION npm run build`
+Coming soon: CloudFormation templates for setting it all up automatically on your own AWS account.

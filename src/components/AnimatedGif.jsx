@@ -4,7 +4,7 @@ export default class AnimatedGif extends Component {
   render() {
     const { img } = this.props;
 
-    return <img src={ img.src }/>;
+    return <img src={ img.src } />;
   }
 }
 
