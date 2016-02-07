@@ -7,7 +7,7 @@ export default class StaticGif extends Component {
     const ctx = canvas.getContext('2d');
 
     img.addEventListener('load', () => {
-      const colWidth = document.getElementById('grid-sizer').scrollWidth;
+      const colWidth = document.getElementsByClassName('grid-sizer')[0].scrollWidth;
       const scale = img.width / colWidth;
 
       canvas.width = colWidth;

@@ -22,14 +22,14 @@ body {
   margin: $gutter;
 }
 
-#gutter-sizer {
+.gutter-sizer {
   width: $gutter;
 }
 
 @each $bp in map-keys($maxw-colw) {
   @media screen and (min-width: #{$bp}) {
     .packery-item,
-    #grid-sizer {
+    .grid-sizer {
       width: map-get($maxw-colw, $bp);
     }
   }

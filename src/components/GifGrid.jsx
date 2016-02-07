@@ -10,8 +10,8 @@ export default class GifGrid extends Component {
     this.packerize = () => {
       new Packery(document.querySelector('#gif-grid'), {  // eslint-disable-line no-new
         itemSelector: '.packery-item',
-        gutter: document.querySelector('#gutter-sizer'),
-        columnWidth: document.querySelector('#grid-sizer'),
+        gutter: document.querySelector('.gutter-sizer'),
+        columnWidth: document.querySelector('.grid-sizer'),
         percentPosition: true
       });
     };
@@ -31,8 +31,8 @@ export default class GifGrid extends Component {
 
     return (
       <div id="gif-grid">
-        <div id="grid-sizer" />
-        <div id="gutter-sizer" />
+        <div className="grid-sizer" />
+        <div className="gutter-sizer" />
         { gifs.sort(byTimestamp).map((gif) => {
           return (
             <div className="packery-item" key={ gif.id }>
