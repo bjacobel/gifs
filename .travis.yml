@@ -11,10 +11,6 @@ script:
 before_deploy:
   - npm run compile
   - cp index-prod.html dist/index.html
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
-  - aws configure set preview.cloudfront true
-  - aws cloudfront create-invalidation --distribution-id EH49LPYEWBIUB --paths /index.html /main.js /main.css
 deploy:
   provider: s3
   region: us-east-1
@@ -24,3 +20,6 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
+after_deploy:
+  - awscli configure set preview.cloudfront true
+  - awscli cloudfront create-invalidation --distribution-id EH49LPYEWBIUB --paths /index.html /main.js /main.css
