@@ -12,21 +12,23 @@ import Main from './components/Main';
 import Err from './components/Err';
 import DevTools from './components/DevTools';
 import reducer from './reducers';
+import { showDevTools } from './constants';
 
 const reduxRouterMiddleware = syncHistory(browserHistory);
 
-const composedCreateStore = compose(
+const middlewares = [
   applyMiddleware(thunk),
   applyMiddleware(reduxRouterMiddleware),
-  persistState('routing'),
-  DevTools && DevTools.instrument()
-)(createStore);
+  persistState('routing')
+];
+
+if (showDevTools) { middlewares.push(DevTools.instrument()); }
+
+const composedCreateStore = compose.apply(this, middlewares)(createStore);
 
 const store = composedCreateStore(reducer);
 
-if (DevTools) {
-  reduxRouterMiddleware.listenForReplays(store);
-}
+if (showDevTools) { reduxRouterMiddleware.listenForReplays(store); }
 
 ReactDOM.render(
   <Provider store={ store }>
@@ -35,7 +37,7 @@ ReactDOM.render(
         <Route path="/" component={ Main }/>
         <Route path="/error" component={ Err }/>
       </Router>
-      { DevTools ? <DevTools/> : null }
+      { showDevTools ? <DevTools/> : null }
     </div>
   </Provider>,
   document.getElementById('main')

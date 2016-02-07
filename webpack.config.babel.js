@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const isProd = process.env.NODE_ENV;
+const isProd = process.env.NODE_ENV === 'production';
 
 const wpconfig = {
   entry: {
@@ -50,7 +50,12 @@ const wpconfig = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin(`[name].css`)
+    new ExtractTextPlugin(`[name].css`),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'production': isProd
+      }
+    })
   ]
 };
 

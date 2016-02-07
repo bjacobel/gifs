@@ -9,7 +9,7 @@ script:
   - npm run lint
   - npm test
 before_deploy:
-  - NODE_ENV=production npm run compile
+  - npm run compile
   - cp index-prod.html dist/index.html
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
