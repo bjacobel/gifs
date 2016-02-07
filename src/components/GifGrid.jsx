@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Packery from 'packery';
 
-import Gif from './Gif';
+import GifSwapper from './GifSwapper';
 
 export default class GifGrid extends Component {
   // @TODO: Lazy loading, for now just murder the bowser by trying to load everything
@@ -22,7 +22,6 @@ export default class GifGrid extends Component {
     this.packerize();
   }
 
-
   render() {
     const { gifs } = this.props;
 
@@ -37,7 +36,7 @@ export default class GifGrid extends Component {
         { gifs.sort(byTimestamp).map((gif) => {
           return (
             <div className="packery-item" key={ gif.id }>
-              <Gif gif={ gif } />
+              <GifSwapper gif={ gif } packerize={ this.packerize }/>
             </div>
           );
         }) }
