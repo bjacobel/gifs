@@ -4,28 +4,12 @@ import classNames from 'classnames';
 import StaticGif from './StaticGif';
 import AnimatedGif from './AnimatedGif';
 import { rootURL } from '../constants';
+import * as clipboard from '../services/clipboard';
 
 export default class GifSwapper extends Component {
   constructor() {
     super();
     this.state = { enabled: false };  // @TODO: Move this into Redux
-  }
-
-  componentWillMount() {
-    const { gif } = this.props;
-
-    const handler = (e) => {
-      e.preventDefault();
-      if (e.clipboardData) {
-        e.clipboardData.setData('text/plain', rootURL + gif.src);
-      }
-    };
-
-    this.copyToClipboard = () => {
-      document.addEventListener('copy', handler);
-      document.execCommand('copy');
-      document.removeEventListener('copy', handler);
-    };
   }
 
   render() {
@@ -36,8 +20,8 @@ export default class GifSwapper extends Component {
 
     const enableMotion = () => { this.setState({ enabled: true }); };
     const disableMotion = () => { this.setState({ enabled: false }); };
-    const clipboard = () => { this.copyToClipboard(); };
-    const disableAndClip = () => { disableMotion(); clipboard(); };
+    const clip = () => { clipboard.copy(rootURL + gif.src); };
+    const disableAndClip = () => { disableMotion(); clip(); };
 
     return (
       <div
@@ -45,7 +29,7 @@ export default class GifSwapper extends Component {
         onMouseOut={ disableMotion }
         onTouchStart={ enableMotion }
         onTouchEnd={ disableAndClip }
-        onMouseUp={ clipboard }
+        onMouseUp={ clip }
         className={ classNames('gif-swapper', { enabled: this.state.enabled }) }
       >
         <AnimatedGif img={ img }/>

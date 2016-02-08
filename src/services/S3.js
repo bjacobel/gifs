@@ -1,7 +1,6 @@
 import { AWS } from '../constants';
 import 'aws-sdk/dist/aws-sdk';
 
-// AWSConfig.configure must have been run first
 export function getBucketContents() {
   const S3 = new global.AWS.S3({
     region: AWS.REGION,
