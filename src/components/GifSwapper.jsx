@@ -1,25 +1,34 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import StaticGif from './StaticGif';
 import AnimatedGif from './AnimatedGif';
 import { rootURL } from '../constants';
 import * as clipboard from '../services/clipboard';
+import { animateGif, freezeGif } from '../actions/animation';
+
+function mapStateToProps(state) {
+  return {
+    animation: state.animation
+  };
+}
+
+const mapDispatchToProps = {
+  animateGif,
+  freezeGif
+};
 
 export default class GifSwapper extends Component {
-  constructor() {
-    super();
-    this.state = { enabled: false };  // @TODO: Move this into Redux
-  }
-
   render() {
-    const { gif } = this.props;
+    const { gif, animateGif, freezeGif, animation } = this.props;  // eslint-disable-line no-shadow
+    const enabled = animation[gif.id] || false;
 
     const img = new Image();
     img.src = rootURL + gif.src;
 
-    const enableMotion = () => { this.setState({ enabled: true }); };
-    const disableMotion = () => { this.setState({ enabled: false }); };
+    const enableMotion = () => { animateGif(gif.id); };
+    const disableMotion = () => { freezeGif(gif.id); };
     const clip = () => { clipboard.copy(rootURL + gif.src); };
     const disableAndClip = () => { disableMotion(); clip(); };
 
@@ -30,7 +39,7 @@ export default class GifSwapper extends Component {
         onTouchStart={ enableMotion }
         onTouchEnd={ disableAndClip }
         onMouseUp={ clip }
-        className={ classNames('gif-swapper', { enabled: this.state.enabled }) }
+        className={ classNames('gif-swapper', { enabled }) }
       >
         <AnimatedGif img={ img }/>
         <StaticGif img={ img } id={ gif.id }/>
@@ -45,3 +54,8 @@ GifSwapper.propTypes = {
     src: PropTypes.string.isRequired
   }).isRequired
 };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GifSwapper);
