@@ -1,8 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
+const bourbon = require('node-bourbon');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
+
+const sassPaths = bourbon.includePaths.map((sassPath) => {
+  return 'includePaths[]=' + sassPath;
+}).join('&');
 
 const wpconfig = {
   entry: {
@@ -25,7 +30,7 @@ const wpconfig = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass')
+        loader: ExtractTextPlugin.extract('style', 'css!sass?' + sassPaths)
       },
       {
         test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,

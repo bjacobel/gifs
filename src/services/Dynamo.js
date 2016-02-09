@@ -1,5 +1,4 @@
-import { AWS } from '../constants';
-import 'aws-sdk/dist/aws-sdk';
+// import { AWS } from '../constants';
 
 export const getTagsForId = () => {
 };

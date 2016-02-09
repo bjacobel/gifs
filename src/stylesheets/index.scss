@@ -1,3 +1,5 @@
+@import 'bourbon';
+
 $gutter: 10px;
 $maxw-colw: ();
 $cols-maxw: (
@@ -66,5 +68,5 @@ img {
     }
   }
 
-  -webkit-user-select: none;
+  @include prefixer(user-select, none, webkit ms moz o);
 }

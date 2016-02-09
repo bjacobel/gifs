@@ -1,11 +1,7 @@
 import { AWS } from '../constants';
-import 'aws-sdk/dist/aws-sdk';
 
 export function getBucketContents() {
-  const S3 = new global.AWS.S3({
-    region: AWS.REGION,
-    credentials: AWS.CREDENTIALS
-  });
+  const S3 = new AWS.API.S3();
   const S3params = {
     'Bucket': AWS.BUCKET
   };
