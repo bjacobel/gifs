@@ -1,5 +1,7 @@
 # gifs
 
+[![Build Status](https://travis-ci.com/bjacobel/gifs.svg?token=9aA5Qy32HLtuNYqyRvx3&branch=master)](https://travis-ci.com/bjacobel/gifs)
+
 React app for storing & searching gifs.
 
 Uses AWS S3 + CloudFront for storing gifs + the React app and AWS DynamoDB for tag storage.
