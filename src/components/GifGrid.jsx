@@ -1,26 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import Packery from 'packery';
 
 import GifSwapper from './GifSwapper';
 
 export default class GifGrid extends Component {
   // @TODO: Lazy loading, for now just murder the bowser by trying to load everything
-
-  componentDidMount() {
-    this.packerize = () => {
-      new Packery(document.querySelector('#gif-grid'), {  // eslint-disable-line no-new
-        itemSelector: '.packery-item',
-        gutter: document.querySelector('.gutter-sizer'),
-        columnWidth: document.querySelector('.grid-sizer'),
-        percentPosition: true
-      });
-    };
-    this.packerize();
-  }
-
-  componentDidUpdate() {
-    this.packerize();
-  }
 
   render() {
     const { gifs } = this.props;

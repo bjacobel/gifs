@@ -13,7 +13,7 @@ export default class GifSwapper extends Component {
   }
 
   render() {
-    const { gif, packerize } = this.props;
+    const { gif } = this.props;
 
     const img = new Image();
     img.src = rootURL + gif.src;
@@ -33,7 +33,7 @@ export default class GifSwapper extends Component {
         className={ classNames('gif-swapper', { enabled: this.state.enabled }) }
       >
         <AnimatedGif img={ img }/>
-        <StaticGif img={ img } id={ gif.id } packerize={ packerize }/>
+        <StaticGif img={ img } id={ gif.id }/>
       </div>
     );
   }
@@ -43,6 +43,5 @@ GifSwapper.propTypes = {
   gif: PropTypes.shape({
     id: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired
-  }).isRequired,
-  packerize: PropTypes.func.isRequired
+  }).isRequired
 };

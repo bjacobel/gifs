@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import packerize from '../services/layout';
 
 export default class StaticGif extends Component {
   componentDidMount() {
-    const { img, packerize } = this.props;
+    const { img } = this.props;
     const canvas = this.refs[`canvas-${img.id}`];
     const ctx = canvas.getContext('2d');
 
@@ -33,6 +34,5 @@ StaticGif.propTypes = {
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired
   }).isRequired,
-  id: PropTypes.string.isRequired,
-  packerize: PropTypes.func.isRequired
+  id: PropTypes.string.isRequired
 };
