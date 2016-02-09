@@ -37,6 +37,7 @@
     "jsonp-promise": "^0.1.2",
     "mocha": "^2.3.4",
     "moment": "^2.10.6",
+    "node-bourbon": "^4.2.3",
     "node-sass": "^3.4.2",
     "packery": "^1.4.3",
     "react": "^0.14.3",
