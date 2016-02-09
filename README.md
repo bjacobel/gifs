@@ -1,6 +1,6 @@
 # gifs
 
-[![Build Status](https://travis-ci.com/bjacobel/gifs.svg?token=9aA5Qy32HLtuNYqyRvx3&branch=master)](https://travis-ci.com/bjacobel/gifs)
+[![Build Status](https://travis-ci.org/bjacobel/gifs.svg?token=9aA5Qy32HLtuNYqyRvx3&branch=master)](https://travis-ci.org/bjacobel/gifs)
 
 React app for storing & searching gifs.
 
