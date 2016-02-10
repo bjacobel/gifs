@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import StaticGif from './StaticGif';
 import AnimatedGif from './AnimatedGif';
+import GifTags from './GifTags';
 import { rootURL } from '../constants';
 import * as clipboard from '../services/clipboard';
 import { animateGif, freezeGif } from '../actions/animation';
@@ -19,9 +20,16 @@ const mapDispatchToProps = {
   freezeGif
 };
 
-export default class GifSwapper extends Component {
+export default class GifWrapper extends Component {
   render() {
-    const { gif, animateGif, freezeGif, animation } = this.props;  // eslint-disable-line no-shadow
+    const {
+      gif,
+      tags,
+      animation,
+      animateGif, // eslint-disable-line no-shadow
+      freezeGif // eslint-disable-line no-shadow
+    } = this.props;
+
     const enabled = animation[gif.id] || false;
 
     const img = new Image();
@@ -43,19 +51,26 @@ export default class GifSwapper extends Component {
       >
         <AnimatedGif img={ img }/>
         <StaticGif img={ img } id={ gif.id }/>
+        <GifTags tags={ tags }/>
       </div>
     );
   }
 }
 
-GifSwapper.propTypes = {
+GifWrapper.propTypes = {
   gif: PropTypes.shape({
     id: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GifSwapper);
+)(GifWrapper);

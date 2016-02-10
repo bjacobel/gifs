@@ -12,7 +12,7 @@ export default function gifs(state = [], action) {
         src: gif.Key,
         date: gif.LastModified,
         size: gif.Size,
-        id: gif.ETag
+        id: gif.ETag.slice(1, -1)
       };
     });
   default:

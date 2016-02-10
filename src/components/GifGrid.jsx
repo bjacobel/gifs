@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-import GifSwapper from './GifSwapper';
+import GifWrapper from './GifWrapper';
 
 export default class GifGrid extends Component {
   // @TODO: Lazy loading, for now just murder the bowser by trying to load everything
 
   render() {
-    const { gifs } = this.props;
+    const { gifs, tags } = this.props;
 
     const byTimestamp = (a, b) => {
       return a.date < b.date;
@@ -19,7 +19,7 @@ export default class GifGrid extends Component {
         { gifs.sort(byTimestamp).map((gif) => {
           return (
             <div className="packery-item" key={ gif.id }>
-              <GifSwapper gif={ gif } packerize={ this.packerize }/>
+              <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
             </div>
           );
         }) }
@@ -33,5 +33,6 @@ GifGrid.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  tags: PropTypes.shape().isRequired
 };
