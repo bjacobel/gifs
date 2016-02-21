@@ -1,13 +1,16 @@
 .tag-list {
   line-height: 2.0;
-  margin: 0;
-  padding-bottom: 5px;
+  margin: -4px 0 0 0;
+  padding: 4px 6px;
   word-wrap: normal;
   display: none;
-  z-index: 999;
   position: absolute;
   background-color: white;
-  width: 100%;
+  width: calc(100% - 14px);
+  border: 1px solid $lightgrey;
+  border-top-width: 0;
+  border-radius: 0 0 5px 5px;
+  z-index: 999;
 
   .tag {
     color: $white;
