@@ -1,12 +1,40 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import GifWrapper from './GifWrapper';
+import { pageIncrement } from '../constants';
+import { getGifsAsync } from '../actions/gifs';
+import { getTagsAsync } from '../actions/tags';
+import {
+  incrementPageBoundary,
+  decrementPageBoundary
+} from '../actions/pageBoundary';
 
-export default class GifGrid extends Component {
-  // @TODO: Lazy loading, for now just murder the bowser by trying to load everything
+const mapStateToProps = (state) => {
+  const { gifs, tags, pageBoundary } = state;
+  return { gifs, tags, pageBoundary };
+};
+
+const mapDispatchToProps = {
+  getGifsAsync,
+  getTagsAsync,
+  incrementPageBoundary,
+  decrementPageBoundary
+};
+
+class GifGrid extends Component {
+  componentDidMount() {
+    this.props.getGifsAsync();
+    this.props.getTagsAsync();
+
+    window.addEventListener('scroll', () => {
+      window.requestAnimationFrame(() => {
+      });
+    });
+  }
 
   render() {
-    const { gifs, tags } = this.props;
+    const { gifs, tags, pageBoundary } = this.props;
 
     const byTimestamp = (a, b) => {
       return a.date < b.date;
@@ -16,13 +44,17 @@ export default class GifGrid extends Component {
       <div id="gif-grid">
         <div className="grid-sizer" />
         <div className="gutter-sizer" />
-        { gifs.sort(byTimestamp).map((gif) => {
-          return (
-            <div className="packery-item" key={ gif.id }>
-              <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
-            </div>
-          );
-        }) }
+        { gifs
+          .slice(pageBoundary - pageIncrement, pageBoundary)
+          .sort(byTimestamp)
+          .map((gif) => {
+            return (
+              <div className="packery-item" key={ gif.id }>
+                <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
+              </div>
+            );
+          })
+        }
       </div>
     );
   }
@@ -36,3 +68,8 @@ GifGrid.propTypes = {
   ).isRequired,
   tags: PropTypes.shape().isRequired
 };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GifGrid);

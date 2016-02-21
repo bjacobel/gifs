@@ -42,7 +42,9 @@
   }
 }
 
-.gif-wrapper:hover > .tag-list {
-  height: auto;
-  display: block;
+.gif-wrapper:hover {
+  .tag-list {
+    height: auto;
+    display: inline;
+  }
 }

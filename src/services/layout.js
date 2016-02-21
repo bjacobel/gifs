@@ -8,7 +8,8 @@ const packerize = () => {
       itemSelector: '.packery-item',
       gutter: document.querySelector('.gutter-sizer'),
       columnWidth: document.querySelector('.grid-sizer'),
-      percentPosition: true
+      percentPosition: true,
+      transitionDuration: 0
     });
   } else {
     pcky.layout();
