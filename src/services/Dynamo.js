@@ -19,11 +19,11 @@ export const getAllTags = () => {
   });
 };
 
-export const getIdsForTag = (tag) => {
-};
+// export const getIdsForTag = (tag) => {
+// };
 
-export const addTag = (id, tag) => {
-};
+// export const addTag = (id, tag) => {
+// };
 
-export const removeTag = (id, tag) => {
-};
+// export const removeTag = (id, tag) => {
+// };

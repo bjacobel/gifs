@@ -1,17 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 
+import Tag from './Tag';
+
 export default class GifTags extends Component {
   render() {
     const { tags } = this.props;
 
     return (
-      <div>
+      <p className="tag-list">
         { tags.map((tag) => {
           return (
-            <span key={ tag.id }>{ tag.text }</span>
+            <Tag key={ tag.id } content={ tag.text }/>
           );
         }) }
-      </div>
+        <Tag content="Add tag" meta="add-tag"/>
+      </p>
     );
   }
 }

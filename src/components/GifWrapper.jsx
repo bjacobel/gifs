@@ -21,6 +21,21 @@ const mapDispatchToProps = {
 };
 
 export default class GifWrapper extends Component {
+  shouldComponentUpdate(nextProps) {
+    // Only update if animation[this.id] changes
+
+    const { animation, gif } = this.props;
+
+    if (nextProps.animation.hasOwnProperty([gif.id])) {
+      if (animation.hasOwnProperty([gif.id])) {
+        return animation[gif.id] !== nextProps.animation[gif.id];
+      }
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     const {
       gif,
@@ -41,16 +56,18 @@ export default class GifWrapper extends Component {
     const disableAndClip = () => { disableMotion(); clip(); };
 
     return (
-      <div
-        onMouseOver={ enableMotion }
-        onMouseOut={ disableMotion }
-        onTouchStart={ enableMotion }
-        onTouchEnd={ disableAndClip }
-        onMouseUp={ clip }
-        className={ classNames('gif-swapper', { enabled }) }
-      >
-        <AnimatedGif img={ img }/>
-        <StaticGif img={ img } id={ gif.id }/>
+      <div className="gif-wrapper">
+        <div
+          onMouseOver={ enableMotion }
+          onMouseOut={ disableMotion }
+          onTouchStart={ enableMotion }
+          onTouchEnd={ disableAndClip }
+          onMouseUp={ clip }
+          className={ classNames('swapper', { enabled }) }
+        >
+          <AnimatedGif img={ img }/>
+          <StaticGif img={ img } id={ gif.id }/>
+        </div>
         <GifTags tags={ tags }/>
       </div>
     );
