@@ -4,12 +4,12 @@ import { routeReducer } from 'react-router-redux';
 import gifs from './gifs';
 import animation from './animation';
 import tags from './tags';
-import pageBoundary from './pageBoundary';
+import pageStart from './pageStart';
 
 export default combineReducers({
   gifs,
   animation,
   tags,
-  pageBoundary,
+  pageStart,
   routing: routeReducer
 });
