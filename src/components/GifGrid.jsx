@@ -33,7 +33,7 @@ class GifGrid extends Component {
     const { pageStart, gifs, tags } = this.props;
 
     return (
-      <div>
+      <div className="gif-grid">
         { gifs
           .slice(pageStart, pageStart + pageSize)
           .map((gif) => {

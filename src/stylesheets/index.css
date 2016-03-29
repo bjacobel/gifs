@@ -1,8 +1,5 @@
+@import 'app.css';
 @import 'colors.css';
 @import 'gifs.css';
 @import 'tags.css';
 @import 'pagination.css';
-
-body {
-  margin: 10px;
-}
