@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import GifGrid from './GifGrid';
+import GifColumn from './GifColumn';
 
 export default class Main extends Component {
   render() {
     return (
       <div>
-        <GifGrid/>
+        {/*<SearchBox/>*/}
+        <GifColumn/>
+        {/*<TagBox/>*/}
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { columnWidth } from '../constants';
 
 export default class StaticGif extends Component {
   componentDidMount() {
@@ -7,10 +8,9 @@ export default class StaticGif extends Component {
     const ctx = canvas.getContext('2d');
 
     img.addEventListener('load', () => {
-      const colWidth = document.getElementsByClassName('gif-grid')[0].scrollWidth;
-      const scale = img.width / colWidth;
+      const scale = img.width / columnWidth;
 
-      canvas.width = colWidth;
+      canvas.width = columnWidth;
       canvas.height = img.height / scale;
 
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);

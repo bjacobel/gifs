@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Infinite from 'react-infinite';
 
 import GifWrapper from './GifWrapper';
 import { getGifsAsync } from '../actions/gifs';
@@ -15,7 +16,7 @@ const mapDispatchToProps = {
   getTagsAsync
 };
 
-class GifGrid extends Component {
+class GifColumn extends Component {
   componentDidMount() {
     /* eslint-disable no-shadow */
     const {
@@ -32,7 +33,12 @@ class GifGrid extends Component {
     const { gifs, tags } = this.props;
 
     return (
-      <div className="gif-grid">
+      <Infinite
+        className="gif-column"
+        useWindowAsScrollContainer
+        elementHeight={ 320 }
+        preloadAdditionalHeight={ Infinite.containerHeightScaleFactor(4) }
+      >
         { gifs.map((gif) => {
           return (
             <div className="gif" key={ gif.id }>
@@ -40,7 +46,7 @@ class GifGrid extends Component {
             </div>
           );
         }) }
-      </div>
+      </Infinite>
     );
   }
 }
@@ -48,4 +54,4 @@ class GifGrid extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GifGrid);
+)(GifColumn);
