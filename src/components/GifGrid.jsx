@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import GifWrapper from './GifWrapper';
-import { pageSize } from '../constants';
 import { getGifsAsync } from '../actions/gifs';
 import { getTagsAsync } from '../actions/tags';
 
 const mapStateToProps = (state) => {
-  const { gifs, tags, pageStart } = state;
-  return { gifs, tags, pageStart };
+  const { gifs, tags } = state;
+  return { gifs, tags };
 };
 
 const mapDispatchToProps = {
@@ -30,20 +29,17 @@ class GifGrid extends Component {
   }
 
   render() {
-    const { pageStart, gifs, tags } = this.props;
+    const { gifs, tags } = this.props;
 
     return (
       <div className="gif-grid">
-        { gifs
-          .slice(pageStart, pageStart + pageSize)
-          .map((gif) => {
-            return (
-              <div className="gif" key={ gif.id }>
-                <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
-              </div>
-            );
-          })
-        }
+        { gifs.map((gif) => {
+          return (
+            <div className="gif" key={ gif.id }>
+              <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
+            </div>
+          );
+        }) }
       </div>
     );
   }
