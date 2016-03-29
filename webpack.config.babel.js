@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 const postcssImport = require('postcss-import');
+const postcssFontMagician = require('postcss-font-magician');
 const stylelint = require('stylelint');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -44,7 +45,8 @@ const wpconfig = {
       stylelint,
       autoprefixer({ browsers: ['last 2 versions'] }),
       precss,
-      postcssImport
+      postcssImport,
+      postcssFontMagician
     ];
   },
   resolve: {

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import packerize from '../services/layout';
 
 export default class StaticGif extends Component {
   componentDidMount() {
@@ -8,14 +7,13 @@ export default class StaticGif extends Component {
     const ctx = canvas.getContext('2d');
 
     img.addEventListener('load', () => {
-      const colWidth = document.getElementsByClassName('grid-sizer')[0].scrollWidth;
+      const colWidth = 320;
       const scale = img.width / colWidth;
 
       canvas.width = colWidth;
       canvas.height = img.height / scale;
 
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      packerize();
     }, false);
   }
 

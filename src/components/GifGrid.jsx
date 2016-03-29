@@ -33,14 +33,12 @@ class GifGrid extends Component {
     const { pageStart, gifs, tags } = this.props;
 
     return (
-      <div id="gif-grid">
-        <div className="grid-sizer" />
-        <div className="gutter-sizer" />
+      <div>
         { gifs
           .slice(pageStart, pageStart + pageSize)
           .map((gif) => {
             return (
-              <div className="packery-item" key={ gif.id }>
+              <div className="gif" key={ gif.id }>
                 <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
               </div>
             );

@@ -37,6 +37,7 @@
     "jsdom": "^6.5.1",
     "mocha": "^2.3.4",
     "moment": "^2.10.6",
+    "postcss-font-magician": "^1.4.0",
     "postcss-import": "^8.0.2",
     "postcss-loader": "^0.8.2",
     "precss": "^1.4.0",
@@ -56,8 +57,8 @@
     "sinon-as-promised": "^4.0.0",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
-    "stylelint": "^4.4.0",
-    "stylelint-config-standard": "^3.0.0",
+    "stylelint": "^5.2.1",
+    "stylelint-config-standard": "^4.0.1",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   }

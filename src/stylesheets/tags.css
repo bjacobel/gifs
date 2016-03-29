@@ -1,5 +1,5 @@
 .tag-list {
-  line-height: 2.0;
+  line-height: 2;
   margin: -4px 0 0 0;
   padding: 4px 6px;
   word-wrap: normal;
@@ -16,7 +16,7 @@
     color: $white;
     background-color: $lightgrey;
     font-size: 10pt;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     border-radius: 3px;
     padding: 3px 6px;
     margin-right: 4px;
