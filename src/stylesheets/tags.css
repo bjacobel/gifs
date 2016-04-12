@@ -44,7 +44,6 @@
 
 .gif-wrapper:hover {
   .tag-list {
-    height: auto;
     display: inline;
   }
 }

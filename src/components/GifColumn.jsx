@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Infinite from 'react-infinite';
+import ReactList from 'react-list';
 
 import GifWrapper from './GifWrapper';
 import { getGifsAsync } from '../actions/gifs';
@@ -27,26 +27,33 @@ class GifColumn extends Component {
 
     getGifsAsync();
     getTagsAsync();
+
+    this.renderGif = this.renderGif.bind(this);
+  }
+
+  renderGif(index) {
+    const { gifs, tags } = this.props;
+    const gif = gifs[index];
+
+    return (
+      <div className="gif" key={ gif.id }>
+        <GifWrapper gif={ gif } tags={ tags[gif.id] || [] } />
+      </div>
+    );
   }
 
   render() {
-    const { gifs, tags } = this.props;
+    const { gifs } = this.props;
 
     return (
-      <Infinite
-        className="gif-column"
-        useWindowAsScrollContainer
-        elementHeight={ 320 }
-        preloadAdditionalHeight={ Infinite.containerHeightScaleFactor(4) }
-      >
-        { gifs.map((gif) => {
-          return (
-            <div className="gif" key={ gif.id }>
-              <GifWrapper gif={ gif } tags={ tags[gif.id] || [] }/>
-            </div>
-          );
-        }) }
-      </Infinite>
+      <div className="gif-column">
+        <ReactList
+          itemRenderer={ this.renderGif }
+          length={ gifs.length }
+          pageSize={ 20 }
+          type="variable"
+        />
+      </div>
     );
   }
 }
