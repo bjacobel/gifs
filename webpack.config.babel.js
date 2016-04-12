@@ -15,7 +15,7 @@ const wpconfig = {
     ]
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     filename: '[name].js'
   },
   debug: true,
@@ -56,7 +56,7 @@ const wpconfig = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'production': isProd
+        production: isProd
       }
     })
   ]

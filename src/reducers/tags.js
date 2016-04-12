@@ -4,7 +4,7 @@ import {
 
 export default function gifs(state = {}, action) {
   switch (action.type) {
-  case GET_TAGS_SUCCEEDED:
+  case GET_TAGS_SUCCEEDED: {
     const tagMap = {};
 
     action.payload.tags.Items.forEach((tag) => {
@@ -22,6 +22,7 @@ export default function gifs(state = {}, action) {
     });
 
     return Object.assign({}, state, tagMap);
+  }
   default:
     return state;
   }
