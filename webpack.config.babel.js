@@ -43,10 +43,10 @@ const wpconfig = {
   postcss() {
     return [
       stylelint,
-      autoprefixer({ browsers: ['last 2 versions'] }),
       precss,
       postcssImport,
-      postcssFontMagician
+      postcssFontMagician,
+      autoprefixer({ browsers: ['last 2 versions'] })
     ];
   },
   resolve: {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactList from 'react-list';
+// import ReactList from 'react-list';
 
 import GifWrapper from './GifWrapper';
 import { getGifsAsync } from '../actions/gifs';
@@ -31,9 +31,8 @@ class GifColumn extends Component {
     this.renderGif = this.renderGif.bind(this);
   }
 
-  renderGif(index) {
-    const { gifs, tags } = this.props;
-    const gif = gifs[index];
+  renderGif(gif) {
+    const { tags } = this.props;
 
     return (
       <div className="gif" key={ gif.id }>
@@ -47,12 +46,13 @@ class GifColumn extends Component {
 
     return (
       <div className="gif-column">
-        <ReactList
+        { gifs.slice(0, 1).map(this.renderGif) }
+        {/* <ReactList
           itemRenderer={ this.renderGif }
           length={ gifs.length }
           pageSize={ 20 }
           type="variable"
-        />
+        /> */}
       </div>
     );
   }

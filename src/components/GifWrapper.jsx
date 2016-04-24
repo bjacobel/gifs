@@ -65,10 +65,10 @@ export default class GifWrapper extends Component {
           onMouseUp={ clip }
           className={ classNames('swapper', { enabled }) }
         >
-          <AnimatedGif img={ img }/>
-          <StaticGif img={ img } id={ gif.id }/>
+          <AnimatedGif img={ img } />
+          <StaticGif img={ img } id={ gif.id } />
         </div>
-        <GifTags tags={ tags }/>
+        <GifTags tags={ tags } />
       </div>
     );
   }
