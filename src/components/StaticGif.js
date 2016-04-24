@@ -21,7 +21,7 @@ export default class StaticGif extends Component {
     const { img } = this.props;
 
     return (
-      <canvas ref={ `canvas-${img.id}` }/>
+      <canvas ref={ `canvas-${img.id}` } />
     );
   }
 }

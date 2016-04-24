@@ -23,7 +23,7 @@ const wpconfig = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         include: path.join(__dirname, 'src'),
         loader: 'babel'
       },
