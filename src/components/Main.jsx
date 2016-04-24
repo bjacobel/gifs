@@ -7,8 +7,8 @@ export default class Main extends Component {
     return (
       <div>
         {/*<SearchBox/>*/}
-        <GifColumn/>
-        {/*<TagBox/>*/}
+        <GifColumn />
+        <TagBox />
       </div>
     );
   }

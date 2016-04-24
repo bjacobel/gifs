@@ -46,7 +46,7 @@ class GifColumn extends Component {
 
     return (
       <div className="gif-column">
-        { gifs.slice(0, 1).map(this.renderGif) }
+        { gifs.slice(0, 10).map(this.renderGif) }
         {/* <ReactList
           itemRenderer={ this.renderGif }
           length={ gifs.length }
