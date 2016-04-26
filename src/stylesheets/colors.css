@@ -1,7 +1,12 @@
 $white: #fff;
+$lightergrey: #e6e0e0;
 $lightgrey: #9a9a9a;
 $darkgrey: #474747;
 $black: #000;
 
 $red: #e34333;
 $green: #64d556;
+
+.lightgrey {
+  color: $lightgrey;
+}

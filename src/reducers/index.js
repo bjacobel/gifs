@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
 
 import gifs from './gifs';
-import animation from './animation';
 import tags from './tags';
+import {
+  animation,
+  activeGif
+} from './animation';
 
 export default combineReducers({
   gifs,
   animation,
+  activeGif,
   tags
 });

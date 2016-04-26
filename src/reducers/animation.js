@@ -1,14 +1,24 @@
 import {
   ANIMATE_GIF,
-  FREEZE_GIF
+  FREEZE_GIF,
+  SAVE_ANIMATION
 } from '../actions/animation';
 
-export default function animation(state = {}, action) {
+export function animation(state = {}, action) {
   switch (action.type) {
   case ANIMATE_GIF:
     return Object.assign({}, state, { [action.payload.id]: true });
   case FREEZE_GIF:
     return Object.assign({}, state, { [action.payload.id]: false });
+  default:
+    return state;
+  }
+}
+
+export function activeGif(state = null, action) {
+  switch (action.type) {
+  case SAVE_ANIMATION:
+    return action.payload.id;
   default:
     return state;
   }

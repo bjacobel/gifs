@@ -1,48 +1,56 @@
-.tag-list {
-  line-height: 2;
-  margin: -4px 0 0 0;
-  padding: 4px 6px;
-  word-wrap: normal;
-  display: none;
-  position: absolute;
-  background-color: white;
-  border: 1px solid $lightgrey;
-  border-top-width: 0;
-  border-radius: 0 0 5px 5px;
-  z-index: 999;
+.tag-box {
+  background-color: $lightergrey;
+  border-radius: 3px;
+  padding: 15px;
 
-  .tag {
-    color: $white;
-    background-color: $lightgrey;
-    font-size: 10pt;
-    font-family: 'Open Sans', sans-serif;
-    border-radius: 3px;
-    padding: 3px 6px;
-    margin-right: 4px;
-    white-space: pre;
+  .gif-name {
+    font-size: 1.4rem;
 
-    .break {
-      white-space: normal;
-    }
-
-    .add-tag,
-    .del-tag {
-      cursor: pointer;
-      margin-left: 5px;
-    }
-
-    .add-tag:hover {
-      color: $green;
-    }
-
-    .del-tag:hover {
-      color: $red;
+    &.copy-icon::after {
+      content: url('../assets/images/copy.svg');
+      position: absolute;
+      top: 0;
+      right: 10px;
+      size: 18px;
     }
   }
-}
 
-.gif-wrapper:hover {
+  p {
+    margin: 0;
+  }
+
   .tag-list {
+    line-height: 2;
+    word-wrap: normal;
     display: inline;
+
+    .tag {
+      color: $white;
+      background-color: $lightgrey;
+      font-size: 10pt;
+      border-radius: 3px;
+      padding: 3px 6px;
+      margin-right: 4px;
+      white-space: pre;
+      user-select: none;
+
+      .break {
+        white-space: normal;
+      }
+
+      .add-tag,
+      .del-tag {
+        cursor: pointer;
+        margin-left: 5px;
+      }
+
+      .add-tag:hover {
+        color: $green;
+      }
+
+      .del-tag:hover {
+        color: $red;
+      }
+    }
   }
 }

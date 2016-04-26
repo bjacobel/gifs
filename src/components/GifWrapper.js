@@ -4,10 +4,13 @@ import classNames from 'classnames';
 
 import StaticGif from './StaticGif';
 import AnimatedGif from './AnimatedGif';
-import GifTags from './GifTags';
 import { rootURL } from '../constants';
 import * as clipboard from '../services/clipboard';
-import { animateGif, freezeGif } from '../actions/animation';
+import {
+  animateGif,
+  freezeGif,
+  saveMostRecentAnimation
+} from '../actions/animation';
 
 function mapStateToProps(state) {
   return {
@@ -17,7 +20,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   animateGif,
-  freezeGif
+  freezeGif,
+  saveMostRecentAnimation
 };
 
 export default class GifWrapper extends Component {
@@ -39,10 +43,10 @@ export default class GifWrapper extends Component {
   render() {
     const {
       gif,
-      tags,
       animation,
       animateGif, // eslint-disable-line no-shadow
-      freezeGif // eslint-disable-line no-shadow
+      freezeGif, // eslint-disable-line no-shadow
+      saveMostRecentAnimation // eslint-disable-line no-shadow
     } = this.props;
 
     const enabled = animation[gif.id] || false;
@@ -50,7 +54,10 @@ export default class GifWrapper extends Component {
     const img = new Image();
     img.src = rootURL + gif.src;
 
-    const enableMotion = () => { animateGif(gif.id); };
+    const enableMotion = () => {
+      animateGif(gif.id);
+      saveMostRecentAnimation(gif.id);
+    };
     const disableMotion = () => { freezeGif(gif.id); };
     const clip = () => { clipboard.copy(rootURL + gif.src); };
     const disableAndClip = () => { disableMotion(); clip(); };
@@ -68,7 +75,6 @@ export default class GifWrapper extends Component {
           <AnimatedGif img={ img } />
           <StaticGif img={ img } id={ gif.id } />
         </div>
-        <GifTags tags={ tags } />
       </div>
     );
   }

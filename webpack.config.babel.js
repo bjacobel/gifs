@@ -40,11 +40,13 @@ const wpconfig = {
       /aws\-sdk/
     ]
   },
-  postcss() {
+  postcss(wp) {
     return [
+      postcssImport({
+        addDependencyTo: wp
+      }),
       stylelint,
       precss,
-      postcssImport,
       postcssFontMagician,
       autoprefixer({ browsers: ['last 2 versions'] })
     ];
