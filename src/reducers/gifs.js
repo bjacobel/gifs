@@ -14,6 +14,13 @@ export default function gifs(state = [], action) {
         size: gif.Size,
         id: gif.ETag.slice(1, -1)
       };
+    }).sort((x, y) => {
+      if (x.date < y.date) {
+        return 1;
+      } else if (x.date > y.date) {
+        return -1;
+      }
+      return 0;
     });
   default:
     return state;
