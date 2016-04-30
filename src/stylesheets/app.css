@@ -1,9 +1,37 @@
 body {
-  margin: 10px;
+  margin: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 14pt;
 }
 
-.gif-column {
-  width: 320px;
+.column-container {
+  width: 100vw;
+
+  .column {
+    $hmargin: 40px;
+    float: left;
+
+    &.gifs {
+      display: inline-block;
+      width: calc(35% - $hmargin);
+      height: 100vh;
+      overflow: scroll;
+      margin-left: $hmargin;
+    }
+
+    &.tags {
+      display: inline-block;
+      width: 65%;
+
+      .tag-box {
+        margin: 200px $hmargin 0 $hmargin;
+        top: 0;
+        width: calc(100% - $hmargin * 2);
+      }
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
 }

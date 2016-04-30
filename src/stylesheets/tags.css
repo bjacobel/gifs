@@ -5,13 +5,25 @@
 
   .gif-name {
     font-size: 1.4rem;
+    position: relative;
+    user-select: none;
 
     &.copy-icon::after {
       content: url('../assets/images/copy.svg');
+      display: none;
       position: absolute;
       top: 0;
-      right: 10px;
-      size: 18px;
+      right: 0;
+      height: 28px;
+      width: 28px;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &.copy-icon::after {
+        display: inline-block;
+      }
     }
   }
 
