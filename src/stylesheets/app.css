@@ -13,7 +13,7 @@ body {
 
     &.gifs {
       display: inline-block;
-      width: calc(35% - $hmargin);
+      width: calc(40% - $hmargin);
       height: 100vh;
       overflow: scroll;
       margin-left: $hmargin;
@@ -21,7 +21,7 @@ body {
 
     &.tags {
       display: inline-block;
-      width: 65%;
+      width: 60%;
 
       .tag-box {
         margin: 200px $hmargin 0 $hmargin;

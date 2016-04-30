@@ -4,7 +4,7 @@
   padding: 15px;
 
   .gif-name {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     position: relative;
     user-select: none;
 
@@ -14,8 +14,8 @@
       position: absolute;
       top: 0;
       right: 0;
-      height: 28px;
-      width: 28px;
+      height: 24px;
+      width: 24px;
     }
 
     &:hover {
