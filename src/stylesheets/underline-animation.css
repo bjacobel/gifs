@@ -1,5 +1,5 @@
 .sliding-ul {
-  $speed: 0.5s;
+  $speed: 0.35s;
   $color: $lightgrey;
   $size: 2px;
 

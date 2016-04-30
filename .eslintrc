@@ -25,7 +25,8 @@
   },
   "ecmaFeatures": {
     "modules": true,
-    "generators": true
+    "generators": true,
+    "jsx": true
   },
   "globals": {
     "chai": true,
@@ -33,10 +34,9 @@
     "sinon": true
   },
   "env": {
+    "es6": true,
     "mocha": true,
-    "worker": true,
-    "jquery": false,
-    "node": true,
+    "browser": true,
     "commonjs": true
   }
 }

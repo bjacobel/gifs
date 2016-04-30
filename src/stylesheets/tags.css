@@ -50,6 +50,23 @@
         white-space: normal;
       }
 
+      input {
+        border: none;
+        background-color: transparent;
+        color: $white;
+        font-size: 10pt;
+        font-family: 'Open Sans', sans-serif;
+        width: 75px;
+
+        &::placeholder {
+          color: $lightergrey;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
       .add-tag,
       .del-tag {
         cursor: pointer;

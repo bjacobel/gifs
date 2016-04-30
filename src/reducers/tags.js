@@ -1,5 +1,7 @@
 import {
-  GET_TAGS_SUCCEEDED
+  GET_TAGS_SUCCEEDED,
+  ADD_TAG_SUCCEEDED,
+  DELETE_TAG_SUCCEEDED
 } from '../actions/tags';
 
 export default function gifs(state = {}, action) {
@@ -22,6 +24,14 @@ export default function gifs(state = {}, action) {
     });
 
     return Object.assign({}, state, tagMap);
+  }
+  case ADD_TAG_SUCCEEDED: {
+    console.log(action.payload);
+    return state;
+  }
+  case DELETE_TAG_SUCCEEDED: {
+    console.log(action.payload);
+    return state;
   }
   default:
     return state;
