@@ -5,12 +5,24 @@ export default class StaticGif extends Component {
     const { img } = this.props;
     const canvas = this.refs[`canvas-${img.id}`];
     const ctx = canvas.getContext('2d');
+    canvas.height = Math.random() * 200 + 150;
 
     img.addEventListener('load', () => {
+      canvas.classList.remove('loading');
       const scale = img.width / canvas.width;
       canvas.height = img.height / scale;
 
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      let opacity = 0;
+      const fadeIn = () => {
+        ctx.globalAlpha = opacity;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        opacity += 0.02;
+        if (opacity < 1) {
+          requestAnimationFrame(fadeIn);
+        }
+      };
+      fadeIn();
     }, false);
   }
 
@@ -18,7 +30,7 @@ export default class StaticGif extends Component {
     const { img } = this.props;
 
     return (
-      <canvas ref={ `canvas-${img.id}` } />
+      <canvas className="loading" ref={ `canvas-${img.id}` } />
     );
   }
 }
