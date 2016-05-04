@@ -34,7 +34,7 @@ class GifColumn extends Component {
     const { tags } = this.props;
 
     return (
-      <div className="gif" key={ gif.id }>
+      <div className="gif" key={ gif.id + gif.src }>
         <GifWrapper gif={ gif } tags={ tags[gif.id] || [] } />
       </div>
     );

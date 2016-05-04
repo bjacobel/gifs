@@ -25,6 +25,13 @@ const mapDispatchToProps = {
 };
 
 export default class GifWrapper extends Component {
+  componentWillMount() {
+    const { gif } = this.props;
+
+    this.img = new Image();
+    this.img.src = rootURL + gif.src;
+  }
+
   shouldComponentUpdate(nextProps) {
     // Only update if animation[this.id] changes
 
@@ -51,9 +58,6 @@ export default class GifWrapper extends Component {
 
     const enabled = animation[gif.id] || false;
 
-    const img = new Image();
-    img.src = rootURL + gif.src;
-
     const enableMotion = () => {
       animateGif(gif.id);
       saveMostRecentAnimation(gif.id);
@@ -72,8 +76,8 @@ export default class GifWrapper extends Component {
           onMouseUp={ clip }
           className={ classNames('swapper', { enabled }) }
         >
-          <AnimatedGif img={ img } />
-          <StaticGif img={ img } id={ gif.id } />
+          <AnimatedGif img={ this.img } />
+          <StaticGif img={ this.img } id={ gif.id } />
         </div>
       </div>
     );

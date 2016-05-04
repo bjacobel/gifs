@@ -2,10 +2,16 @@ import React, { Component, PropTypes } from 'react';
 
 export default class StaticGif extends Component {
   componentDidMount() {
-    const { img } = this.props;
-    const canvas = this.refs[`canvas-${img.id}`];
+    const { img, id } = this.props;
+    const canvas = this.refs[`canvas-${id}`];
     const ctx = canvas.getContext('2d');
-    canvas.height = Math.random() * 200 + 150;
+
+    const interval = window.setInterval(() => {
+      if (img.height > 0) {
+        canvas.height = img.height * (canvas.width / img.width);
+        window.clearInterval(interval);
+      }
+    }, 10);
 
     img.addEventListener('load', () => {
       canvas.classList.remove('loading');
@@ -27,19 +33,17 @@ export default class StaticGif extends Component {
   }
 
   render() {
-    const { img } = this.props;
+    const { id } = this.props;
 
     return (
-      <canvas className="loading" ref={ `canvas-${img.id}` } />
+      <canvas className="loading" ref={ `canvas-${id}` } />
     );
   }
 }
 
 StaticGif.propTypes = {
   img: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired
+    src: PropTypes.string.isRequired
   }).isRequired,
   id: PropTypes.string.isRequired
 };
