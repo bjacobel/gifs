@@ -21,14 +21,14 @@ export const getAllTags = () => {
 
 export const addTag = (tag, id) => {
   console.log(`adding tag ${tag} to gif id ${id}`);
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve();
   });
 };
 
 export const deleteTag = (tag, id) => {
   console.log(`deleting tag ${tag} from gif id ${id}`);
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve();
   });
 };
