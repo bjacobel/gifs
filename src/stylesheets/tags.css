@@ -7,6 +7,12 @@
     font-size: 1.3rem;
     position: relative;
     user-select: none;
+    word-wrap: break-word;
+
+    .sliding-ul {
+      max-width: 100%;
+      word-wrap: break-word;
+    }
 
     &.copy-icon::after {
       content: url('../assets/images/copy.svg');

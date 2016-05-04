@@ -10,23 +10,49 @@ body {
   .column {
     $hmargin: 40px;
     float: left;
+    margin: 0 $hmargin;
 
     &.gifs {
-      display: inline-block;
-      width: calc(40% - $hmargin);
-      height: 100vh;
-      overflow: scroll;
-      margin-left: $hmargin;
+      width: 40%;
     }
 
     &.tags {
-      display: inline-block;
-      width: 60%;
-
       .tag-box {
-        margin: 200px $hmargin 0 $hmargin;
-        top: 0;
-        width: calc(100% - $hmargin * 2);
+        position: fixed;
+        top: 200px;
+        right: $hmargin;
+        width: calc(60% - $hmargin * 3);
+      }
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  body: {
+    font-size: 11pt;
+  }
+
+  .column-container {
+    width: 100%;
+    height: 100vh;
+    .column {
+      &.gifs {
+        height: calc(100vh - 95px);
+        width: 100%;
+        margin: 0;
+        overflow: scroll;
+      }
+
+      &.tags {
+        position: fixed;
+        bottom: 0;
+
+        .tag-box {
+          width: 100%;
+          top: unset;
+          bottom: 0;
+          right: 0;
+        }
       }
     }
   }
