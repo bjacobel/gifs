@@ -7,7 +7,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 
 import './stylesheets';
 import Main from './components/Main';
-import DevTools from './components/DevTools';
 import reducer from './reducers';
 import { showDevTools } from './constants';
 
@@ -15,7 +14,9 @@ const middlewares = [
   applyMiddleware(thunk)
 ];
 
-if (showDevTools) { middlewares.push(DevTools.instrument()); }
+if (showDevTools) {
+  middlewares.push(window.devToolsExtension ? window.devToolsExtension() : f => f);
+}
 
 const composedCreateStore = compose.apply(this, middlewares)(createStore);
 
@@ -23,10 +24,7 @@ const store = composedCreateStore(reducer);
 
 ReactDOM.render(
   <Provider store={ store }>
-    <div>
-      <Main />
-      { showDevTools ? <DevTools /> : null }
-    </div>
+    <Main />
   </Provider>,
   document.getElementById('main')
 );

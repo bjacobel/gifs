@@ -14,7 +14,7 @@
   "private": false,
   "repository": "http://github.com/bjacobel/gifs",
   "dependencies": {
-    "autoprefixer": "^6.3.5",
+    "autoprefixer": "^6.3.6",
     "aws-sdk": "^2.2.26",
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",
@@ -46,9 +46,6 @@
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.2",
     "redux": "^3.2.1",
-    "redux-devtools": "^3.2.0",
-    "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-log-monitor": "^1.0.9",
     "redux-thunk": "^1.0.0",
     "sinon": "^1.17.2",
     "sinon-as-promised": "^4.0.0",
