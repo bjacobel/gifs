@@ -24,8 +24,8 @@ class Tag extends Component {
     const {
       content,
       meta,
-      addTagAsync,  // eslint-disable-line no-shadow
-      deleteTagAsync  // eslint-disable-line no-shadow
+      addTagAsync,
+      deleteTagAsync
     } = this.props;
 
     const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };

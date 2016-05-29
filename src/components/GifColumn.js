@@ -1,64 +1,76 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { InfiniteLoader, VirtualScroll } from 'react-virtualized';
 
 import GifWrapper from './GifWrapper';
-import { getGifsAsync } from '../actions/gifs';
-import { getTagsAsync } from '../actions/tags';
+import { getGifsAsync, updateVisibleGifs } from '../actions/gifs';
 
 const mapStateToProps = (state) => {
-  const { gifs, tags } = state;
-  return { gifs, tags };
+  return {
+    gifs: state.gifs,
+    tags: state.tags,
+    visible: state.visible
+  };
 };
 
 const mapDispatchToProps = {
   getGifsAsync,
-  getTagsAsync
+  updateVisibleGifs
 };
 
 class GifColumn extends Component {
   componentDidMount() {
-    /* eslint-disable no-shadow */
     const {
-      getGifsAsync,
-      getTagsAsync
+      updateVisibleGifs,
+      getGifsAsync
     } = this.props;
-    /* eslint-enable no-shadow */
 
     getGifsAsync();
-    getTagsAsync();
 
-    this.renderGif = this.renderGif.bind(this);
+    this.renderGifs = this.renderGifs.bind(this);
+
+    const onScroll = () => {
+      updateVisibleGifs(this.props.gifs);
+    };
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(() => {
+        onScroll();
+      });
+    });
   }
 
-  renderGif(gif) {
-    const { gifs, tags } = this.props;
+  renderGif(gif, index) {
+    const { start, end } = this.props.visible;
 
-    // const gif = gifs[index];
-    const myTags = tags[gif.id] || [];
+    let spacerOrGif;
+
+    if (start <= index && index <= end) {
+      spacerOrGif = <GifWrapper gif={ gif } />;
+    } else {
+      spacerOrGif = <div className="spacer" style={ { height: gif.observedHeight } } />;
+    }
 
     return (
       <div className="gif" key={ gif.id + gif.src }>
-        <GifWrapper gif={ gif } tags={ myTags } />
+        { spacerOrGif }
       </div>
     );
   }
 
-  render() {
-    const { gifs } = this.props;
+  renderGifs() {
+    const gifsToRender = [];
+    this.props.gifs.forEach((gif, index) => {
+      gifsToRender.push(this.renderGif(gif, index));
+    });
 
+    return gifsToRender;
+  }
+
+  render() {
     return (
-        // <VirtualScroll
-        //   rowRenderer={ this.renderGif }
-        //   rowCount={ gifs.length }
-        //   className="gif-column"
-        //   overscanRowCount="10"
-        //   width="100%"
-        //   height="100vh"
-        // />
-        <div className="gif-column">
-          { gifs.slice(0, 20).map(this.renderGif) }
-        </div>
+      <div className="gif-column" ref={ this.updateOnScroll }>
+        { this.renderGifs() }
+      </div>
     );
   }
 }

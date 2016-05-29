@@ -51,9 +51,9 @@ export default class GifWrapper extends Component {
     const {
       gif,
       animation,
-      animateGif, // eslint-disable-line no-shadow
-      freezeGif, // eslint-disable-line no-shadow
-      saveMostRecentAnimation // eslint-disable-line no-shadow
+      animateGif,
+      freezeGif,
+      saveMostRecentAnimation
     } = this.props;
 
     const enabled = animation[gif.id] || false;
@@ -88,13 +88,7 @@ GifWrapper.propTypes = {
   gif: PropTypes.shape({
     id: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired
-  }).isRequired,
-  tags: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+  }).isRequired
 };
 
 export default connect(

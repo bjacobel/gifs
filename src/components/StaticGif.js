@@ -12,15 +12,14 @@ const mapDispatchToProps = {
 };
 
 export default class StaticGif extends Component {
-  componentWillMount() {
-    this.onCanvasRender = this.onCanvasRender.bind(this);
-  }
+  componentDidMount() {
+    const { img, id, watchForSize } = this.props;
 
-  onCanvasRender(canvas) {
-    const { img, id } = this.props;
+    const canvas = this.refs[id];
     const ctx = canvas.getContext('2d');
+    const column = document.querySelector('.column.gifs');
 
-    this.props.watchForSize(img, id, canvas.width);
+    watchForSize(img, id, column.scrollWidth);
 
     // When image has fully loaded, remove the loading spinner and fade it in
     img.addEventListener('load', () => {
@@ -33,7 +32,7 @@ export default class StaticGif extends Component {
         ctx.globalAlpha = opacity;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        opacity += 0.02;
+        opacity += 0.05;
         if (opacity < 1) {
           requestAnimationFrame(fadeIn);
         }
@@ -43,7 +42,7 @@ export default class StaticGif extends Component {
   }
 
   render() {
-    return <canvas className="loading" ref={ this.onCanvasRender } />;
+    return <canvas className="loading" ref={ `${this.props.id}` } />;
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Tag from './Tag';
+import { getTagsAsync } from '../actions/tags';
 import { rootURL } from '../constants';
 import * as clipboard from '../services/clipboard';
 
@@ -13,7 +14,15 @@ function mapStateToProps(state) {
   };
 }
 
+const mapDispatchToProps = {
+  getTagsAsync
+};
+
 class TagBox extends Component {
+  componentWillMount() {
+    this.props.getTagsAsync();
+  }
+
   render() {
     const { gifs, tags } = this.props;
     const activeGifId = this.props.activeGif;
@@ -68,5 +77,6 @@ class TagBox extends Component {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(TagBox);

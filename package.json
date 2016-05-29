@@ -45,7 +45,6 @@
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.2",
-    "react-virtualized": "^7.0.5",
     "redux": "^3.2.1",
     "redux-thunk": "^1.0.0",
     "sinon": "^1.17.2",
