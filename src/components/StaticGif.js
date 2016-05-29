@@ -20,7 +20,7 @@ export default class StaticGif extends Component {
     const { img, id } = this.props;
     const ctx = canvas.getContext('2d');
 
-    this.props.watchForSize(img, id);
+    this.props.watchForSize(img, id, canvas.width);
 
     // When image has fully loaded, remove the loading spinner and fade it in
     img.addEventListener('load', () => {

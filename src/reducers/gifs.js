@@ -25,8 +25,12 @@ export default function gifs(state = [], action) {
     });
   case GET_IMAGE_SIZE_SUCCEEDED:  // eslint-disable-line no-case-declarations
     const gif = state.find(x => x.id === action.payload.id);
-    gif.height = action.payload.height;
-    gif.width = action.payload.width;
+    Object.assign(gif, {
+      height: action.payload.height,
+      width: action.payload.width,
+      observedHeight: action.payload.observedHeight,
+      observedWidth: action.payload.observedWidth
+    });
     return state;
   default:
     return state;

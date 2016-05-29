@@ -32,16 +32,17 @@ export function getGifsAsync() {
   };
 }
 
-function getSizeSucceeded(height, width, id) {
-  return { type: GET_IMAGE_SIZE_SUCCEEDED, payload: { height, width, id } };
+function getSizeSucceeded(height, width, observedHeight, observedWidth, id) {
+  return { type: GET_IMAGE_SIZE_SUCCEEDED, payload: { height, width, observedHeight, observedWidth, id } };
 }
 
-export function watchForSize(img, id) {
+export function watchForSize(img, id, canvasWidth) {
   return (dispatch) => {
     const interval = window.setInterval(() => {
       if (img.height > 0) {
         window.clearInterval(interval);
-        dispatch(getSizeSucceeded(img.height, img.width, id));
+        const observedHeight = img.height / (img.width / canvasWidth);
+        dispatch(getSizeSucceeded(img.height, img.width, observedHeight, canvasWidth, id));
       }
     }, 10);
   };
