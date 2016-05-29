@@ -12,23 +12,21 @@ const mapDispatchToProps = {
 };
 
 export default class StaticGif extends Component {
-  componentDidMount() {
-    const {
-      img,
-      id,
-      watchForSize  // eslint-disable-line no-shadow
-    } = this.props;
+  componentWillMount() {
+    this.onCanvasRender = this.onCanvasRender.bind(this);
+  }
 
-    const canvas = this.refs[`canvas-${id}`];
+  onCanvasRender(canvas) {
+    const { img, id } = this.props;
     const ctx = canvas.getContext('2d');
 
-    watchForSize(img, id);
+    this.props.watchForSize(img, id);
 
     // When image has fully loaded, remove the loading spinner and fade it in
     img.addEventListener('load', () => {
       canvas.classList.remove('loading');
       const scale = img.width / canvas.width;
-      canvas.height = img.height / scale;
+      canvas.height = img.height / scale;  // eslint-disable-line no-param-reassign
 
       let opacity = 0;
       const fadeIn = () => {
@@ -45,10 +43,7 @@ export default class StaticGif extends Component {
   }
 
   render() {
-    const { id } = this.props;
-    const canvas = <canvas className="loading" ref={ `canvas-${id}` } />;
-
-    return canvas;
+    return <canvas className="loading" ref={ this.onCanvasRender } />;
   }
 }
 
