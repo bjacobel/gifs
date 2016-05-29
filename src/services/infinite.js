@@ -7,8 +7,8 @@ export const isGifVisible = (gifs, index) => {
 
   const gifScrollBottom = gifScrollTop + gifs[index].observedHeight;
 
-  const windowScrollTop = window.scrollY;
-  const windowScrollBottom = windowScrollTop + window.innerHeight;
+  const windowScrollTop = window.scrollY - window.innerHeight;
+  const windowScrollBottom = windowScrollTop + window.innerHeight * 2;
 
   if (Math.max(windowScrollTop, gifScrollTop) <= Math.min(windowScrollBottom, gifScrollBottom)) {
     return true;
