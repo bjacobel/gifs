@@ -10,7 +10,7 @@ script:
   - npm test
 before_deploy:
   - npm run compile
-  - mkdir dist
+  - mkdir -p dist
   - cp index-prod.html dist/index.html
 deploy:
   provider: s3
