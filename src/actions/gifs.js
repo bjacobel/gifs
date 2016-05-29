@@ -1,19 +1,22 @@
 import * as s3 from '../services/s3';
+import { isGifVisible } from '../services/infinite';
 
 export const GET_GIFS_REQUESTED = 'GET_GIFS_REQUESTED';
 export const GET_GIFS_FAILED = 'GET_GIFS_FAILED';
 export const GET_GIFS_SUCCEEDED = 'GET_GIFS_SUCCEEDED';
+export const GET_IMAGE_SIZE_SUCCEEDED = 'GET_IMAGE_SIZE_SUCCEEDED';
+export const FOUND_VISIBLE_GIFS = 'FOUND_VISIBLE_GIFS';
 
-export function getGifsRequested() {
+function getGifsRequested() {
   return { type: GET_GIFS_REQUESTED };
 }
 
-export function getGifsSucceeded(gifs) {
+function getGifsSucceeded(gifs) {
   return { type: GET_GIFS_SUCCEEDED, payload: { gifs } };
 }
 
-export function getGifsFailed(err) {
-  console.warn(err);
+function getGifsFailed(err) {
+  console.trace(err);
   return { type: GET_GIFS_FAILED, payload: { err }, error: true };
 }
 
@@ -28,5 +31,47 @@ export function getGifsAsync() {
       .catch((err) => {
         dispatch(getGifsFailed(err));
       });
+  };
+}
+
+function getSizeSucceeded(height, width, observedHeight, observedWidth, id) {
+  return { type: GET_IMAGE_SIZE_SUCCEEDED, payload: { height, width, observedHeight, observedWidth, id } };
+}
+
+export function watchForSize(img, id, canvasWidth) {
+  return (dispatch) => {
+    const interval = window.setInterval(() => {
+      if (img.height > 0) {
+        window.clearInterval(interval);
+        const observedHeight = img.height / (img.width / canvasWidth);
+        dispatch(getSizeSucceeded(img.height, img.width, observedHeight, canvasWidth, id));
+      }
+    }, 10);
+  };
+}
+
+function foundVisibleGifs(visibleLowRange, visibleHighRange) {
+  return { type: FOUND_VISIBLE_GIFS, payload: { visibleLowRange, visibleHighRange } };
+}
+
+export function updateVisibleGifs(gifs) {
+  return (dispatch) => {
+    const visibles = [];
+
+    let canBreak = false;
+
+    for (let i = 0; i < gifs.length; i++) {
+      if (isGifVisible(gifs, i)) {
+        visibles.push(i);
+        canBreak = true;
+      } else {
+        // the first non-visible gif after any visible ones means we don't need to look anymore
+        if (canBreak) {
+          break;
+        }
+      }
+    }
+
+    dispatch(foundVisibleGifs(Math.min.apply(null, visibles), Math.max.apply(null, visibles)));
   };
 }

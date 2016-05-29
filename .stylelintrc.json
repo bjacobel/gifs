@@ -1,0 +1,10 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "comment-empty-line-before": "never",
+    "comment-whitespace-inside": "never",
+    "indentation": 2,
+    "string-quotes": "single",
+    "font-family-name-quotes": "single-where-recommended"
+  }
+}

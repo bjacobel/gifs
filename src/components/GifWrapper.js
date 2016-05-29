@@ -4,10 +4,13 @@ import classNames from 'classnames';
 
 import StaticGif from './StaticGif';
 import AnimatedGif from './AnimatedGif';
-import GifTags from './GifTags';
 import { rootURL } from '../constants';
 import * as clipboard from '../services/clipboard';
-import { animateGif, freezeGif } from '../actions/animation';
+import {
+  animateGif,
+  freezeGif,
+  saveMostRecentAnimation
+} from '../actions/animation';
 
 function mapStateToProps(state) {
   return {
@@ -17,10 +20,18 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   animateGif,
-  freezeGif
+  freezeGif,
+  saveMostRecentAnimation
 };
 
 export default class GifWrapper extends Component {
+  componentWillMount() {
+    const { gif } = this.props;
+
+    this.img = new Image();
+    this.img.src = rootURL + gif.src;
+  }
+
   shouldComponentUpdate(nextProps) {
     // Only update if animation[this.id] changes
 
@@ -39,18 +50,18 @@ export default class GifWrapper extends Component {
   render() {
     const {
       gif,
-      tags,
       animation,
-      animateGif, // eslint-disable-line no-shadow
-      freezeGif // eslint-disable-line no-shadow
+      animateGif,
+      freezeGif,
+      saveMostRecentAnimation
     } = this.props;
 
     const enabled = animation[gif.id] || false;
 
-    const img = new Image();
-    img.src = rootURL + gif.src;
-
-    const enableMotion = () => { animateGif(gif.id); };
+    const enableMotion = () => {
+      animateGif(gif.id);
+      saveMostRecentAnimation(gif.id);
+    };
     const disableMotion = () => { freezeGif(gif.id); };
     const clip = () => { clipboard.copy(rootURL + gif.src); };
     const disableAndClip = () => { disableMotion(); clip(); };
@@ -65,10 +76,9 @@ export default class GifWrapper extends Component {
           onMouseUp={ clip }
           className={ classNames('swapper', { enabled }) }
         >
-          <AnimatedGif img={ img }/>
-          <StaticGif img={ img } id={ gif.id }/>
+          <AnimatedGif img={ this.img } />
+          <StaticGif img={ this.img } id={ gif.id } />
         </div>
-        <GifTags tags={ tags }/>
       </div>
     );
   }
@@ -78,13 +88,7 @@ GifWrapper.propTypes = {
   gif: PropTypes.shape({
     id: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired
-  }).isRequired,
-  tags: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+  }).isRequired
 };
 
 export default connect(

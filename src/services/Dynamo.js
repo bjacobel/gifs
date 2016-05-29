@@ -19,11 +19,16 @@ export const getAllTags = () => {
   });
 };
 
-// export const getIdsForTag = (tag) => {
-// };
+export const addTag = (tag, id) => {
+  console.log(`adding tag ${tag} to gif id ${id}`);
+  return new Promise((resolve) => {
+    resolve();
+  });
+};
 
-// export const addTag = (id, tag) => {
-// };
-
-// export const removeTag = (id, tag) => {
-// };
+export const deleteTag = (tag, id) => {
+  console.log(`deleting tag ${tag} from gif id ${id}`);
+  return new Promise((resolve) => {
+    resolve();
+  });
+};

@@ -1,0 +1,46 @@
+.sliding-ul {
+  $speed: 0.35s;
+  $color: $lightgrey;
+  $size: 2px;
+
+  display: inline-block;
+  position: relative;
+  padding-bottom: $size;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: $size;
+    width: 0;
+    transition: width 0s ease, background $speed ease;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: $size;
+    width: 0;
+    background: $color;
+    transition: width $speed ease;
+  }
+
+  &:active {
+    &::before {
+      width: 100%;
+      background: $color;
+      transition: width $speed ease;
+    }
+
+    &::after {
+      width: 100%;
+      background: transparent;
+      transition: all 0s ease;
+    }
+  }
+}

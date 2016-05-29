@@ -10,10 +10,10 @@ export default class GifTags extends Component {
       <p className="tag-list">
         { tags.map((tag) => {
           return (
-            <Tag key={ tag.id } content={ tag.text }/>
+            <Tag key={ tag.id } content={ tag.text } />
           );
         }) }
-        <Tag content="Add tag" meta="add-tag"/>
+        <Tag meta="add-tag" />
       </p>
     );
   }

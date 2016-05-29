@@ -5,7 +5,7 @@ export default class Err extends Component {
     return (
       <div>
         <h2>unexpected error</h2>
-        <img src="https://gifs.bjacobel.com/software.gif"/>
+        <img src="https://gifs.bjacobel.com/software.gif" alt="dumpster fire" />
       </div>
     );
   }

@@ -1,13 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const bourbon = require('node-bourbon');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const postcssImport = require('postcss-import');
+const postcssFontMagician = require('postcss-font-magician');
+const stylelint = require('stylelint');
 
 const isProd = process.env.NODE_ENV === 'production';
-
-const sassPaths = bourbon.includePaths.map((sassPath) => {
-  return 'includePaths[]=' + sassPath;
-}).join('&');
 
 const wpconfig = {
   entry: {
@@ -16,7 +15,7 @@ const wpconfig = {
     ]
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     filename: '[name].js'
   },
   debug: true,
@@ -24,41 +23,42 @@ const wpconfig = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         include: path.join(__dirname, 'src'),
         loader: 'babel'
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass?' + sassPaths)
+        test: /\.css$/,
+        loader: 'style-loader!css-loader!postcss-loader'
       },
       {
         test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,
         loader: 'file-loader'
-      },
-      {
-        test: /packery/,
-        loader: 'imports?define=>false&this=>window'
       }
     ],
     noParse: [
       /aws\-sdk/
     ]
   },
-  sassLoaderConfig: {
-    sourceComments: !isProd,
-    outputStyle: 'expanded',
-    sourceMap: false
+  postcss(wp) {
+    return [
+      postcssImport({
+        addDependencyTo: wp
+      }),
+      stylelint,
+      precss,
+      postcssFontMagician,
+      autoprefixer({ browsers: ['last 2 versions'] })
+    ];
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.jsx', '.scss']
+    extensions: ['', '.js', '.json', '.jsx', '.css']
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin(`[name].css`),
     new webpack.DefinePlugin({
       'process.env': {
-        'production': isProd
+        production: isProd
       }
     })
   ]

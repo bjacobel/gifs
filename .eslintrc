@@ -1,29 +1,33 @@
 {
   "extends": "eslint-config-airbnb",
   "rules":  {
-    "max-len": [2, 117, 2],
-    "comma-dangle": [2, "never"],
-    "strict": [2, "function"],
-    "no-extra-strict": 0,
-    "func-names": 0,
-    "no-console": 0,
-    "no-undef": 2,
-    "no-debugger": 2,
-    "no-alert": 2,
-    "space-in-parens": [2, "never"],
-    "object-curly-spacing": [2, "always"],
+    "arrow-body-style": 0,
     "arrow-spacing": 2,
-    "no-constant-condition": 2,
+    "comma-dangle": [2, "never"],
     "eqeqeq": [2, "allow-null"],
+    "func-names": 0,
+    "indent": [2, 2, {"SwitchCase": 0}],
+    "max-len": [2, 117, 2],
+    "no-alert": 2,
+    "no-console": 0,
+    "no-constant-condition": 2,
+    "no-debugger": 2,
     "no-eq-null": 0,
-    "react/jsx-curly-spacing": [2, "always"],
-    "react/prop-types": 0,
+    "no-extra-strict": 0,
+    "no-shadow": 0,
+    "no-undef": 2,
     "no-unused-expressions": 0,
-    "indent": [2, 2, {"SwitchCase": 0}]
+    "object-curly-spacing": [2, "always"],
+    "react/jsx-curly-spacing": [2, "always"],
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0,
+    "space-in-parens": [2, "never"],
+    "strict": [2, "function"]
   },
   "ecmaFeatures": {
     "modules": true,
-    "generators": true
+    "generators": true,
+    "jsx": true
   },
   "globals": {
     "chai": true,
@@ -31,10 +35,9 @@
     "sinon": true
   },
   "env": {
+    "es6": true,
     "mocha": true,
-    "worker": true,
-    "jquery": false,
-    "node": true,
+    "browser": true,
     "commonjs": true
   }
 }
