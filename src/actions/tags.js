@@ -1,4 +1,4 @@
-import * as dynamo from '../services/dynamo';
+import * as dynamo from '../services/Dynamo';
 
 // **********************
 // Get all tags

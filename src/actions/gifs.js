@@ -1,4 +1,4 @@
-import * as s3 from '../services/s3';
+import * as s3 from '../services/S3';
 import { isGifVisible } from '../services/infinite';
 
 export const GET_GIFS_REQUESTED = 'GET_GIFS_REQUESTED';
