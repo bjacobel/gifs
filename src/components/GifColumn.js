@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { InfiniteLoader, VirtualScroll } from 'react-virtualized';
 
 import GifWrapper from './GifWrapper';
 import { getGifsAsync } from '../actions/gifs';
@@ -31,11 +32,14 @@ class GifColumn extends Component {
   }
 
   renderGif(gif) {
-    const { tags } = this.props;
+    const { gifs, tags } = this.props;
+
+    // const gif = gifs[index];
+    const myTags = tags[gif.id] || [];
 
     return (
       <div className="gif" key={ gif.id + gif.src }>
-        <GifWrapper gif={ gif } tags={ tags[gif.id] || [] } />
+        <GifWrapper gif={ gif } tags={ myTags } />
       </div>
     );
   }
@@ -44,9 +48,17 @@ class GifColumn extends Component {
     const { gifs } = this.props;
 
     return (
-      <div className="gif-column">
-        { gifs.slice(0, 20).map(this.renderGif) }
-      </div>
+        // <VirtualScroll
+        //   rowRenderer={ this.renderGif }
+        //   rowCount={ gifs.length }
+        //   className="gif-column"
+        //   overscanRowCount="10"
+        //   width="100%"
+        //   height="100vh"
+        // />
+        <div className="gif-column">
+          { gifs.slice(0, 20).map(this.renderGif) }
+        </div>
     );
   }
 }

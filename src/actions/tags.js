@@ -17,7 +17,7 @@ export function getTagsSucceeded(tags) {
 }
 
 export function getTagsFailed(err) {
-  console.warn(err);
+  console.trace(err);
   return { type: GET_TAGS_FAILED, payload: { err }, error: true };
 }
 

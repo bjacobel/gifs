@@ -1,5 +1,6 @@
 import {
-  GET_GIFS_SUCCEEDED
+  GET_GIFS_SUCCEEDED,
+  GET_IMAGE_SIZE_SUCCEEDED
 } from '../actions/gifs';
 
 export default function gifs(state = [], action) {
@@ -22,6 +23,11 @@ export default function gifs(state = [], action) {
       }
       return 0;
     });
+  case GET_IMAGE_SIZE_SUCCEEDED:  // eslint-disable-line no-case-declarations
+    const gif = state.find(x => x.id === action.payload.id);
+    gif.height = action.payload.height;
+    gif.width = action.payload.width;
+    return state;
   default:
     return state;
   }
