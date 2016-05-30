@@ -1,8 +1,8 @@
 import { AWS } from '../constants';
 
-export const getAllTags = () => {
-  const dynamo = new AWS.API.DynamoDB();
+const dynamo = new AWS.API.DynamoDB();
 
+export const getAllTags = () => {
   const queryParams = {
     TableName: AWS.DYNAMO_TABLE,
     ProjectionExpression: 'gif_id,tag,id'
@@ -20,9 +20,20 @@ export const getAllTags = () => {
 };
 
 export const addTag = (tag, id) => {
-  console.log(`adding tag ${tag} to gif id ${id}`);
-  return new Promise((resolve) => {
-    resolve();
+  return new Promise((resolve, reject) => {
+    dynamo.putItem({
+      TableName: AWS.DYNAMO_TABLE,
+      Item: {
+        gif_id: { S: id },
+        tag: { S: tag }
+      }
+    }, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
   });
 };
 
