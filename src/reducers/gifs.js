@@ -38,7 +38,7 @@ export function gifs(state = [], action) {
   }
 }
 
-export function visible(state = { start: 0, end: 9999 }, action) {
+export function visible(state = { start: 0, end: 20 }, action) {
   switch (action.type) {
   case FOUND_VISIBLE_GIFS:
     return {
