@@ -1,0 +1,31 @@
+.login-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 12px;
+  background-color: $lightergrey;
+  border-radius: 3px;
+
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10pt;
+  color: $black;
+
+  outline: none;
+  border: none;
+
+  transition-duration: 0.2s;
+  transition-propery: color, background-color;
+
+  &:not(.authed) {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $black;
+      color: $lightergrey;
+    }
+
+    &:active {
+      box-shadow: 0 0 2px $black;
+    }
+  }
+}
