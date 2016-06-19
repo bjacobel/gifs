@@ -42,6 +42,50 @@
     word-wrap: normal;
     display: inline;
 
+    .tag-wrapper {
+      .login-tooltip {
+        color: white;
+        background-color: $darkgrey;
+        border-radius: 3px;
+        font-size: 8pt;
+        position: absolute;
+        padding: 3px 8px;
+        bottom: -20px;
+        left: -8px;
+        display: none;
+      }
+
+      &.disabled {
+        .tag {
+          opacity: 0.4;
+        }
+
+        &:hover {
+          .login-tooltip {
+            display: block;
+          }
+        }
+      }
+
+      &:not(.disabled) {
+        .tag {
+          .add-tag,
+          .del-tag {
+            cursor: pointer;
+            margin-left: 5px;
+          }
+
+          .add-tag:hover {
+            color: $green;
+          }
+
+          .del-tag:hover {
+            color: $red;
+          }
+        }
+      }
+    }
+
     .tag {
       color: $white;
       background-color: $lightgrey;
@@ -75,16 +119,7 @@
 
       .add-tag,
       .del-tag {
-        cursor: pointer;
-        margin-left: 5px;
-      }
-
-      .add-tag:hover {
-        color: $green;
-      }
-
-      .del-tag:hover {
-        color: $red;
+        cursor: default;
       }
     }
   }

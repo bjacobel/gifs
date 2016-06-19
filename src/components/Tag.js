@@ -1,13 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import {
   addTagAsync,
   deleteTagAsync
 } from '../actions/tags';
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
 };
 
 const mapDispatchToProps = {
@@ -25,7 +28,8 @@ class Tag extends Component {
       content,
       meta,
       addTagAsync,
-      deleteTagAsync
+      deleteTagAsync,
+      auth
     } = this.props;
 
     const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };
@@ -42,6 +46,7 @@ class Tag extends Component {
         spellCheck="false"
         type="text"
         value={ this.state.value }
+        disabled={ !auth.isAuthenticated }
       ></input>
     );
 
@@ -67,12 +72,13 @@ class Tag extends Component {
 
 
     return (
-      <span>
+      <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated }) }>
         <span className="tag">
           { content }
           { addOrDel }
         </span>
         <span className="break"> </span>
+        <span className="login-tooltip">Log in to add or delete tags</span>
       </span>
     );
   }
