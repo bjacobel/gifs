@@ -16,16 +16,18 @@
   transition-duration: 0.2s;
   transition-propery: color, background-color;
 
-  &:not(.authed) {
-    cursor: pointer;
+  cursor: pointer;
 
-    &:hover {
-      background-color: $black;
-      color: $lightergrey;
-    }
+  &:hover {
+    background-color: $black;
+    color: $lightergrey;
+  }
 
-    &:active {
-      box-shadow: 0 0 2px $black;
-    }
+  &:active {
+    box-shadow: 0 0 2px $black;
+  }
+
+  &.authed {
+    display: none;
   }
 }

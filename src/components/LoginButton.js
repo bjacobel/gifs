@@ -17,20 +17,13 @@ const mapDispatchToProps = {
 export default class LoginButton extends Component {
   render() {
     const { auth } = this.props;
-    let msg;
-
-    if (auth.isAuthenticated) {
-      msg = `Signed in as ${auth}`;
-    } else {
-      msg = 'Sign in';
-    }
 
     return (
       <button
         className={ classNames('login-btn', { authed: auth.isAuthenticated }) }
         onClick={ this.props.getCognitoAuthAsync }
       >
-        { msg }
+        Sign in
       </button>
     );
   }

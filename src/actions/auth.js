@@ -1,4 +1,5 @@
 import * as cognito from '../services/cognito';
+import * as google from '../services/google';
 
 export const COGNITO_AUTH_REQUESTED = 'COGNITO_AUTH_REQUESTED';
 export const COGNITO_AUTH_SUCCEEDED = 'COGNITO_AUTH_SUCCEEDED';
@@ -18,10 +19,19 @@ const cognitoAuthFailed = (err) => {
 };
 
 export const getCognitoAuthAsync = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(cognitoAuthRequested());
 
-    return cognito.doAuth()
+    if (!getState().auth.googleAccessToken) {
+      return google.requestAccessToken();
+      // The actual work of getting an access token will be handled by the router
+      // on the /googleAuth page and those reducers
+    }
+    // else
+    return google.getAccessToken()
+      .then((accessToken) => {
+        return cognito.obtainAuthRole(accessToken);
+      })
       .then((authInfo) => {
         dispatch(cognitoAuthSucceeded(authInfo));
       })
