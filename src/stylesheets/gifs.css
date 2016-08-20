@@ -4,13 +4,6 @@
 
   img {
     width: 100%;
-
-    &.loading {
-      background-image: url('../assets/images/loading.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 40px;
-      background-color: $lightergrey;
-    }
+    cursor: pointer;
   }
 }
