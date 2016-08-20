@@ -74,7 +74,12 @@ export default class GifWrapper extends Component {
         onTouchEnd={ disableAndClip }
         onMouseUp={ clip }
       >
-        <Gif image={ image } watchForSize={ watchForSize } id={ gif.id } />
+        <Gif
+          image={ image }
+          watchForSize={ watchForSize }
+          id={ gif.id }
+          name={ gif.src }
+        />
       </div>
     );
   }

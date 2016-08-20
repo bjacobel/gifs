@@ -34,17 +34,17 @@ export function getGifsAsync() {
   };
 }
 
-function getSizeSucceeded(height, width, observedHeight, observedWidth, id) {
-  return { type: GET_IMAGE_SIZE_SUCCEEDED, payload: { height, width, observedHeight, observedWidth, id } };
+function getSizeSucceeded(height, width, observedHeight, observedWidth, id, src) {
+  return { type: GET_IMAGE_SIZE_SUCCEEDED, payload: { height, width, observedHeight, observedWidth, id, src } };
 }
 
-export function watchForSize(img, id, containerWidth) {
+export function watchForSize(img, id, src, containerWidth) {
   return (dispatch) => {
     const interval = window.setInterval(() => {
       if (img.height > 0) {
         window.clearInterval(interval);
         const observedHeight = img.height / (img.width / containerWidth);
-        dispatch(getSizeSucceeded(img.height, img.width, observedHeight, containerWidth, id));
+        dispatch(getSizeSucceeded(img.height, img.width, observedHeight, containerWidth, id, src));
       }
     }, 10);
   };
@@ -72,7 +72,7 @@ export function updateVisibleGifs(gifs) {
         }
       }
 
-      dispatch(foundVisibleGifs(Math.min.apply(null, visibles), Math.max.apply(null, visibles)));
+      dispatch(foundVisibleGifs(Math.max(visibles[0] - 5, 0), visibles[visibles.length - 1] + 5));
     }
   };
 }
