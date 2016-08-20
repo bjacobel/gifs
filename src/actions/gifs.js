@@ -56,22 +56,23 @@ function foundVisibleGifs(visibleLowRange, visibleHighRange) {
 
 export function updateVisibleGifs(gifs) {
   return (dispatch) => {
-    const visibles = [];
+    if (!gifs) {
+      dispatch(foundVisibleGifs(0, 10));
+    } else {
+      const visibles = [];
 
-    let canBreak = false;
-
-    for (let i = 0; i < gifs.length; i++) {
-      if (isGifVisible(gifs, i)) {
-        visibles.push(i);
-        canBreak = true;
-      } else {
-        // the first non-visible gif after any visible ones means we don't need to look anymore
-        if (canBreak) {
-          break;
+      for (let i = 0; i < gifs.length; i++) {
+        if (isGifVisible(gifs, i)) {
+          visibles.push(i);
+        } else {
+          // the first non-visible gif after any visible ones means we don't need to look anymore
+          if (visibles.length > 0) {
+            break;
+          }
         }
       }
-    }
 
-    dispatch(foundVisibleGifs(Math.min.apply(null, visibles), Math.max.apply(null, visibles)));
+      dispatch(foundVisibleGifs(Math.min.apply(null, visibles), Math.max.apply(null, visibles)));
+    }
   };
 }
