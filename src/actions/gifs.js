@@ -38,13 +38,13 @@ function getSizeSucceeded(height, width, observedHeight, observedWidth, id) {
   return { type: GET_IMAGE_SIZE_SUCCEEDED, payload: { height, width, observedHeight, observedWidth, id } };
 }
 
-export function watchForSize(img, id, canvasWidth) {
+export function watchForSize(img, id, containerWidth) {
   return (dispatch) => {
     const interval = window.setInterval(() => {
       if (img.height > 0) {
         window.clearInterval(interval);
-        const observedHeight = img.height / (img.width / canvasWidth);
-        dispatch(getSizeSucceeded(img.height, img.width, observedHeight, canvasWidth, id));
+        const observedHeight = img.height / (img.width / containerWidth);
+        dispatch(getSizeSucceeded(img.height, img.width, observedHeight, containerWidth, id));
       }
     }, 10);
   };

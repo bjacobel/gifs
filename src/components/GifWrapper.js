@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 
-import StaticGif from './StaticGif';
-import AnimatedGif from './AnimatedGif';
-import { rootURL } from '../constants';
+import Gif from './Gif';
+import {
+  rootURL,
+  thumbURL
+} from '../constants';
 import * as clipboard from '../services/clipboard';
+import { watchForSize } from '../actions/gifs';
 import {
   animateGif,
   freezeGif,
@@ -21,17 +23,11 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   animateGif,
   freezeGif,
-  saveMostRecentAnimation
+  saveMostRecentAnimation,
+  watchForSize
 };
 
 export default class GifWrapper extends Component {
-  componentWillMount() {
-    const { gif } = this.props;
-
-    this.img = new Image();
-    this.img.src = rootURL + gif.src;
-  }
-
   shouldComponentUpdate(nextProps) {
     // Only update if animation[this.id] changes
 
@@ -53,10 +49,14 @@ export default class GifWrapper extends Component {
       animation,
       animateGif,
       freezeGif,
-      saveMostRecentAnimation
+      saveMostRecentAnimation,
+      watchForSize
     } = this.props;
 
     const enabled = animation[gif.id] || false;
+    const gifURL = enabled ? `${rootURL}${gif.src}` : `${thumbURL}${gif.src}`;
+    const image = new Image();
+    image.src = gifURL;
 
     const enableMotion = () => {
       animateGif(gif.id);
@@ -67,18 +67,14 @@ export default class GifWrapper extends Component {
     const disableAndClip = () => { disableMotion(); clip(); };
 
     return (
-      <div className="gif-wrapper">
-        <div
-          onMouseOver={ enableMotion }
-          onMouseOut={ disableMotion }
-          onTouchStart={ enableMotion }
-          onTouchEnd={ disableAndClip }
-          onMouseUp={ clip }
-          className={ classNames('swapper', { enabled }) }
-        >
-          <AnimatedGif img={ this.img } />
-          <StaticGif img={ this.img } id={ gif.id } />
-        </div>
+      <div className="gif-wrapper"
+        onMouseOver={ enableMotion }
+        onMouseOut={ disableMotion }
+        onTouchStart={ enableMotion }
+        onTouchEnd={ disableAndClip }
+        onMouseUp={ clip }
+      >
+        <Gif image={ image } watchForSize={ watchForSize } id={ gif.id } />
       </div>
     );
   }
