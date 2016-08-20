@@ -25,8 +25,9 @@ class GifColumn extends Component {
     } = this.props;
 
     getGifsAsync();
+    updateVisibleGifs();
 
-    this.renderGifs = this.renderGifs.bind(this);
+    this.renderGif = this.renderGif.bind(this);
 
     const onScroll = () => {
       updateVisibleGifs(this.props.gifs);
@@ -57,19 +58,10 @@ class GifColumn extends Component {
     );
   }
 
-  renderGifs() {
-    const gifsToRender = [];
-    this.props.gifs.forEach((gif, index) => {
-      gifsToRender.push(this.renderGif(gif, index));
-    });
-
-    return gifsToRender;
-  }
-
   render() {
     return (
-      <div className="gif-column" ref={ this.updateOnScroll }>
-        { this.renderGifs() }
+      <div className="gif-column">
+        { this.props.gifs.map((gif, index) => this.renderGif(gif, index)) }
       </div>
     );
   }

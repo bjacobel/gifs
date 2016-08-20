@@ -19,7 +19,7 @@ const wpconfig = {
     filename: '[name].js'
   },
   debug: true,
-  devtool: isProd ? null : 'eval',
+  devtool: isProd ? null : 'inline-source-map',
   module: {
     loaders: [
       {
