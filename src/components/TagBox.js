@@ -47,7 +47,7 @@ class TagBox extends Component {
       if (tags.hasOwnProperty(activeGifId)) {
         tagList = tags[activeGifId].map((tag) => {
           return (
-            <Tag key={ tag.id } content={ tag.text } />
+            <Tag key={ tag.id } id={ tag.id } content={ tag.text } />
           );
         });
       }

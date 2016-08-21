@@ -26,6 +26,7 @@ class Tag extends Component {
   render() {
     const {
       content,
+      id,
       meta,
       addTagAsync,
       deleteTagAsync,
@@ -33,6 +34,18 @@ class Tag extends Component {
     } = this.props;
 
     const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };
+    const deleteTag = () => { deleteTagAsync(id); };
+    const addNewTag = () => {
+      if (this.state.value) {
+        addTagAsync(this.state.value);
+        this.setState({ value: '' });
+      }
+    };
+    const submitOnEnter = (event) => {
+      if (event.nativeEvent.keyCode === 13) {
+        addNewTag();
+      }
+    };
 
     const tagInput = (
       <input
@@ -42,6 +55,7 @@ class Tag extends Component {
         autoFocus
         className="tag-to-add"
         onChange={ updateTagToAdd }
+        onKeyPress={ submitOnEnter }
         placeholder="Add tag"
         spellCheck="false"
         type="text"
@@ -50,12 +64,6 @@ class Tag extends Component {
       ></input>
     );
 
-    const deleteTag = () => { deleteTagAsync(content); };
-    const addNewTag = () => {
-      if (this.state.value) {
-        addTagAsync(this.state.value);
-      }
-    };
 
     let addOrDel;
 
@@ -86,6 +94,7 @@ class Tag extends Component {
 
 Tag.propTypes = {
   content: PropTypes.string,
+  id: PropTypes.string,
   meta: PropTypes.string
 };
 
