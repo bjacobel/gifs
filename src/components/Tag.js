@@ -1,13 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import {
   addTagAsync,
   deleteTagAsync
 } from '../actions/tags';
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
 };
 
 const mapDispatchToProps = {
@@ -23,12 +26,26 @@ class Tag extends Component {
   render() {
     const {
       content,
+      id,
       meta,
       addTagAsync,
-      deleteTagAsync
+      deleteTagAsync,
+      auth
     } = this.props;
 
     const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };
+    const deleteTag = () => { deleteTagAsync(id); };
+    const addNewTag = () => {
+      if (this.state.value) {
+        addTagAsync(this.state.value);
+        this.setState({ value: '' });
+      }
+    };
+    const submitOnEnter = (event) => {
+      if (event.nativeEvent.keyCode === 13) {
+        addNewTag();
+      }
+    };
 
     const tagInput = (
       <input
@@ -38,19 +55,15 @@ class Tag extends Component {
         autoFocus
         className="tag-to-add"
         onChange={ updateTagToAdd }
+        onKeyPress={ submitOnEnter }
         placeholder="Add tag"
         spellCheck="false"
         type="text"
         value={ this.state.value }
+        disabled={ !auth.isAuthenticated }
       ></input>
     );
 
-    const deleteTag = () => { deleteTagAsync(content); };
-    const addNewTag = () => {
-      if (this.state.value) {
-        addTagAsync(this.state.value);
-      }
-    };
 
     let addOrDel;
 
@@ -67,12 +80,13 @@ class Tag extends Component {
 
 
     return (
-      <span>
+      <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated }) }>
         <span className="tag">
           { content }
           { addOrDel }
         </span>
         <span className="break"> </span>
+        <span className="login-tooltip">Log in to add or delete tags</span>
       </span>
     );
   }
@@ -80,6 +94,7 @@ class Tag extends Component {
 
 Tag.propTypes = {
   content: PropTypes.string,
+  id: PropTypes.string,
   meta: PropTypes.string
 };
 

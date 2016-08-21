@@ -26,12 +26,25 @@ export default function gifs(state = {}, action) {
     return Object.assign({}, state, tagMap);
   }
   case ADD_TAG_SUCCEEDED: {
-    console.log(action.payload);
-    return state;
+    const tag = action.payload.tagDocument;
+    if (state.hasOwnProperty(tag.gif_id)) {
+      return Object.assign({}, state, {
+        [tag.gif_id]: state[tag.gif_id].concat({
+          text: tag.tag,
+          id: tag.id
+        })
+      });
+    } else {
+      return Object.assign({}, state, { [tag.gif_id]: [{
+        text: tag.tag,
+        id: tag.id
+      }] });
+    }
   }
   case DELETE_TAG_SUCCEEDED: {
-    console.log(action.payload);
-    return state;
+    return Object.assign({}, state, {
+      [action.payload.gifId]: state[action.payload.gifId].filter((x) => x.id !== action.payload.tagId)
+    });
   }
   default:
     return state;

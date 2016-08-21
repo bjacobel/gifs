@@ -9,8 +9,10 @@ import {
   animation,
   activeGif
 } from './animation';
+import auth from './auth';
 
 export default combineReducers({
+  auth,
   gifs,
   animation,
   activeGif,

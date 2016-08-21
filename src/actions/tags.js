@@ -79,12 +79,12 @@ export const DELETE_TAG_REQUESTED = 'DELETE_TAG_REQUESTED';
 export const DELETE_TAG_FAILED = 'DELETE_TAG_FAILED';
 export const DELETE_TAG_SUCCEEDED = 'DELETE_TAG_SUCCEEDED';
 
-export function deleteTagRequested(tag, gifId) {
-  return { type: DELETE_TAG_REQUESTED, payload: { tag, gifId } };
+export function deleteTagRequested(tagId, gifId) {
+  return { type: DELETE_TAG_REQUESTED, payload: { tagId, gifId } };
 }
 
-export function deleteTagSucceeded(tagDocument) {
-  return { type: DELETE_TAG_SUCCEEDED, payload: { tagDocument } };
+export function deleteTagSucceeded(tagId, gifId) {
+  return { type: DELETE_TAG_SUCCEEDED, payload: { tagId, gifId } };
 }
 
 export function deleteTagFailed(err) {
@@ -97,9 +97,9 @@ export function deleteTagAsync(tag) {
     const { activeGif } = getState();
     dispatch(deleteTagRequested(tag, activeGif));
 
-    return dynamo.deleteTag(tag, activeGif)
-      .then((tagDocument) => {
-        dispatch(deleteTagSucceeded(tagDocument));
+    return dynamo.deleteTag(tag)
+      .then((tagId) => {
+        dispatch(deleteTagSucceeded(tagId, activeGif));
       })
       .catch((err) => {
         dispatch(deleteTagFailed(err));
