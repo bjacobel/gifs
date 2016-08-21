@@ -1,15 +1,14 @@
 import { AWS } from '../constants';
-
-const dynamo = new AWS.API.DynamoDB();
+import shortid from 'shortid';
 
 export const getAllTags = () => {
-  const queryParams = {
-    TableName: AWS.DYNAMO_TABLE,
-    ProjectionExpression: 'gif_id,tag,id'
-  };
-
   return new Promise((resolve, reject) => {
-    dynamo.scan(queryParams, (err, data) => {
+    const dynamo = new AWS.API.DynamoDB();
+
+    dynamo.scan({
+      TableName: AWS.DYNAMO_TABLE,
+      ProjectionExpression: 'gif_id,tag,id'
+    }, (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -21,9 +20,14 @@ export const getAllTags = () => {
 
 export const addTag = (tag, id) => {
   return new Promise((resolve, reject) => {
+    const dynamo = new AWS.API.DynamoDB({
+      credentials: AWS.API.config.credentials
+    });
+
     dynamo.putItem({
       TableName: AWS.DYNAMO_TABLE,
       Item: {
+        id: { S: shortid.generate() },
         gif_id: { S: id },
         tag: { S: tag }
       }

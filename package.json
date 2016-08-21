@@ -15,7 +15,7 @@
   "repository": "http://github.com/bjacobel/gifs",
   "dependencies": {
     "autoprefixer": "^6.3.6",
-    "aws-sdk": "^2.2.26",
+    "aws-sdk-umd": "0.0.2",
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
@@ -48,6 +48,7 @@
     "react-redux": "^4.4.2",
     "redux": "^3.2.1",
     "redux-thunk": "^1.0.0",
+    "shortid": "^2.2.6",
     "sinon": "^1.17.2",
     "sinon-as-promised": "^4.0.0",
     "sinon-chai": "^2.8.0",

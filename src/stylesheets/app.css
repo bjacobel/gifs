@@ -8,9 +8,8 @@ body {
   width: 100vw;
 
   .column {
-    $hmargin: 40px;
     float: left;
-    margin: 0 $hmargin;
+    margin: 0 $margin;
 
     &.gifs {
       width: 40%;
@@ -20,8 +19,8 @@ body {
       .tag-box {
         position: fixed;
         top: 200px;
-        right: $hmargin;
-        width: calc(60% - $hmargin * 3);
+        right: $margin;
+        width: calc(60% - $margin * 3);
       }
     }
   }

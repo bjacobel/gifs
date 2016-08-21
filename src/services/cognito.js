@@ -1,17 +1,20 @@
 import { AWS } from '../constants';
 
-export const obtainAuthRole = (accessToken) => {
-  AWS.API.config.credentials = new AWS.API.WebIdentityCredentials({
-    RoleArn: AWS.AUTHED_ROLE_ARN,
-    WebIdentityToken: accessToken,
-    ProviderId: null
-  });
-
-  AWS.API.config.credentials.refresh((err) => {
-    console.error(err);
-  });
-
+export const obtainAuthRole = (idToken) => {
   return new Promise((resolve) => {
+    Object.assign(AWS.API.config.credentials.params, {
+      RoleArn: AWS.AUTHED_ROLE_ARN,
+      Logins: {
+        'accounts.google.com': idToken
+      }
+    });
+
+    AWS.API.config.credentials.refresh((err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+
     resolve(AWS.API.config.credentials);
   });
 };

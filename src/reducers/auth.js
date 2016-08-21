@@ -1,20 +1,35 @@
 import {
   COGNITO_AUTH_SUCCEEDED,
-  COGNITO_AUTH_FAILED
+  COGNITO_AUTH_FAILED,
+  GOOGLE_AUTH_SUCCEEDED,
+  GOOGLE_AUTH_FAILED
 } from '../actions/auth';
 
 export default function auth(state = { isAuthenticated: false }, action) {
   switch (action.type) {
   case COGNITO_AUTH_SUCCEEDED:
-    return {
+    return Object.assign({}, state, {
       isAuthenticated: true,
-      details: action.payload.authInfo
-    };
+      cognito: action.payload.authInfo
+    });
   case COGNITO_AUTH_FAILED:
-    return {
+    return Object.assign({}, state, {
       isAuthenticated: false,
-      error: action.payload.err
-    };
+      cognito: {
+        error: action.payload.err
+      }
+    });
+  case GOOGLE_AUTH_SUCCEEDED:
+    return Object.assign({}, state, {
+      google: action.payload.authInfo
+    });
+  case GOOGLE_AUTH_FAILED:
+    return Object.assign({}, state, {
+      isAuthenticated: false,
+      google: {
+        error: action.payload.err
+      }
+    });
   default:
     return state;
   }

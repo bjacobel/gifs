@@ -1,10 +1,10 @@
 .tag-box {
   background-color: $lightergrey;
-  border-radius: 3px;
-  padding: 15px;
+  border-radius: $radius;
+  padding: $padding;
 
   .gif-name {
-    font-size: 1.3rem;
+    font-size: $font-size;
     position: relative;
     user-select: none;
     word-wrap: break-word;
