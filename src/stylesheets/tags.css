@@ -72,7 +72,6 @@
           .add-tag,
           .del-tag {
             cursor: pointer;
-            margin-left: 5px;
           }
 
           .add-tag:hover {
@@ -119,6 +118,7 @@
 
       .add-tag,
       .del-tag {
+        margin-left: 5px;
         cursor: default;
       }
     }

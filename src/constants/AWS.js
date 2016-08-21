@@ -10,14 +10,4 @@ export const DYNAMO_TABLE = 'gifs';
 
 global.AWS.config.region = REGION;
 
-// If no credentials have been set, auth into the default
-// unauthenticated IAM role specified by the cognito pool
-// (Default role lacks write privs on DynamoDB)
-if (global.AWS.config.credentials === null) {
-  global.AWS.config.credentials = new global.AWS.CognitoIdentityCredentials({
-    RoleArn: UNAUTHED_ROLE_ARN,
-    IdentityPoolId: COGNITO_POOL
-  });
-}
-
 export const API = global.AWS;

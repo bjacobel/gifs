@@ -47,6 +47,7 @@
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.2",
     "redux": "^3.2.1",
+    "redux-localstorage": "^0.4.1",
     "redux-thunk": "^1.0.0",
     "shortid": "^2.2.6",
     "sinon": "^1.17.2",

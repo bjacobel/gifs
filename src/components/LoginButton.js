@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { getCognitoAuthAsync } from '../actions/auth';
+import { getGoogleAuthAsync } from '../actions/auth';
 
 const mapStateToProps = (state) => {
   return {
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getCognitoAuthAsync
+  getGoogleAuthAsync
 };
 
 export default class LoginButton extends Component {
@@ -21,7 +21,7 @@ export default class LoginButton extends Component {
     return (
       <button
         className={ classNames('login-btn', { authed: auth.isAuthenticated }) }
-        onClick={ this.props.getCognitoAuthAsync }
+        onClick={ this.props.getGoogleAuthAsync }
       >
         Sign in
       </button>

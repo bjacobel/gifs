@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Tag from './Tag';
 import { getTagsAsync } from '../actions/tags';
+import { getCognitoAuthAsync } from '../actions/auth';
 import { rootURL } from '../constants';
 import * as clipboard from '../services/clipboard';
 
@@ -15,11 +16,13 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getTagsAsync
+  getTagsAsync,
+  getCognitoAuthAsync
 };
 
 class TagBox extends Component {
   componentWillMount() {
+    this.props.getCognitoAuthAsync();
     this.props.getTagsAsync();
   }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import GifWrapper from './GifWrapper';
 import { getGifsAsync, updateVisibleGifs } from '../actions/gifs';
+import { getCognitoAuthAsync } from '../actions/auth';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,16 +15,19 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getGifsAsync,
-  updateVisibleGifs
+  updateVisibleGifs,
+  getCognitoAuthAsync
 };
 
 class GifColumn extends Component {
   componentDidMount() {
     const {
       updateVisibleGifs,
-      getGifsAsync
+      getGifsAsync,
+      getCognitoAuthAsync
     } = this.props;
 
+    getCognitoAuthAsync();
     getGifsAsync();
     updateVisibleGifs();
 

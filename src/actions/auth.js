@@ -38,26 +38,25 @@ export const getCognitoAuthAsync = () => {
   return (dispatch, getState) => {
     dispatch(cognitoAuthRequested());
 
-    if (!getState().auth.google) {
-      dispatch(googleAuthRequested());
-
-      // We parse the google auth info and dispatch actions to add it to state in ../components/Router
-      return google.requestAccessToken()
-        .catch((err) => {
-          dispatch(googleAuthFailed(err));
-        });
-    }
-
-    if (!getState().auth.google.id_token) {
-      dispatch(cognitoAuthFailed('No id_token returned by Google'));
-    }
-
-    return cognito.obtainAuthRole(getState().auth.google.id_token)
+    return cognito.obtainCurrentRole(getState().auth.google)
       .then((authInfo) => {
         dispatch(cognitoAuthSucceeded(authInfo));
       })
       .catch((err) => {
         dispatch(cognitoAuthFailed(err));
+      });
+  };
+};
+
+export const getGoogleAuthAsync = () => {
+  return (dispatch) => {
+    dispatch(googleAuthRequested());
+
+    return google.requestAccessToken()
+      // We parse the google auth info and dispatch actions to add it to state in ../components/Router
+      // otherwise normally there would be a .then where we dispatch a success action here
+      .catch((err) => {
+        dispatch(googleAuthFailed(err));
       });
   };
 };

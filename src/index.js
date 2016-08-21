@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
+import persistState from 'redux-localstorage';
 
 import './stylesheets';
 import Main from './components/Main';
@@ -11,7 +12,8 @@ import reducer from './reducers';
 import { showDevTools } from './constants';
 
 const middlewares = [
-  applyMiddleware(thunk)
+  applyMiddleware(thunk),
+  persistState('auth')
 ];
 
 if (showDevTools) {
