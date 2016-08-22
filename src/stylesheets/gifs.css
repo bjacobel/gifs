@@ -1,6 +1,18 @@
 .gif {
   width: 100%;
   user-select: none;
+  position: relative;
+
+  .loading-indicator {
+    display: none;
+    position: absolute;
+    top: calc($margin / 2);
+    right: calc($margin / 2);
+
+    &.loading:not(.loaded) {
+      display: block;
+    }
+  }
 
   img {
     width: 100%;
