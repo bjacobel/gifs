@@ -43,27 +43,13 @@
     display: inline;
 
     .tag-wrapper {
-      .login-tooltip {
-        color: $white;
-        background-color: $darkgrey;
-        border-radius: 3px;
-        font-size: 8pt;
-        position: absolute;
-        padding: 3px 8px;
-        bottom: -20px;
-        left: -8px;
-        display: none;
-      }
-
       &.disabled {
-        .tag {
-          opacity: 0.4;
+        &.adder {
+          display: none;
         }
 
-        &:hover {
-          .login-tooltip {
-            display: block;
-          }
+        .tag .del-tag {
+          display: none;
         }
       }
 

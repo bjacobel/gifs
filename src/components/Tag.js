@@ -80,13 +80,12 @@ class Tag extends Component {
 
 
     return (
-      <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated }) }>
+      <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated, adder: meta === 'add-tag' }) }>
         <span className="tag">
           { content }
           { addOrDel }
         </span>
         <span className="break"> </span>
-        <span className="login-tooltip">Log in to add or delete tags</span>
       </span>
     );
   }

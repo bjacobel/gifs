@@ -65,7 +65,7 @@ class TagBox extends Component {
           </p>
           <p className="tag-list">
             { tagList }
-            <Tag meta="add-tag" />
+            <Tag className="adder" meta="add-tag" />
           </p>
         </div>
       );
