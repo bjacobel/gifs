@@ -3,19 +3,23 @@
   top: $margin;
   right: $margin;
   padding: $padding;
-  background-color: $lightergrey;
-  border-radius: $radius;
 
+  /* fonts */
   font-family: 'Open Sans', sans-serif;
   font-size: $font-size;
   color: $black;
 
+  /* element display */
+  background-color: $lightergrey;
+  border-radius: $radius;
   outline: none;
   border: none;
 
+  /* transitions */
   transition-duration: 0.2s;
   transition-propery: color, background-color;
 
+  /* hover behavior */
   cursor: pointer;
 
   &:hover {

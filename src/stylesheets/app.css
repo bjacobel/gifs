@@ -33,6 +33,7 @@ body {
 
   .column-container {
     width: 100%;
+
     .column {
       &.gifs {
         width: 100%;
