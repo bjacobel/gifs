@@ -4,7 +4,7 @@ import {
   DELETE_TAG_SUCCEEDED
 } from '../actions/tags';
 
-export default function gifs(state = {}, action) {
+export default (state = {}, action) => {
   switch (action.type) {
   case GET_TAGS_SUCCEEDED: {
     const tagMap = {};
@@ -49,4 +49,4 @@ export default function gifs(state = {}, action) {
   default:
     return state;
   }
-}
+};

@@ -5,7 +5,7 @@ import {
   GOOGLE_AUTH_FAILED
 } from '../actions/auth';
 
-export default function auth(state = {}, action) {
+export default (state = {}, action) => {
   switch (action.type) {
   case COGNITO_AUTH_SUCCEEDED:
     return Object.assign({}, state, {
@@ -33,4 +33,4 @@ export default function auth(state = {}, action) {
   default:
     return state;
   }
-}
+};

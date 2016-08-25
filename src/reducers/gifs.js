@@ -4,7 +4,7 @@ import {
   FOUND_VISIBLE_GIFS
 } from '../actions/gifs';
 
-export function gifs(state = [], action) {
+export const gifs = (state = [], action) => {
   switch (action.type) {
   case GET_GIFS_SUCCEEDED:
     return action.payload.gifs.Contents.filter((gif) => {
@@ -36,9 +36,9 @@ export function gifs(state = [], action) {
   default:
     return state;
   }
-}
+};
 
-export function visible(state = {}, action) {
+export const visible = (state = {}, action) => {
   switch (action.type) {
   case FOUND_VISIBLE_GIFS:
     return {
@@ -48,4 +48,4 @@ export function visible(state = {}, action) {
   default:
     return state;
   }
-}
+};

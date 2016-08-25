@@ -4,7 +4,7 @@ import {
   SAVE_ANIMATION
 } from '../actions/animation';
 
-export function animation(state = {}, action) {
+export const animation = (state = {}, action) => {
   switch (action.type) {
   case ANIMATE_GIF:
     return Object.assign({}, state, { [action.payload.id]: true });
@@ -13,13 +13,13 @@ export function animation(state = {}, action) {
   default:
     return state;
   }
-}
+};
 
-export function activeGif(state = null, action) {
+export const activeGif = (state = null, action) => {
   switch (action.type) {
   case SAVE_ANIMATION:
     return action.payload.id;
   default:
     return state;
   }
-}
+};

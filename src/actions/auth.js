@@ -1,5 +1,5 @@
-import * as cognito from '../services/cognito';
-import * as google from '../services/google';
+import { obtainCurrentRole } from '../services/cognito';
+import { requestAccessToken } from '../services/google';
 
 export const COGNITO_AUTH_REQUESTED = 'COGNITO_AUTH_REQUESTED';
 export const COGNITO_AUTH_SUCCEEDED = 'COGNITO_AUTH_SUCCEEDED';
@@ -38,7 +38,7 @@ export const getCognitoAuthAsync = () => {
   return (dispatch, getState) => {
     dispatch(cognitoAuthRequested());
 
-    return cognito.obtainCurrentRole(getState().auth.google)
+    return obtainCurrentRole(getState().auth.google)
       .then((authInfo) => {
         dispatch(cognitoAuthSucceeded(authInfo));
       })
@@ -52,7 +52,7 @@ export const getGoogleAuthAsync = () => {
   return (dispatch) => {
     dispatch(googleAuthRequested());
 
-    return google.requestAccessToken()
+    return requestAccessToken()
       // We parse the google auth info and dispatch actions to add it to state in ../components/Router
       // otherwise normally there would be a .then where we dispatch a success action here
       .catch((err) => {

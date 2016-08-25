@@ -1,4 +1,8 @@
-import * as dynamo from '../services/Dynamo';
+import {
+  getAllTags,
+  addTag,
+  deleteTag
+} from '../services/Dynamo';
 
 // **********************
 // Get all tags
@@ -25,7 +29,7 @@ export function getTagsAsync() {
   return (dispatch) => {
     dispatch(getTagsRequested());
 
-    return dynamo.getAllTags()
+    return getAllTags()
       .then((tags) => {
         dispatch(getTagsSucceeded(tags));
       })
@@ -61,7 +65,7 @@ export function addTagAsync(tag) {
     const { activeGif } = getState();
     dispatch(addTagRequested(tag, activeGif));
 
-    return dynamo.addTag(tag, activeGif)
+    return addTag(tag, activeGif)
       .then((tagDocument) => {
         dispatch(addTagSucceeded(tagDocument));
       })
@@ -97,7 +101,7 @@ export function deleteTagAsync(tag) {
     const { activeGif } = getState();
     dispatch(deleteTagRequested(tag, activeGif));
 
-    return dynamo.deleteTag(tag)
+    return deleteTag(tag)
       .then((tagId) => {
         dispatch(deleteTagSucceeded(tagId, activeGif));
       })

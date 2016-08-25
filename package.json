@@ -59,7 +59,7 @@
   "jest": {
     "collectCoverage": true,
     "mocksPattern": "(?:[\\/]|^)mocks[\\/]",
-    "testRegex": "tests/.*-test.js$",
+    "testRegex": "tests/.*/.*-test.js$",
     "unmockedModulePathPatterns": [
       "node_modules/react/",
       "node_modules/enzyme/"
