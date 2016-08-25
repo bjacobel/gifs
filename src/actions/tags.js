@@ -32,7 +32,7 @@ export function getTagsAsync() {
 
     return obtainCurrentRole(getState().auth.google)
       .then((authInfo) => {
-        getAllTags(authInfo);
+        return getAllTags(authInfo);
       })
       .then((tags) => {
         dispatch(getTagsSucceeded(tags));
@@ -71,7 +71,7 @@ export function addTagAsync(tag) {
 
     return obtainCurrentRole(auth.google)
       .then((authInfo) => {
-        addTag(tag, activeGif, authInfo);
+        return addTag(tag, activeGif, authInfo);
       })
       .then((tagDocument) => {
         dispatch(addTagSucceeded(tagDocument));
@@ -110,7 +110,7 @@ export function deleteTagAsync(tag) {
 
     return obtainCurrentRole(auth.google)
       .then((authInfo) => {
-        deleteTag(tag, authInfo);
+        return deleteTag(tag, authInfo);
       })
       .then((tagId) => {
         dispatch(deleteTagSucceeded(tagId, activeGif));
