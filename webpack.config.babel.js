@@ -35,9 +35,6 @@ const wpconfig = {
         test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,
         loader: 'file-loader'
       }
-    ],
-    noParse: [
-      /aws\-sdk/
     ]
   },
   postcss(wp) {
@@ -52,7 +49,7 @@ const wpconfig = {
     ];
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.jsx', '.css']
+    extensions: ['', '.js', '.json', '.css']
   },
   plugins: [
     new webpack.NoErrorsPlugin(),

@@ -5,7 +5,7 @@ import Tag from './Tag';
 import { getTagsAsync } from '../actions/tags';
 import { getCognitoAuthAsync } from '../actions/auth';
 import { rootURL } from '../constants';
-import * as clipboard from '../services/clipboard';
+import { copy } from '../services/clipboard';
 
 function mapStateToProps(state) {
   return {
@@ -30,7 +30,7 @@ class TagBox extends Component {
     const { gifs, tags } = this.props;
     const activeGifId = this.props.activeGif;
     const activeGif = gifs.find(gif => gif.id === activeGifId);
-    const clip = () => { clipboard.copy(rootURL + activeGif.src); };
+    const clip = () => { copy(rootURL + activeGif.src); };
 
     let tagBoxContents;
 

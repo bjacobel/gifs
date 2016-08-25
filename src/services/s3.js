@@ -1,9 +1,10 @@
-import { AWS } from '../constants';
+import AWS from 'aws-sdk-umd';
+import { BUCKET } from '../constants/aws';
 
 export function getBucketContents() {
-  const S3 = new AWS.API.S3();
+  const S3 = new AWS.S3();
   const S3params = {
-    Bucket: AWS.BUCKET
+    Bucket: BUCKET
   };
 
   return new Promise((resolve, reject) => {

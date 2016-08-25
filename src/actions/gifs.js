@@ -1,4 +1,4 @@
-import * as s3 from '../services/S3';
+import { getBucketContents } from '../services/s3';
 import { isGifVisible } from '../services/infinite';
 
 export const GET_GIFS_REQUESTED = 'GET_GIFS_REQUESTED';
@@ -24,7 +24,7 @@ export function getGifsAsync() {
   return (dispatch) => {
     dispatch(getGifsRequested());
 
-    return s3.getBucketContents()
+    return getBucketContents()
       .then((gifs) => {
         dispatch(getGifsSucceeded(gifs));
       })

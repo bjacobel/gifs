@@ -1,41 +1,49 @@
-import { AWS } from '../constants';
+import AWS from 'aws-sdk-umd';
+
+import {
+  AUTHED_ROLE_ARN,
+  COGNITO_POOL,
+  REGION,
+  UNAUTHED_ROLE_ARN
+} from '../constants/aws';
 
 export const obtainAuthRole = (idToken) => {
   return new Promise((resolve, reject) => {
-    AWS.API.config.credentials = new AWS.API.CognitoIdentityCredentials({
-      IdentityPoolId: AWS.COGNITO_POOL
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: COGNITO_POOL
     });
 
-    Object.assign(AWS.API.config.credentials.params, {
-      RoleArn: AWS.AUTHED_ROLE_ARN,
+    Object.assign(AWS.config.credentials.params, {
+      RoleArn: AUTHED_ROLE_ARN,
       Logins: {
         'accounts.google.com': idToken
       }
     });
 
-    AWS.API.config.credentials.refresh((err) => {
+    AWS.config.credentials.refresh((err) => {
       if (err) {
         reject(err);
       }
     });
-    resolve(Object.assign({}, AWS.API.config.credentials.webIdentityCredentials, { authedWithGoogle: true }));
+    resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: true }));
   });
 };
 
 export const obtainUnauthedRole = () => {
   return new Promise((resolve, reject) => {
-    AWS.API.config.credentials = new AWS.API.CognitoIdentityCredentials({
-      RoleArn: AWS.UNAUTHED_ROLE_ARN,
-      IdentityPoolId: AWS.COGNITO_POOL
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      RoleArn: UNAUTHED_ROLE_ARN,
+      IdentityPoolId: COGNITO_POOL,
+      Region: REGION
     });
 
-    AWS.API.config.credentials.refresh((err) => {
+    AWS.config.credentials.refresh((err) => {
       if (err) {
         reject(err);
       }
     });
 
-    resolve(Object.assign({}, AWS.API.config.credentials.webIdentityCredentials, { authedWithGoogle: false }));
+    resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: false }));
   });
 };
 

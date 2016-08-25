@@ -6,7 +6,7 @@ import {
   rootURL,
   thumbURL
 } from '../constants';
-import * as clipboard from '../services/clipboard';
+import { copy } from '../services/clipboard';
 import { watchForSize } from '../actions/gifs';
 import {
   animateGif,
@@ -63,7 +63,7 @@ export default class GifWrapper extends Component {
       saveMostRecentAnimation(gif.id);
     };
     const disableMotion = () => { freezeGif(gif.id); };
-    const clip = () => { clipboard.copy(rootURL + gif.src); };
+    const clip = () => { copy(rootURL + gif.src); };
     const disableAndClip = () => { disableMotion(); clip(); };
 
     return (

@@ -2,7 +2,7 @@ import {
   getAllTags,
   addTag,
   deleteTag
-} from '../services/Dynamo';
+} from '../services/dynamo';
 
 // **********************
 // Get all tags
