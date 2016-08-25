@@ -1,3 +1,4 @@
+import { obtainCurrentRole } from '../services/cognito';
 import { getBucketContents } from '../services/s3';
 import { isGifVisible } from '../services/infinite';
 
@@ -21,10 +22,13 @@ function getGifsFailed(err) {
 }
 
 export function getGifsAsync() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(getGifsRequested());
 
-    return getBucketContents()
+    return obtainCurrentRole(getState().auth.google)
+      .then((authInfo) => {
+        getBucketContents(authInfo);
+      })
       .then((gifs) => {
         dispatch(getGifsSucceeded(gifs));
       })

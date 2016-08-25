@@ -1,11 +1,17 @@
 import AWS from 'aws-sdk-umd';
 import shortid from 'shortid';
 
-import DYNAMO_TABLE from '../constants/aws';
+import {
+  DYNAMO_TABLE,
+  REGION
+} from '../constants/aws';
 
-export const getAllTags = () => {
+export const getAllTags = (authInfo) => {
   return new Promise((resolve, reject) => {
-    const dynamo = new AWS.DynamoDB();
+    const dynamo = new AWS.DynamoDB({
+      region: REGION,
+      credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+    });
 
     dynamo.scan({
       TableName: DYNAMO_TABLE,
@@ -20,10 +26,11 @@ export const getAllTags = () => {
   });
 };
 
-export const addTag = (tag, id) => {
+export const addTag = (tag, id, authInfo) => {
   return new Promise((resolve, reject) => {
     const dynamo = new AWS.DynamoDB({
-      credentials: AWS.config.credentials
+      region: REGION,
+      credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
     });
 
     const uuid = shortid.generate();
@@ -50,10 +57,11 @@ export const addTag = (tag, id) => {
   });
 };
 
-export const deleteTag = (id) => {
+export const deleteTag = (id, authInfo) => {
   return new Promise((resolve, reject) => {
     const dynamo = new AWS.DynamoDB({
-      credentials: AWS.config.credentials
+      region: REGION,
+      credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
     });
     dynamo.deleteItem({
       TableName: DYNAMO_TABLE,

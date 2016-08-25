@@ -1,3 +1,4 @@
+import { obtainCurrentRole } from '../services/cognito';
 import {
   getAllTags,
   addTag,
@@ -26,10 +27,13 @@ export function getTagsFailed(err) {
 }
 
 export function getTagsAsync() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(getTagsRequested());
 
-    return getAllTags()
+    return obtainCurrentRole(getState().auth.google)
+      .then((authInfo) => {
+        getAllTags(authInfo);
+      })
       .then((tags) => {
         dispatch(getTagsSucceeded(tags));
       })
@@ -62,10 +66,13 @@ export function addTagFailed(err) {
 
 export function addTagAsync(tag) {
   return (dispatch, getState) => {
-    const { activeGif } = getState();
+    const { activeGif, auth } = getState();
     dispatch(addTagRequested(tag, activeGif));
 
-    return addTag(tag, activeGif)
+    return obtainCurrentRole(auth.google)
+      .then((authInfo) => {
+        addTag(tag, activeGif, authInfo);
+      })
       .then((tagDocument) => {
         dispatch(addTagSucceeded(tagDocument));
       })
@@ -98,10 +105,13 @@ export function deleteTagFailed(err) {
 
 export function deleteTagAsync(tag) {
   return (dispatch, getState) => {
-    const { activeGif } = getState();
+    const { activeGif, auth } = getState();
     dispatch(deleteTagRequested(tag, activeGif));
 
-    return deleteTag(tag)
+    return obtainCurrentRole(auth.google)
+      .then((authInfo) => {
+        deleteTag(tag, authInfo);
+      })
       .then((tagId) => {
         dispatch(deleteTagSucceeded(tagId, activeGif));
       })

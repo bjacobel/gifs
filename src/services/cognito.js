@@ -9,6 +9,7 @@ import {
 
 export const obtainAuthRole = (idToken) => {
   return new Promise((resolve, reject) => {
+    AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: COGNITO_POOL
     });
@@ -31,10 +32,10 @@ export const obtainAuthRole = (idToken) => {
 
 export const obtainUnauthedRole = () => {
   return new Promise((resolve, reject) => {
+    AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       RoleArn: UNAUTHED_ROLE_ARN,
-      IdentityPoolId: COGNITO_POOL,
-      Region: REGION
+      IdentityPoolId: COGNITO_POOL
     });
 
     AWS.config.credentials.refresh((err) => {

@@ -1,8 +1,14 @@
 import AWS from 'aws-sdk-umd';
-import { BUCKET } from '../constants/aws';
+import {
+  BUCKET,
+  REGION
+} from '../constants/aws';
 
-export function getBucketContents() {
-  const S3 = new AWS.S3();
+export function getBucketContents(authInfo) {
+  const S3 = new AWS.S3({
+    region: REGION,
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+  });
   const S3params = {
     Bucket: BUCKET
   };
