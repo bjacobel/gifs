@@ -43,7 +43,7 @@
     "style-loader": "^0.13.0"
   },
   "devDependencies": {
-    "babel-jest": "^14.1.0",
+    "babel-jest": "^15.0.0",
     "babel-plugin-react-transform": "^2.0.2",
     "coveralls": "^2.11.12",
     "enzyme": "^2.4.1",
@@ -51,7 +51,9 @@
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-jsx-a11y": "^0.6.2",
     "eslint-plugin-react": "^4.3.0",
-    "jest-cli": "^14.1.0",
+    "istanbul-lib-instrument": "^1.1.1",
+    "jest-cli": "^15.0.0",
+    "multimatch": "^2.1.0",
     "react-transform-hmr": "^1.0.4",
     "stylelint": "^7.1.0",
     "stylelint-config-standard": "^12.0.0",
@@ -59,7 +61,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "jest": {
-    "collectCoverage": true,
+    "automock": true,
     "mocksPattern": "(?:[\\/]|^)mocks[\\/]",
     "testRegex": "tests/.*/.*-test.js$",
     "unmockedModulePathPatterns": [

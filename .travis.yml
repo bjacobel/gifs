@@ -7,7 +7,7 @@ env:
   - NODE_ENV=development
 script:
   - npm run lint
-  - npm run test
+  - npm run test -- --coverage
 after_success:
   - cat coverage/lcov.info | coveralls
 before_deploy:

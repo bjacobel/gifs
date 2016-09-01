@@ -26,13 +26,22 @@ export const gifs = (state = [], action) => {
     });
   case GET_IMAGE_SIZE_SUCCEEDED:  // eslint-disable-line no-case-declarations
     const gif = state.find(x => x.id === action.payload.id && x.src === action.payload.src);
-    Object.assign(gif, {
-      height: action.payload.height,
-      width: action.payload.width,
-      observedHeight: action.payload.observedHeight,
-      observedWidth: action.payload.observedWidth
-    });
-    return state;
+    const gifIndex = state.indexOf(gif);
+
+    if (gifIndex >= 0) {
+      return [
+        ...state.slice(0, gifIndex),
+        Object.assign({}, gif, {
+          height: action.payload.height,
+          width: action.payload.width,
+          observedHeight: action.payload.observedHeight,
+          observedWidth: action.payload.observedWidth
+        }),
+        ...state.slice(gifIndex + 1, state.length)
+      ];
+    } else {
+      return state;
+    }
   default:
     return state;
   }

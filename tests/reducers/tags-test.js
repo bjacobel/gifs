@@ -229,7 +229,6 @@ describe('`tags` reducer', () => {
   });
 
   it('does nothing by default', () => {
-    const preState = { foo: 1 };
-    expect(tags(preState, {})).toEqual(preState);
+    expect(tags(undefined, {})).toEqual({});
   });
 });

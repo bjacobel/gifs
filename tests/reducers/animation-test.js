@@ -43,8 +43,7 @@ describe('animation reducer file', () => {
     });
 
     it('does nothing by default', () => {
-      const preState = { foo: 1 };
-      expect(animation(preState, {})).toEqual(preState);
+      expect(animation(undefined, {})).toEqual({});
     });
   });
 
@@ -59,8 +58,7 @@ describe('animation reducer file', () => {
     });
 
     it('does nothing by default', () => {
-      const preState = { foo: 1 };
-      expect(activeGif(preState, {})).toEqual(preState);
+      expect(activeGif(undefined, {})).toEqual(undefined);
     });
   });
 });

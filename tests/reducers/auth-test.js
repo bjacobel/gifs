@@ -87,7 +87,6 @@ describe('`auth` reducer', () => {
   });
 
   it('does nothing by default', () => {
-    const preState = { foo: 1 };
-    expect(auth(preState, {})).toEqual(preState);
+    expect(auth(undefined, {})).toEqual({});
   });
 });
