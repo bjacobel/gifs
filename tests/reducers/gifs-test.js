@@ -14,20 +14,109 @@ import {
 describe('gifs reducer file', () => {
   describe('`gifs` reducer', () => {
     describe(`with action type ${GET_GIFS_SUCCEEDED}`, () => {
-      it("ignores objects that don't end in .gif", () => {
+      const passToReducer = (state, ...data) => {
+        // the structure Amazon returns is a little obnoxious so a helper function here
+        return gifs(state, {
+          type: GET_GIFS_SUCCEEDED,
+          payload: {
+            gifs: {
+              Contents: data
+            }
+          }
+        });
+      };
 
+      it("ignores objects that don't end in .gif", () => {
+        expect(passToReducer([], {
+          Key: 'main.js',
+          LastModified: 1,
+          Size: '',
+          ETag: '"this is a double quoted string for some dumb reason"'
+        })).toEqual([]);
       });
 
       it('restructures the array passed', () => {
-
+        expect(passToReducer([], {
+          Key: 'first.gif',
+          LastModified: 1,
+          Size: '',
+          ETag: '"this is a double quoted string for some dumb reason"'
+        })).toEqual([{
+          src: 'first.gif',
+          date: 1,
+          size: '',
+          id: 'this is a double quoted string for some dumb reason'
+        }]);
       });
 
       it('sorts the gifs by date', () => {
-
+        expect(passToReducer([{
+          src: 'second.gif',
+          date: 2,
+          size: '',
+          id: 'this is another double quoted string for some dumb reason'
+        }],
+          {
+            Key: 'third.gif',
+            LastModified: 3,
+            Size: '',
+            ETag: '"this is a third double quoted string for some dumb reason"'
+          },
+          {
+            Key: 'first.gif',
+            LastModified: 1,
+            Size: '',
+            ETag: '"this is a double quoted string for some dumb reason"'
+          }
+        )).toEqual([
+          {
+            src: 'third.gif',
+            date: 3,
+            size: '',
+            id: 'this is a third double quoted string for some dumb reason'
+          },
+          {
+            src: 'second.gif',
+            date: 2,
+            size: '',
+            id: 'this is another double quoted string for some dumb reason'
+          },
+          {
+            src: 'first.gif',
+            date: 1,
+            size: '',
+            id: 'this is a double quoted string for some dumb reason'
+          }
+        ]);
       });
 
       it('merges results with existing gifs', () => {
-
+        expect(passToReducer([
+          {
+            src: 'second.gif',
+            date: 2,
+            size: '',
+            id: 'this is another double quoted string for some dumb reason'
+          }
+        ], {
+          Key: 'first.gif',
+          LastModified: 1,
+          Size: '',
+          ETag: '"this is a double quoted string for some dumb reason"'
+        })).toEqual([
+          {
+            src: 'second.gif',
+            date: 2,
+            size: '',
+            id: 'this is another double quoted string for some dumb reason'
+          },
+          {
+            src: 'first.gif',
+            date: 1,
+            size: '',
+            id: 'this is a double quoted string for some dumb reason'
+          }
+        ]);
       });
     });
 

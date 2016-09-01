@@ -6,8 +6,8 @@ import {
 
 export const gifs = (state = [], action) => {
   switch (action.type) {
-  case GET_GIFS_SUCCEEDED:
-    return action.payload.gifs.Contents.filter((gif) => {
+  case GET_GIFS_SUCCEEDED:   // eslint-disable-line no-case-declarations
+    const newGifs = action.payload.gifs.Contents.filter((gif) => {
       return gif.Key.slice(-4) === '.gif';
     }).map((gif) => {
       return {
@@ -16,17 +16,14 @@ export const gifs = (state = [], action) => {
         size: gif.Size,
         id: gif.ETag.slice(1, -1)
       };
-    }).sort((x, y) => {
-      if (x.date < y.date) {
-        return 1;
-      } else if (x.date > y.date) {
-        return -1;
-      }
-      return 0;
     });
+
+    // concatenate and deduplicate w. existing state array
+    return [...new Set(newGifs.concat(...state))]
+      .sort((x, y) => (x.date <= y.date ? 1 : -1));
   case GET_IMAGE_SIZE_SUCCEEDED:  // eslint-disable-line no-case-declarations
-    const gif = state.find(x => x.id === action.payload.id && x.src === action.payload.src);
-    const gifIndex = state.indexOf(gif);
+    const gifIndex = state.findIndex(x => x.id === action.payload.id && x.src === action.payload.src);
+    const gif = state[gifIndex];
 
     if (gifIndex >= 0) {
       return [
