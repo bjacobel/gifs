@@ -4,7 +4,7 @@
   "description": "Giftopia",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dashboard -- webpack-dev-server --hot --history-api-fallback --output-public-path /",
+    "start": "webpack-dev-server --hot --history-api-fallback --output-public-path /",
     "compile": "webpack --progress -pc",
     "test": "jest",
     "lint": "eslint . && stylelint src/stylesheets/*.css"
