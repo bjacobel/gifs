@@ -7,12 +7,12 @@ import {
 } from '../constants/aws';
 
 export const getAllTags = (authInfo) => {
-  return new Promise((resolve, reject) => {
-    const dynamo = new AWS.DynamoDB({
-      region: REGION,
-      credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
-    });
+  const dynamo = new AWS.DynamoDB({
+    region: REGION,
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+  });
 
+  return new Promise((resolve, reject) => {
     dynamo.scan({
       TableName: DYNAMO_TABLE,
       ProjectionExpression: 'gif_id,tag,id'
@@ -27,14 +27,14 @@ export const getAllTags = (authInfo) => {
 };
 
 export const addTag = (tag, id, authInfo) => {
+  const dynamo = new AWS.DynamoDB({
+    region: REGION,
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+  });
+
+  const uuid = shortid.generate();
+
   return new Promise((resolve, reject) => {
-    const dynamo = new AWS.DynamoDB({
-      region: REGION,
-      credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
-    });
-
-    const uuid = shortid.generate();
-
     dynamo.putItem({
       TableName: DYNAMO_TABLE,
       Item: {
@@ -58,11 +58,12 @@ export const addTag = (tag, id, authInfo) => {
 };
 
 export const deleteTag = (id, authInfo) => {
+  const dynamo = new AWS.DynamoDB({
+    region: REGION,
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+  });
+
   return new Promise((resolve, reject) => {
-    const dynamo = new AWS.DynamoDB({
-      region: REGION,
-      credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
-    });
     dynamo.deleteItem({
       TableName: DYNAMO_TABLE,
       Key: {

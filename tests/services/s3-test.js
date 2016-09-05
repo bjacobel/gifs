@@ -22,7 +22,7 @@ describe('S3 service', () => {
       expect(AWS.CognitoIdentityCredentials).lastCalledWith(authInfo.params);
       expect(AWS.S3).lastCalledWith({
         region: REGION,
-        credentials: { fake: 'aws creds' }
+        credentials: authInfo.params
       });
     });
 

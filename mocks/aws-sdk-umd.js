@@ -5,7 +5,21 @@ S3.prototype = {
   })
 };
 
+const DynamoDB = jest.fn();
+DynamoDB.prototype = {
+  scan: jest.fn((params, callback) => {
+    callback(null, { objects: [] });
+  }),
+  putItem: jest.fn((params, callback) => {
+    callback(null, params.item);
+  }),
+  deleteItem: jest.fn((id, callback) => {
+    callback(null, id);
+  })
+};
+
 export default {
-  S3,
-  CognitoIdentityCredentials: jest.fn(() => ({ fake: 'aws creds' }))
+  CognitoIdentityCredentials: jest.fn((authInfo) => authInfo),
+  DynamoDB,
+  S3
 };
