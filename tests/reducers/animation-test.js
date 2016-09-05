@@ -58,7 +58,7 @@ describe('animation reducer file', () => {
     });
 
     it('does nothing by default', () => {
-      expect(activeGif(undefined, {})).toEqual(undefined);
+      expect(activeGif(undefined, {})).toEqual(null);
     });
   });
 });

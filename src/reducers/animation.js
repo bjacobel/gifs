@@ -15,7 +15,7 @@ export const animation = (state = {}, action) => {
   }
 };
 
-export const activeGif = (state, action) => {
+export const activeGif = (state = null, action) => {
   switch (action.type) {
   case SAVE_ANIMATION:
     return action.payload.id;
