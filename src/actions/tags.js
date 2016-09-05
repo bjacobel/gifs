@@ -4,6 +4,7 @@ import {
   addTag,
   deleteTag
 } from '../services/dynamo';
+import { updateSearchIndexAsync } from './search';
 
 // **********************
 // Get all tags
@@ -36,6 +37,9 @@ export function getTagsAsync() {
       })
       .then((tags) => {
         dispatch(getTagsSucceeded(tags));
+      })
+      .then(() => {
+        dispatch(updateSearchIndexAsync());
       })
       .catch((err) => {
         dispatch(getTagsFailed(err));
@@ -76,6 +80,9 @@ export function addTagAsync(tag) {
       .then((tagDocument) => {
         dispatch(addTagSucceeded(tagDocument));
       })
+      .then(() => {
+        dispatch(updateSearchIndexAsync());
+      })
       .catch((err) => {
         dispatch(addTagFailed(err));
       });
@@ -114,6 +121,9 @@ export function deleteTagAsync(tag) {
       })
       .then((tagId) => {
         dispatch(deleteTagSucceeded(tagId, activeGif));
+      })
+      .then(() => {
+        dispatch(updateSearchIndexAsync());
       })
       .catch((err) => {
         dispatch(deleteTagFailed(err));

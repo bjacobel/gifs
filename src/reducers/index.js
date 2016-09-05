@@ -10,7 +10,10 @@ import {
   activeGif
 } from './animation';
 import auth from './auth';
-import searchIndex from './searchIndex';
+import {
+  searchIndex,
+  searchResults
+} from './search';
 
 export default combineReducers({
   auth,
@@ -18,6 +21,7 @@ export default combineReducers({
   animation,
   activeGif,
   searchIndex,
+  searchResults,
   tags,
   visible
 });

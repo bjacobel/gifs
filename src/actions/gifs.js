@@ -1,6 +1,7 @@
 import { obtainCurrentRole } from '../services/cognito';
 import { getBucketContents } from '../services/s3';
 import { isGifVisible } from '../services/infinite';
+import { updateSearchIndexAsync } from './search';
 
 export const GET_GIFS_REQUESTED = 'GET_GIFS_REQUESTED';
 export const GET_GIFS_FAILED = 'GET_GIFS_FAILED';
@@ -31,6 +32,9 @@ export function getGifsAsync() {
       })
       .then((gifs) => {
         dispatch(getGifsSucceeded(gifs));
+      })
+      .then(() => {
+        dispatch(updateSearchIndexAsync());
       })
       .catch((err) => {
         dispatch(getGifsFailed(err));
