@@ -5,6 +5,7 @@ const precss = require('precss');
 const postcssImport = require('postcss-import');
 const postcssFontMagician = require('postcss-font-magician');
 const stylelint = require('stylelint');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -55,7 +56,8 @@ const wpconfig = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
+    }),
+    new DashboardPlugin()
   ]
 };
 

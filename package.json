@@ -4,7 +4,7 @@
   "description": "Giftopia",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --history-api-fallback --output-public-path /",
+    "start": "webpack-dashboard -- webpack-dev-server --hot --history-api-fallback --output-public-path /",
     "compile": "webpack --progress -pc",
     "test": "jest",
     "lint": "eslint . && stylelint src/stylesheets/*.css"
@@ -58,6 +58,7 @@
     "stylelint": "^7.1.0",
     "stylelint-config-standard": "^12.0.0",
     "webpack": "^1.12.9",
+    "webpack-dashboard": "^0.1.8",
     "webpack-dev-server": "^1.14.1"
   },
   "jest": {
