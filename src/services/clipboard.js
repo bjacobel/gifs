@@ -1,13 +1,10 @@
 export const copy = (text) => {
-  const handler = (e) => {
-    e.preventDefault();
-    if (e.clipboardData) {
-      e.clipboardData.setData('text/plain', text);
-    }
-  };
-
-
-  document.addEventListener('copy', handler);
+  const input = document.createElement('input');
+  input.id = 'hidden-copy-element';
+  document.body.appendChild(input);
+  input.value = text;
+  input.focus();
+  input.setSelectionRange(0, text.length);
   document.execCommand('copy');
-  document.removeEventListener('copy', handler);
+  document.body.removeChild(input);
 };
