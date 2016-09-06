@@ -37,7 +37,6 @@ class TagBox extends Component {
 
       tagBoxContents = (
         <div>
-          <p className="gif-name">Select a gif to begin</p>
           <p><i>{ gifs.length } gifs, { flatTagList.length } tags</i></p>
         </div>
       );

@@ -18,7 +18,7 @@ export default class Gif extends Component {
       image.removeEventListener('load', this.onImageLoad);
     };
     this.startLoad = () => {
-      this.setState({ loading: true });
+      this.state = Object.assign({}, this.state, { loading: true });
     };
 
     watchForSize(image, id, name, document.querySelector('.column.gifs').scrollWidth);

@@ -5,7 +5,7 @@
   padding: $padding;
 
   /* fonts */
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font;
   font-size: $font-size;
   color: $black;
 

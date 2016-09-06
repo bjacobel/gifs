@@ -1,7 +1,8 @@
 @import 'vars.css';
-@import 'app.css';
 @import 'colors.css';
+@import 'app.css';
 @import 'gifs.css';
+@import 'search.css';
 @import 'tags.css';
 @import 'login.css';
 @import 'underline-animation.css';

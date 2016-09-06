@@ -7,6 +7,7 @@ import { getGifsAsync, updateVisibleGifs } from '../actions/gifs';
 const mapStateToProps = (state) => {
   return {
     gifs: state.gifs,
+    searchResults: state.searchResults,
     tags: state.tags,
     visible: state.visible
   };
@@ -59,9 +60,18 @@ class GifColumn extends Component {
   }
 
   render() {
+    const { gifs, searchResults } = this.props;
+    let filteredGifs = gifs;
+
+    if (searchResults.length > 0) {
+      filteredGifs = searchResults.map((result) => {
+        return gifs.find((gif) => result === gif.id);
+      });
+    }
+
     return (
       <div className="gif-column">
-        { this.props.gifs.map((gif, index) => this.renderGif(gif, index)) }
+        { filteredGifs.map((gif, index) => this.renderGif(gif, index)) }
       </div>
     );
   }

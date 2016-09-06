@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font;
   font-size: 14pt;
 }
 
@@ -15,12 +15,15 @@ body {
       width: 40%;
     }
 
-    &.tags {
-      .tag-box {
+    &.info {
+      .info-liner {
         position: fixed;
         top: 200px;
         right: $margin;
         width: calc(60% - $margin * 3);
+        background-color: $lightergrey;
+        border-radius: $radius;
+        padding: $padding;
       }
     }
   }
@@ -40,11 +43,11 @@ body {
         margin: 0;
       }
 
-      &.tags {
+      &.info {
         position: fixed;
         bottom: 0;
 
-        .tag-box {
+        .info-liner {
           width: 100%;
           top: unset;
           bottom: 0;

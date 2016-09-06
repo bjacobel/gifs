@@ -42,7 +42,6 @@ export const searchGifsAsync = (searchTerm) => {
 
     const { searchIndex } = getState();
 
-
     searchFor(searchTerm, searchIndex).then((searchResults) => {
       dispatch(searchGifsSucceeded(searchResults));
     });

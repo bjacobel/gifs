@@ -1,10 +1,9 @@
 .tag-box {
-  background-color: $lightergrey;
-  border-radius: $radius;
-  padding: $padding;
+  padding-top: $padding;
 
   .gif-name {
     font-size: $font-size;
+    padding-bottom: calc($padding / 4);
     position: relative;
     user-select: none;
     word-wrap: break-word;
@@ -90,7 +89,7 @@
         background-color: transparent;
         color: $white;
         font-size: 10pt;
-        font-family: 'Open Sans', sans-serif;
+        font-family: $font;
         width: 75px;
 
         &::placeholder {
