@@ -7,15 +7,8 @@ describe('clipboard service', () => {
     document.execCommand = jest.fn();
 
     it('copies passed text to the clipboard', () => {
-      copy();
-    });
-
-    it('calls the handler only once', () => {
-      copy();
-    });
-
-    it("removes the listener after it's done", () => {
-      copy();
+      // @TODO: actually implement this
+      copy('foo');
     });
   });
 });
