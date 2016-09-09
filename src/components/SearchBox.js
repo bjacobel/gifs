@@ -11,7 +11,7 @@ const mapDispatchToProps = {
   searchGifsAsync
 };
 
-export default class SearchBox extends Component {
+class SearchBox extends Component {
   search(event) {
     const { searchGifsAsync } = this.props;
 

@@ -14,7 +14,7 @@ const mapDispatchToProps = {
   getGoogleAuthAsync
 };
 
-export default class LoginButton extends Component {
+class LoginButton extends Component {
   render() {
     const { auth } = this.props;
 

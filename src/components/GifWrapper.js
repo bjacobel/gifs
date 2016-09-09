@@ -27,7 +27,7 @@ const mapDispatchToProps = {
   watchForSize
 };
 
-export default class GifWrapper extends Component {
+class GifWrapper extends Component {
   shouldComponentUpdate(nextProps) {
     // Only update if animation[this.id] changes
 

@@ -14,7 +14,7 @@ const mapDispatchToProps = {
   gotGoogleAuthInfo
 };
 
-export default class Router extends Component {
+class Router extends Component {
   componentWillMount() {
     if (window.location.pathname === '/googleAuth') {
       const authInfo = queryString.parse(window.location.hash);
