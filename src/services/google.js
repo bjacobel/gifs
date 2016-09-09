@@ -2,6 +2,7 @@ import queryString from 'query-string';
 import { USER_EMAIL } from '../constants';
 import {
   OAUTH_ENDPOINT,
+  EXPIRY_ENDPOINT,
   CLIENT_ID,
   SCOPES
 } from '../constants/google';
@@ -24,7 +25,13 @@ export const requestAccessToken = () => {
 export const parseGooglePostback = (callback) => {
   if (window.location.pathname === '/googleAuth') {
     const authInfo = queryString.parse(window.location.hash);
+    const { id_token } = authInfo;
     window.history.replaceState({}, null, '/');
-    callback(authInfo);
+    fetch(`${EXPIRY_ENDPOINT}?${queryString.stringify({ id_token })}`).then((response) => {
+      return response.json();
+    }).then((json) => {
+      const expires_at = (new Date()).getTime() + json.expires_in * 1000;  // eslint-disable-line camelcase
+      callback(Object.assign({}, authInfo, { expires_at }));
+    });
   }
 };

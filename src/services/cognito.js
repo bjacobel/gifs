@@ -49,7 +49,7 @@ export const obtainUnauthedRole = () => {
 };
 
 export const obtainCurrentRole = (googleAuthState) => {
-  if (googleAuthState && googleAuthState.id_token) {
+  if (googleAuthState && googleAuthState.id_token && googleAuthState.expires_at > (new Date()).getTime()) {
     return obtainAuthRole(googleAuthState.id_token);
   } else {
     return obtainUnauthedRole();
