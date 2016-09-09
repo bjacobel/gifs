@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 
 import { gotGoogleAuthInfo } from '../actions/auth.js';
+import { parseGooglePostback } from '../services/google.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -16,11 +16,7 @@ const mapDispatchToProps = {
 
 class Router extends Component {
   componentWillMount() {
-    if (window.location.pathname === '/googleAuth') {
-      const authInfo = queryString.parse(window.location.hash);
-      this.props.gotGoogleAuthInfo(authInfo);
-      window.history.replaceState({}, null, '/');
-    }
+    parseGooglePostback(this.props.gotGoogleAuthInfo);
   }
 
   render() {

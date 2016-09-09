@@ -20,3 +20,11 @@ export const requestAccessToken = () => {
     resolve(window.location.assign(authURL));
   });
 };
+
+export const parseGooglePostback = (callback) => {
+  if (window.location.pathname === '/googleAuth') {
+    const authInfo = queryString.parse(window.location.hash);
+    window.history.replaceState({}, null, '/');
+    callback(authInfo);
+  }
+};
