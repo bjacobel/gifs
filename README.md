@@ -1,6 +1,6 @@
 # gifs
 
-[![Build Status](https://travis-ci.org/bjacobel/gifs.svg?branch=master)](https://travis-ci.org/bjacobel/gifs) [![Coverage Status](https://coveralls.io/repos/github/bjacobel/gifs/badge.svg?branch=master)](https://coveralls.io/github/bjacobel/gifs?branch=master)
+[![Build Status](https://travis-ci.org/bjacobel/gifs.svg?branch=master)](https://travis-ci.org/bjacobel/gifs) [![codecov](https://codecov.io/gh/bjacobel/gifs/branch/master/graph/badge.svg)](https://codecov.io/gh/bjacobel/gifs)
 
 React app for storing & searching gifs.
 
