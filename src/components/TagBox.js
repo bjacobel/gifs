@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Tag from './Tag';
 import { getTagsAsync } from '../actions/tags';
-import { rootURL } from '../constants';
+import { ROOT_URL } from '../constants';
 import { copy } from '../services/clipboard';
 
 function mapStateToProps(state) {
@@ -27,7 +27,7 @@ class TagBox extends Component {
     const { gifs, tags } = this.props;
     const activeGifId = this.props.activeGif;
     const activeGif = gifs.find(gif => gif.id === activeGifId);
-    const clip = () => { copy(rootURL + activeGif.src); };
+    const clip = () => { copy(ROOT_URL + activeGif.src); };
 
     let tagBoxContents;
 
@@ -55,7 +55,7 @@ class TagBox extends Component {
         <div>
           <p className="gif-name copy-icon" onMouseUp={ clip }>
             <span className="sliding-ul">
-              <span className="lightgrey">{ rootURL }</span>
+              <span className="lightgrey">{ ROOT_URL }</span>
               { activeGif.src }
             </span>
           </p>

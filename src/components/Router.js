@@ -16,7 +16,16 @@ const mapDispatchToProps = {
 
 class Router extends Component {
   componentWillMount() {
-    parseGooglePostback(this.props.gotGoogleAuthInfo);
+    switch (window.location.pathname) {
+    case '/googleAuth':
+      parseGooglePostback(this.props.gotGoogleAuthInfo);
+      break;
+    case '/error':
+      alert(window.location.hash);  // eslint-disable-line no-alert
+      break;
+    default:
+      // nothing
+    }
   }
 
   render() {

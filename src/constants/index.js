@@ -1,4 +1,4 @@
-export const showDevTools = !process.env.production;
-export const rootURL = 'https://gifs.bjacobel.com/';
-export const thumbURL = 'https://gifthumbs.bjacobel.com/';
-export const USER_EMAIL = 'bjacobel@gmail.com';
+export const SHOW_DEV_TOOLS = !process.env.production;
+export const ROOT_DOMAIN = 'bjacobel.com';
+export const ROOT_URL = `https://gifs.${ROOT_DOMAIN}/`;
+export const THUMB_URL = `https://gifthumbs.${ROOT_DOMAIN}/`;
