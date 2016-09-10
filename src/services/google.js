@@ -1,10 +1,12 @@
 import queryString from 'query-string';
-import { USER_EMAIL } from '../constants';
+import { ROOT_DOMAIN } from '../constants';
 import {
   OAUTH_ENDPOINT,
+  EXPIRY_ENDPOINT,
   CLIENT_ID,
   SCOPES
 } from '../constants/google';
+import { redirectToError } from './error';
 
 export const requestAccessToken = () => {
   return new Promise((resolve) => {
@@ -14,9 +16,29 @@ export const requestAccessToken = () => {
       client_id: CLIENT_ID,
       redirect_uri: `${window.location.origin}/googleAuth`,
       scope: SCOPES,
-      prompt: 'select_account',
-      login_hint: USER_EMAIL
+      hd: ROOT_DOMAIN
     })}`;
+
     resolve(window.location.assign(authURL));
+  });
+};
+
+export const parseGooglePostback = (callback) => {
+  const authInfo = queryString.parse(window.location.hash);
+  const { id_token } = authInfo;
+
+  window.history.replaceState({}, null, '/');
+
+  fetch(`${EXPIRY_ENDPOINT}?${queryString.stringify({ id_token })}`).then((response) => {
+    return response.json();
+  }).then((json) => {
+    if (json.email.split('@')[1] !== ROOT_DOMAIN) {
+      throw new Error(`Email domain ${json.email.split('@')[1]} didn't match required domain ${ROOT_DOMAIN}`);
+    }
+
+    const expires_at = json.exp * 1000;  // eslint-disable-line camelcase
+    callback(Object.assign({}, authInfo, { expires_at }));
+  }).catch((err) => {
+    redirectToError(err);
   });
 };

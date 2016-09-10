@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import Gif from './Gif';
 import {
-  rootURL,
-  thumbURL
+  ROOT_URL,
+  THUMB_URL
 } from '../constants';
 import { copy } from '../services/clipboard';
 import { watchForSize } from '../actions/gifs';
@@ -54,7 +54,7 @@ class GifWrapper extends Component {
     } = this.props;
 
     const enabled = animation[gif.id] || false;
-    const gifURL = enabled ? `${rootURL}${gif.src}` : `${thumbURL}${gif.src}`;
+    const gifURL = enabled ? `${ROOT_URL}${gif.src}` : `${THUMB_URL}${gif.src}`;
     const image = new Image();
     image.src = gifURL;
 
@@ -63,7 +63,7 @@ class GifWrapper extends Component {
       saveMostRecentAnimation(gif.id);
     };
     const disableMotion = () => { freezeGif(gif.id); };
-    const clip = () => { copy(rootURL + gif.src); };
+    const clip = () => { copy(ROOT_URL + gif.src); };
     const disableAndClip = () => { disableMotion(); clip(); };
 
     return (

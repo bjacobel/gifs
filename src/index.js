@@ -9,14 +9,14 @@ import persistState from 'redux-localstorage';
 import './stylesheets';
 import Main from './components/Main';
 import reducer from './reducers';
-import { showDevTools } from './constants';
+import { SHOW_DEV_TOOLS } from './constants';
 
 const middlewares = [
   applyMiddleware(thunk),
   persistState('auth')
 ];
 
-if (showDevTools) {
+if (SHOW_DEV_TOOLS) {
   middlewares.push(window.devToolsExtension ? window.devToolsExtension() : f => f);
 }
 
