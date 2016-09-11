@@ -27,7 +27,6 @@ class TagBox extends Component {
     const { gifs, tags } = this.props;
     const activeGifId = this.props.activeGif;
     const activeGif = gifs.find(gif => gif.id === activeGifId);
-    const clip = () => { copy(ROOT_URL + activeGif.src); };
 
     let tagBoxContents;
 
@@ -53,7 +52,13 @@ class TagBox extends Component {
 
       tagBoxContents = (
         <div>
-          <p className="gif-name copy-icon" onMouseUp={ clip }>
+          <input
+            type="text"
+            className="gif-fullname-hidden"
+            value={ ROOT_URL + activeGif.src }
+            readOnly
+          />
+          <p className="gif-name copy-icon" onMouseUp={ () => copy() }>
             <span className="sliding-ul-container">
               <span className="sliding-ul">
                 <span className="lightgrey">{ ROOT_URL }</span>

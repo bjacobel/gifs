@@ -62,13 +62,15 @@ class GifWrapper extends Component {
       saveMostRecentAnimation(gif.id);
     };
     const disableMotion = () => { freezeGif(gif.id); };
+    const toggleMotion = () => {
+      enabled ? disableMotion() : enableMotion();
+    };
 
     return (
       <div className="gif-wrapper"
         onMouseOver={ enableMotion }
         onMouseOut={ disableMotion }
-        onTouchStart={ enableMotion }
-        onTouchEnd={ disableMotion }
+        onTouchEnd={ toggleMotion }
       >
         <Gif
           image={ image }

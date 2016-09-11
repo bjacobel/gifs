@@ -1,13 +1,9 @@
-.search-box {
-  border-bottom: 1px solid $lightgrey;
-  padding-bottom: $padding;
-
-  input {
-    width: 100%;
-    font-size: $font-size;
-    font-family: $font;
-    padding: calc($padding / 2);
-    border-radius: $radius;
-    border: none;
-  }
+.search-box input {
+  width: 100%;
+  font-size: $font-size;
+  font-family: $font;
+  padding: calc($padding / 3) calc($padding / 2);
+  border-radius: $radius;
+  border: none;
+  appearance: none;
 }
