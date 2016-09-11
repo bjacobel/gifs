@@ -54,9 +54,11 @@ class TagBox extends Component {
       tagBoxContents = (
         <div>
           <p className="gif-name copy-icon" onMouseUp={ clip }>
-            <span className="sliding-ul">
-              <span className="lightgrey">{ ROOT_URL }</span>
-              { activeGif.src }
+            <span className="sliding-ul-container">
+              <span className="sliding-ul">
+                <span className="lightgrey">{ ROOT_URL }</span>
+                { activeGif.src }
+              </span>
             </span>
           </p>
           <p className="tag-list">

@@ -6,7 +6,6 @@ import {
   ROOT_URL,
   THUMB_URL
 } from '../constants';
-import { copy } from '../services/clipboard';
 import { watchForSize } from '../actions/gifs';
 import {
   animateGif,
@@ -63,16 +62,13 @@ class GifWrapper extends Component {
       saveMostRecentAnimation(gif.id);
     };
     const disableMotion = () => { freezeGif(gif.id); };
-    const clip = () => { copy(ROOT_URL + gif.src); };
-    const disableAndClip = () => { disableMotion(); clip(); };
 
     return (
       <div className="gif-wrapper"
         onMouseOver={ enableMotion }
         onMouseOut={ disableMotion }
         onTouchStart={ enableMotion }
-        onTouchEnd={ disableAndClip }
-        onMouseUp={ clip }
+        onTouchEnd={ disableMotion }
       >
         <Gif
           image={ image }
