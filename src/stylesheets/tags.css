@@ -1,6 +1,11 @@
 .tag-box {
   padding-top: $padding;
 
+  .gif-fullname-hidden {
+    opacity: 0;
+    position: absolute;
+  }
+
   .gif-name {
     font-size: $font-size;
     padding-bottom: calc($padding / 4);
@@ -21,6 +26,7 @@
       right: 0;
       height: 24px;
       width: 24px;
+      pointer-events: none;
     }
 
     &:hover {

@@ -29,18 +29,25 @@
     background: $color;
     transition: width $speed ease;
   }
+}
+
+.sliding-ul-container {
+  width: 100%;
+  display: block;
 
   &:active {
-    &::before {
-      width: 100%;
-      background: $color;
-      transition: width $speed ease;
-    }
+    .sliding-ul {
+      &::before {
+        width: 100%;
+        background: $color;
+        transition: width $speed ease;
+      }
 
-    &::after {
-      width: 100%;
-      background: transparent;
-      transition: all 0s ease;
+      &::after {
+        width: 100%;
+        background: transparent;
+        transition: all 0s ease;
+      }
     }
   }
 }

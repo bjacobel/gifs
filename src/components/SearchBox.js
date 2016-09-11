@@ -23,6 +23,7 @@ class SearchBox extends Component {
       <div className="search-box">
         <input
           placeholder="Search"
+          type="search"
           onChange={ (event) => this.search(event) }
         ></input>
       </div>
