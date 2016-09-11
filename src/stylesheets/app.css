@@ -29,36 +29,6 @@ body {
   }
 }
 
-@media (max-width: 720px) {
-  body: {
-    font-size: 11pt;
-  }
-
-  .column-container {
-    width: 100%;
-
-    .column {
-      &.gifs {
-        width: 100%;
-        margin: 0;
-      }
-
-      &.info {
-        position: fixed;
-        bottom: 0;
-
-        .info-liner {
-          width: 100%;
-          top: unset;
-          bottom: 0;
-          right: 0;
-          border-radius: 0;
-        }
-      }
-    }
-  }
-}
-
 * {
   box-sizing: border-box;
 }
