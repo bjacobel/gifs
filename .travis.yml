@@ -8,13 +8,17 @@ cache:
 env:
   global:
     - NODE_ENV=production
+before_install:
+  - npm install -g yarn
+install:
+  - yarn
 script:
-  - npm run lint
-  - npm run test -- --coverage
+  - yarn run lint
+  - yarn run test -- --coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-  - npm run compile
+  - yarn run compile
   - mkdir -p dist
   - cp index.html dist/
 deploy:
