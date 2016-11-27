@@ -1,7 +1,5 @@
 import { isGifVisible } from '../../src/services/infinite';
 
-jest.unmock('../../src/services/infinite.js');
-
 describe('infinite scrolling helper services', () => {
   describe('isGifVisible', () => {
     const gifStack = [{ observedHeight: 100 }, { observedHeight: 200 }, { observedHeight: 300 }];

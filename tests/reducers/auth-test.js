@@ -6,8 +6,6 @@ import {
 } from '../../src/actions/auth';
 import auth from '../../src/reducers/auth';
 
-jest.unmock('../../src/reducers/auth');
-
 describe('`auth` reducer', () => {
   it(`sets isAuthed to \`authedWithGoogle\` and adds auth info to the cognito key on ${COGNITO_AUTH_SUCCEEDED}`, () => {
     expect(auth({

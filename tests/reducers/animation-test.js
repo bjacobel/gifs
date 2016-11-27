@@ -8,8 +8,6 @@ import {
   activeGif,
 } from '../../src/reducers/animation';
 
-jest.unmock('../../src/reducers/animation');
-
 describe('animation reducer file', () => {
   describe('`animation` reducer', () => {
     it(`sets the state subkey you pass to false if you pass ${FREEZE_GIF}`, () => {

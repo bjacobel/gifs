@@ -1,7 +1,5 @@
 import { copy } from '../../src/services/clipboard';
 
-jest.unmock('../../src/services/clipboard');
-
 describe('clipboard service', () => {
   describe('clipboard.copy', () => {
     Object.assign(document, {

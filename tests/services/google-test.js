@@ -3,10 +3,6 @@ import {
   OAUTH_ENDPOINT,
 } from '../../src/constants/google';
 
-jest.unmock('../../src/services/google');
-jest.unmock('../../src/constants/google');
-jest.unmock('querystring');
-
 describe('Google auth service', () => {
   describe('requestAccessToken', () => {
     window.location.assign = jest.fn();

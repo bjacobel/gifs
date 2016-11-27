@@ -8,9 +8,6 @@ import {
   FOUND_VISIBLE_GIFS,
 } from '../../src/actions/gifs';
 
-jest.unmock('../../src/reducers/gifs');
-jest.unmock('../../src/actions/gifs');
-
 describe('gifs reducer file', () => {
   describe('`gifs` reducer', () => {
     describe(`with action type ${GET_GIFS_SUCCEEDED}`, () => {

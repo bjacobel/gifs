@@ -59,8 +59,12 @@
     "webpack-dev-server": "^1.14.1"
   },
   "jest": {
-    "automock": true,
     "mocksPattern": "(?:[\\/]|^)mocks[\\/]",
+    "moduleNameMapper": {
+      "aws-sdk/global": "<rootDir>/mocks/aws-sdk/global.js",
+      "aws-sdk/clients/s3": "<rootDir>/mocks/aws-sdk/clients/s3.js",
+      "aws-sdk/clients/dynamodb": "<rootDir>/mocks/aws-sdk/clients/dynamodb.js"
+    },
     "testRegex": "tests/.*/.*-test.js$",
     "unmockedModulePathPatterns": [
       "node_modules/react/",

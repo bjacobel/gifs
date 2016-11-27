@@ -5,9 +5,6 @@ import {
   DELETE_TAG_SUCCEEDED,
 } from '../../src/actions/tags';
 
-jest.unmock('../../src/reducers/tags');
-jest.unmock('../../src/actions/tags');
-
 describe('`tags` reducer', () => {
   describe(`with action type ${GET_TAGS_SUCCEEDED}`, () => {
     it("creates a new entry in the tags state if the id doesn't exist", () => {
