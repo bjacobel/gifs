@@ -32,8 +32,8 @@ class GifWrapper extends Component {
 
     const { animation, gif } = this.props;
 
-    if (nextProps.animation[gif.id]) {
-      if (animation[gif.id]) {
+    if (gif.id in nextProps.animation) {
+      if (gif.id in animation) {
         return animation[gif.id] !== nextProps.animation[gif.id];
       }
       return true;
