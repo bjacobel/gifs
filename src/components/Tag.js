@@ -85,7 +85,9 @@ class Tag extends Component {
           { content }
           { addOrDel }
         </span>
-        <span className="break" />
+        { /* eslint-disable react/self-closing-comp */ }
+        <span className="break"> </span>
+        { /* eslint-enable react/self-closing-comp */ }
       </span>
     );
   }
