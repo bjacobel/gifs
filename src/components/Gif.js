@@ -2,36 +2,60 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
 export default class Gif extends Component {
+  constructor() {
+    super();
+    this.startLoad = this.startLoad.bind(this);
+    this.finishLoad = this.finishLoad.bind(this);
+  }
+
   componentWillMount() {
     const { watchForSize, id, name, image } = this.props;
 
-    this.state = {
+    this.setState({
       loaded: false,
       loading: false,
-    };
-
-    this.onImageLoad = () => {
-      this.setState({
-        loaded: true,
-        loading: false,
-      });
-      image.removeEventListener('load', this.onImageLoad);
-    };
-    this.startLoad = () => {
-      this.state = Object.assign({}, this.state, { loading: true });
-    };
+    });
 
     watchForSize(image, id, name, document.querySelector('.column.gifs').scrollWidth);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.image.src.startsWith('https://gifs.')) {
-      if (nextProps.image.complete) {
-        this.onImageLoad();
+      // Keep a handle to the larger image (gif), so we can cancel its load and events on it
+      this.gif = nextProps.image;
+
+      if (this.gif.complete) {
+        this.finishLoad();
       } else {
-        nextProps.image.addEventListener('load', this.onImageLoad);
+        this.gif.addEventListener('load', this.finishLoad, { once: true });
       }
     }
+  }
+
+  componentWillUnmount() {
+    const { image } = this.props;
+    image.removeEventListener('load', this.finishLoad);
+
+    if (this.gif) {
+      console.log(`killing ${this.gif.src}`);
+      this.gif.removeEventListener('load', this.finishLoad);
+      this.gif.src = '//:0';
+    }
+  }
+
+  startLoad() {
+    this.setState({ loading: true });
+  }
+
+  finishLoad() {
+    const { image } = this.props;
+
+    this.setState({
+      loaded: true,
+      loading: false,
+    });
+
+    image.removeEventListener('load', this.finishLoad);
   }
 
   render() {
