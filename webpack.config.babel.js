@@ -31,11 +31,15 @@ const wpconfig = {
         test: /\.css$/,
         loader: isProd ?
           ExtractTextPlugin.extract('style', 'css!postcss') :
-          'style!css?sourceMap&!postcss',
+          'style!css?sourceMap!postcss',
       },
       {
-        test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,
-        loader: 'file-loader',
+        test: /\.woff(2)?(\?[a-z0-9=]+)?$/,
+        loader: 'url?limit=64000',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?[a-z0-9=]+)?$/,
+        loader: 'file',
       },
     ],
   },
