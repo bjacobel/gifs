@@ -1,10 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const precss = require('precss');
-const postcssImport = require('postcss-import');
-const postcssFontMagician = require('postcss-font-magician');
-const stylelint = require('stylelint');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -28,25 +24,20 @@ const wpconfig = {
         loader: 'babel',
       },
       {
+        test: /.json$/,
+        loader: 'json-loader',
+      },
+      {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader',
+        loader: isProd ?
+          ExtractTextPlugin.extract('style', 'css!postcss') :
+          'style!css?sourceMap&!postcss',
       },
       {
         test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,
         loader: 'file-loader',
       },
     ],
-  },
-  postcss(wp) {
-    return [
-      stylelint,
-      postcssImport({
-        addDependencyTo: wp,
-      }),
-      precss,
-      postcssFontMagician,
-      autoprefixer({ browsers: ['last 2 versions'] }),
-    ];
   },
   resolve: {
     extensions: ['', '.js', '.json', '.css'],
@@ -57,10 +48,31 @@ const wpconfig = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
   ],
+  devServer: {
+    hot: !isProd,
+    publicPath: '/',
+    historyApiFallback: true,
+  },
 };
 
 if (!isProd) {
-  wpconfig.entry.main = ['webpack/hot/dev-server', ...wpconfig.entry.main];
+  wpconfig.entry.main = [
+    'webpack-dev-server/client',
+    'webpack/hot/only-dev-server',
+    ...wpconfig.entry.main,
+  ];
+
+  wpconfig.plugins = [
+    new webpack.HotModuleReplacementPlugin(),
+    ...wpconfig.plugins,
+  ];
+} else {
+  wpconfig.plugins = [
+    new ExtractTextPlugin('[name].css'),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(true),
+    ...wpconfig.plugins,
+  ];
 }
 
 module.exports = wpconfig;

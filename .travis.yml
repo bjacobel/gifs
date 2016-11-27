@@ -6,7 +6,8 @@ cache:
   directories:
   - node_modules
 env:
-  - NODE_ENV=development
+  global:
+    - NODE_ENV=production
 script:
   - npm run lint
   - npm run test -- --coverage
@@ -14,9 +15,9 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_deploy:
   - cd node_modules/aws-sdk-umd && npm install --only=dev && AWS_SERVICES=s3,dynamodb npm run build && cd ../../
-  - NODE_ENV=production npm run compile
+  - npm run compile
   - mkdir -p dist
-  - cp index-prod.html dist/index.html
+  - cp index.html dist/
 deploy:
   provider: s3
   region: us-east-1
