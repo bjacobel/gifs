@@ -1,4 +1,5 @@
-import AWS from 'aws-sdk-umd';
+import AWS from 'aws-sdk/global';
+import AWSDynamoDB from 'aws-sdk/clients/dynamodb';
 import shortid from 'shortid';
 
 import {
@@ -7,7 +8,7 @@ import {
 } from '../constants/aws';
 
 export const getAllTags = (authInfo) => {
-  const dynamo = new AWS.DynamoDB({
+  const dynamo = new AWSDynamoDB({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
@@ -27,7 +28,7 @@ export const getAllTags = (authInfo) => {
 };
 
 export const addTag = (tag, id, authInfo) => {
-  const dynamo = new AWS.DynamoDB({
+  const dynamo = new AWSDynamoDB({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
@@ -58,7 +59,7 @@ export const addTag = (tag, id, authInfo) => {
 };
 
 export const deleteTag = (id, authInfo) => {
-  const dynamo = new AWS.DynamoDB({
+  const dynamo = new AWSDynamoDB({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });

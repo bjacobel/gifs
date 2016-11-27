@@ -14,7 +14,7 @@
   "private": false,
   "repository": "http://github.com/bjacobel/gifs",
   "dependencies": {
-    "aws-sdk-umd": "^0.0.2",
+    "aws-sdk": "^2.7.7",
     "classnames": "^2.2.3",
     "fuse.js": "^2.5.0",
     "query-string": "^4.2.2",

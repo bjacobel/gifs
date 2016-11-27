@@ -14,7 +14,6 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-  - cd node_modules/aws-sdk-umd && npm install --only=dev && AWS_SERVICES=s3,dynamodb npm run build && cd ../../
   - npm run compile
   - mkdir -p dist
   - cp index.html dist/

@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk-umd';
+import AWS from 'aws-sdk/global';
 
 import {
   AUTHED_ROLE_ARN,
