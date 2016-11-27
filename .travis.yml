@@ -9,7 +9,7 @@ env:
   global:
     - NODE_ENV=production
 before_install:
-  - npm install -g yarn
+  - npm install -g yarnpkg
 install:
   - yarn
 script:
