@@ -1,4 +1,6 @@
 import queryString from 'query-string';
+import 'whatwg-fetch';
+
 import { ROOT_DOMAIN } from '../constants';
 import {
   OAUTH_ENDPOINT,
