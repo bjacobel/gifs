@@ -28,8 +28,10 @@ class Tag extends Component {
       content,
       id,
       meta,
-      addTagAsync,  // eslint-disable-line no-shadow
-      deleteTagAsync,  // eslint-disable-line no-shadow
+      /* eslint-disable no-shadow */
+      addTagAsync,
+      deleteTagAsync,
+      /* eslint-enable no-shadow */
       auth,
     } = this.props;
 
