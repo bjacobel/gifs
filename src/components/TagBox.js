@@ -42,7 +42,7 @@ class TagBox extends Component {
     } else {
       let tagList = null;
 
-      if (tags[activeGifId]) {
+      if (activeGifId in tags) {
         tagList = tags[activeGifId].map((tag) => {
           return (
             <Tag key={ tag.id } id={ tag.id } content={ tag.text } />
