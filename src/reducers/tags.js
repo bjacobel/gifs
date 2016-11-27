@@ -5,7 +5,7 @@ import {
 } from '../actions/tags';
 
 const addToState = (state, newKey, newData) => {
-  if (state.newKey) {
+  if (newKey in state) {
     return Object.assign({}, state, {
       [newKey]: state[newKey].concat(newData),
     });
