@@ -1,6 +1,6 @@
 import {
   updateIndex,
-  searchFor
+  searchFor,
 } from '../services/search';
 
 export const UPDATE_INDEX_INITIATED = 'UPDATE_INDEX_INITIATED';

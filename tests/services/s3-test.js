@@ -1,11 +1,14 @@
-jest.unmock('../../src/services/s3');
+import AWS from 'aws-sdk/global';
+import AWSS3 from 'aws-sdk/clients/s3';
 
-import AWS from 'aws-sdk-umd';
 import {
   REGION,
-  BUCKET
+  BUCKET,
 } from '../../src/constants/aws';
 import { getBucketContents } from '../../src/services/s3';
+
+jest.mock('aws-sdk/global');
+jest.mock('aws-sdk/clients/s3');
 
 describe('S3 service', () => {
   describe('getBucketContents', () => {
@@ -13,22 +16,22 @@ describe('S3 service', () => {
       const authInfo = {
         params: {
           username: 'foo',
-          password: 'bar'
-        }
+          password: 'bar',
+        },
       };
 
       getBucketContents(authInfo);
 
       expect(AWS.CognitoIdentityCredentials).lastCalledWith(authInfo.params);
-      expect(AWS.S3).lastCalledWith({
+      expect(AWSS3).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
     it('calls S3.listObjects with the bucket', () => {
       getBucketContents({ params: {} });
-      expect(AWS.S3.prototype.listObjects).lastCalledWith({ Bucket: BUCKET }, jasmine.any(Function));
+      expect(AWSS3.prototype.listObjects).lastCalledWith({ Bucket: BUCKET }, jasmine.any(Function));
     });
 
     it('returns a promise that resolves with the data S3.listObjects callsback with', () => {
@@ -39,7 +42,7 @@ describe('S3 service', () => {
 
     it('returns a promise that rejects with the error S3.listObjects callsback with', () => {
       const err = { error: 'ya dun goofed' };
-      AWS.S3.prototype.listObjects.mockImplementationOnce((params, callback) => callback(err));
+      AWSS3.prototype.listObjects.mockImplementationOnce((params, callback) => callback(err));
 
       return getBucketContents({ params: {} }).catch((s3Error) => {
         expect(s3Error).toEqual(err);

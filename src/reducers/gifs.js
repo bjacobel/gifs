@@ -1,7 +1,7 @@
 import {
   GET_GIFS_SUCCEEDED,
   GET_IMAGE_SIZE_SUCCEEDED,
-  FOUND_VISIBLE_GIFS
+  FOUND_VISIBLE_GIFS,
 } from '../actions/gifs';
 
 export const gifs = (state = [], action) => {
@@ -14,7 +14,7 @@ export const gifs = (state = [], action) => {
         src: gif.Key,
         date: gif.LastModified,
         size: gif.Size,
-        id: gif.ETag.slice(1, -1)
+        id: gif.ETag.slice(1, -1),
       };
     });
 
@@ -32,9 +32,9 @@ export const gifs = (state = [], action) => {
           height: action.payload.height,
           width: action.payload.width,
           observedHeight: action.payload.observedHeight,
-          observedWidth: action.payload.observedWidth
+          observedWidth: action.payload.observedWidth,
         }),
-        ...state.slice(gifIndex + 1, state.length)
+        ...state.slice(gifIndex + 1, state.length),
       ];
     } else {
       return state;
@@ -49,7 +49,7 @@ export const visible = (state = {}, action) => {
   case FOUND_VISIBLE_GIFS:
     return {
       start: action.payload.visibleLowRange,
-      end: action.payload.visibleHighRange
+      end: action.payload.visibleHighRange,
     };
   default:
     return state;

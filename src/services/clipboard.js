@@ -1,4 +1,4 @@
-export const copy = () => {
+export const copy = () => {  // eslint-disable-line import/prefer-default-export
   document.getSelection().removeAllRanges();
 
   const copyInput = document.querySelector('.gif-fullname-hidden');

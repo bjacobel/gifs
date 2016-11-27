@@ -2,7 +2,7 @@ import { obtainCurrentRole } from '../services/cognito';
 import {
   getAllTags,
   addTag,
-  deleteTag
+  deleteTag,
 } from '../services/dynamo';
 import { updateSearchIndexAsync } from './search';
 

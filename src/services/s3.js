@@ -1,16 +1,17 @@
-import AWS from 'aws-sdk-umd';
+import AWS from 'aws-sdk/global';
+import AWSS3 from 'aws-sdk/clients/s3';
 import {
   BUCKET,
-  REGION
+  REGION,
 } from '../constants/aws';
 
-export function getBucketContents(authInfo) {
-  const S3 = new AWS.S3({
+export function getBucketContents(authInfo) {  // eslint-disable-line import/prefer-default-export
+  const S3 = new AWSS3({
     region: REGION,
-    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
   const S3params = {
-    Bucket: BUCKET
+    Bucket: BUCKET,
   };
 
   return new Promise((resolve, reject) => {

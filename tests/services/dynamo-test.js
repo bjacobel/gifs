@@ -1,41 +1,41 @@
-jest.unmock('../../src/constants/aws');
-jest.unmock('../../src/services/dynamo');
-
-import AWS from 'aws-sdk-umd';
+import AWSDynamoDB from 'aws-sdk/clients/dynamodb';
 import shortid from 'shortid';
 
 import {
   getAllTags,
   addTag,
-  deleteTag
+  deleteTag,
 } from '../../src/services/dynamo';
 import {
   DYNAMO_TABLE,
-  REGION
+  REGION,
 } from '../../src/constants/aws';
+
+jest.mock('aws-sdk/clients/dynamodb');
+jest.mock('shortid');
 
 describe('Dynamo service', () => {
   describe('getAllTags', () => {
     it('creates a new Dynamo client with authInfo', () => {
       const authInfo = {
         params: {
-          username: 'password'
-        }
+          username: 'password',
+        },
       };
 
       getAllTags(authInfo);
 
-      expect(AWS.DynamoDB).lastCalledWith({
+      expect(AWSDynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
     it('returns a Promise that resolves with the results of the scan', () => {
       return getAllTags({ params: {} }).then((data) => {
-        expect(AWS.DynamoDB.prototype.scan).lastCalledWith({
+        expect(AWSDynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
-          ProjectionExpression: 'gif_id,tag,id'
+          ProjectionExpression: 'gif_id,tag,id',
         }, jasmine.any(Function));
 
         expect(data).toEqual({ objects: [] });
@@ -45,14 +45,14 @@ describe('Dynamo service', () => {
     it('returns a Promise that rejects with the errors from the scan', () => {
       const err = { itDidnt: 'work' };
 
-      AWS.DynamoDB.prototype.scan.mockImplementationOnce((params, callback) => {
+      AWSDynamoDB.prototype.scan.mockImplementationOnce((params, callback) => {
         callback(err);
       });
 
       return getAllTags({ params: {} }).catch((error) => {
-        expect(AWS.DynamoDB.prototype.scan).lastCalledWith({
+        expect(AWSDynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
-          ProjectionExpression: 'gif_id,tag,id'
+          ProjectionExpression: 'gif_id,tag,id',
         }, jasmine.any(Function));
 
         expect(error).toEqual(err);
@@ -66,33 +66,33 @@ describe('Dynamo service', () => {
     it('creates a new Dynamo client with authInfo', () => {
       const authInfo = {
         params: {
-          username: 'password'
-        }
+          username: 'password',
+        },
       };
 
       addTag(null, null, authInfo);
 
-      expect(AWS.DynamoDB).lastCalledWith({
+      expect(AWSDynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
     it('returns a Promise that resolves with the results of the put op', () => {
       return addTag('tag', 1, { params: {} }).then((data) => {
-        expect(AWS.DynamoDB.prototype.putItem).lastCalledWith({
+        expect(AWSDynamoDB.prototype.putItem).lastCalledWith({
           TableName: DYNAMO_TABLE,
           Item: {
             id: { S: 'shortid' },
             gif_id: { S: 1 },
-            tag: { S: 'tag' }
-          }
+            tag: { S: 'tag' },
+          },
         }, jasmine.any(Function));
 
         expect(data).toEqual({
           id: 'shortid',
           gif_id: 1,
-          tag: 'tag'
+          tag: 'tag',
         });
       });
     });
@@ -100,18 +100,18 @@ describe('Dynamo service', () => {
     it('returns a Promise that rejects with the errors from the put op', () => {
       const err = { itDidnt: 'work' };
 
-      AWS.DynamoDB.prototype.putItem.mockImplementationOnce((params, callback) => {
+      AWSDynamoDB.prototype.putItem.mockImplementationOnce((params, callback) => {
         callback(err);
       });
 
       return addTag('tag', 1, { params: {} }).catch((error) => {
-        expect(AWS.DynamoDB.prototype.putItem).lastCalledWith({
+        expect(AWSDynamoDB.prototype.putItem).lastCalledWith({
           TableName: DYNAMO_TABLE,
           Item: {
             id: { S: 'shortid' },
             gif_id: { S: 1 },
-            tag: { S: 'tag' }
-          }
+            tag: { S: 'tag' },
+          },
         }, jasmine.any(Function));
 
         expect(error).toEqual(err);
@@ -123,25 +123,25 @@ describe('Dynamo service', () => {
     it('creates a new Dynamo client with authInfo', () => {
       const authInfo = {
         params: {
-          username: 'password'
-        }
+          username: 'password',
+        },
       };
 
       deleteTag(null, authInfo);
 
-      expect(AWS.DynamoDB).lastCalledWith({
+      expect(AWSDynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
     it('returns a Promise that resolves with the results of the delete op', () => {
       return deleteTag('1', { params: {} }).then((data) => {
-        expect(AWS.DynamoDB.prototype.deleteItem).lastCalledWith({
+        expect(AWSDynamoDB.prototype.deleteItem).lastCalledWith({
           TableName: DYNAMO_TABLE,
           Key: {
-            id: { S: '1' }
-          }
+            id: { S: '1' },
+          },
         }, jasmine.any(Function));
 
         expect(data).toEqual('1');
@@ -151,16 +151,16 @@ describe('Dynamo service', () => {
     it('returns a Promise that rejects with the errors from the delete op', () => {
       const err = { itDidnt: 'work' };
 
-      AWS.DynamoDB.prototype.deleteItem.mockImplementationOnce((params, callback) => {
+      AWSDynamoDB.prototype.deleteItem.mockImplementationOnce((params, callback) => {
         callback(err);
       });
 
       return deleteTag('1', { params: {} }).catch((error) => {
-        expect(AWS.DynamoDB.prototype.deleteItem).lastCalledWith({
+        expect(AWSDynamoDB.prototype.deleteItem).lastCalledWith({
           TableName: DYNAMO_TABLE,
           Key: {
-            id: { S: '1' }
-          }
+            id: { S: '1' },
+          },
         }, jasmine.any(Function));
 
         expect(error).toEqual(err);

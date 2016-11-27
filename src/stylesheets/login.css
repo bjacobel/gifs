@@ -16,8 +16,7 @@
   border: none;
 
   /* transitions */
-  transition-duration: 0.2s;
-  transition-propery: color, background-color;
+  transition: 0.2s color, 0.2s background-color;
 
   /* hover behavior */
   cursor: pointer;

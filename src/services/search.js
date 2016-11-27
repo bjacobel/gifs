@@ -16,7 +16,7 @@ export const searchFor = (searchTerm, fuseIndex) => {
     const fuse = new Fuse(fuseIndex, {
       keys: ['tags.text', 'src'],
       maxPatternLength: 16,
-      threshold: 0.4
+      threshold: 0.4,
     });
     resolve(fuse.search(searchTerm).map(result => result.id));
   });

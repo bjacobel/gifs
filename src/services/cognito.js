@@ -1,24 +1,24 @@
-import AWS from 'aws-sdk-umd';
+import AWS from 'aws-sdk/global';
 
 import {
   AUTHED_ROLE_ARN,
   COGNITO_POOL,
   REGION,
-  UNAUTHED_ROLE_ARN
+  UNAUTHED_ROLE_ARN,
 } from '../constants/aws';
 
 export const obtainAuthRole = (idToken) => {
   return new Promise((resolve, reject) => {
     AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: COGNITO_POOL
+      IdentityPoolId: COGNITO_POOL,
     });
 
     Object.assign(AWS.config.credentials.params, {
       RoleArn: AUTHED_ROLE_ARN,
       Logins: {
-        'accounts.google.com': idToken
-      }
+        'accounts.google.com': idToken,
+      },
     });
 
     AWS.config.credentials.refresh((err) => {
@@ -35,7 +35,7 @@ export const obtainUnauthedRole = () => {
     AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       RoleArn: UNAUTHED_ROLE_ARN,
-      IdentityPoolId: COGNITO_POOL
+      IdentityPoolId: COGNITO_POOL,
     });
 
     AWS.config.credentials.refresh((err) => {

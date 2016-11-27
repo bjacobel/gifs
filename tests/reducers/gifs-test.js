@@ -1,14 +1,11 @@
-jest.unmock('../../src/reducers/gifs');
-jest.unmock('../../src/actions/gifs');
-
 import {
   gifs,
-  visible
+  visible,
 } from '../../src/reducers/gifs';
 import {
   GET_GIFS_SUCCEEDED,
   GET_IMAGE_SIZE_SUCCEEDED,
-  FOUND_VISIBLE_GIFS
+  FOUND_VISIBLE_GIFS,
 } from '../../src/actions/gifs';
 
 describe('gifs reducer file', () => {
@@ -20,9 +17,9 @@ describe('gifs reducer file', () => {
           type: GET_GIFS_SUCCEEDED,
           payload: {
             gifs: {
-              Contents: data
-            }
-          }
+              Contents: data,
+            },
+          },
         });
       };
 
@@ -31,7 +28,7 @@ describe('gifs reducer file', () => {
           Key: 'main.js',
           LastModified: 1,
           Size: '',
-          ETag: '"this is a double quoted string for some dumb reason"'
+          ETag: '"this is a double quoted string for some dumb reason"',
         })).toEqual([]);
       });
 
@@ -40,12 +37,12 @@ describe('gifs reducer file', () => {
           Key: 'first.gif',
           LastModified: 1,
           Size: '',
-          ETag: '"this is a double quoted string for some dumb reason"'
+          ETag: '"this is a double quoted string for some dumb reason"',
         })).toEqual([{
           src: 'first.gif',
           date: 1,
           size: '',
-          id: 'this is a double quoted string for some dumb reason'
+          id: 'this is a double quoted string for some dumb reason',
         }]);
       });
 
@@ -54,39 +51,39 @@ describe('gifs reducer file', () => {
           src: 'second.gif',
           date: 2,
           size: '',
-          id: 'this is another double quoted string for some dumb reason'
+          id: 'this is another double quoted string for some dumb reason',
         }],
           {
             Key: 'third.gif',
             LastModified: 3,
             Size: '',
-            ETag: '"this is a third double quoted string for some dumb reason"'
+            ETag: '"this is a third double quoted string for some dumb reason"',
           },
           {
             Key: 'first.gif',
             LastModified: 1,
             Size: '',
-            ETag: '"this is a double quoted string for some dumb reason"'
-          }
+            ETag: '"this is a double quoted string for some dumb reason"',
+          },
         )).toEqual([
           {
             src: 'third.gif',
             date: 3,
             size: '',
-            id: 'this is a third double quoted string for some dumb reason'
+            id: 'this is a third double quoted string for some dumb reason',
           },
           {
             src: 'second.gif',
             date: 2,
             size: '',
-            id: 'this is another double quoted string for some dumb reason'
+            id: 'this is another double quoted string for some dumb reason',
           },
           {
             src: 'first.gif',
             date: 1,
             size: '',
-            id: 'this is a double quoted string for some dumb reason'
-          }
+            id: 'this is a double quoted string for some dumb reason',
+          },
         ]);
       });
 
@@ -96,26 +93,26 @@ describe('gifs reducer file', () => {
             src: 'second.gif',
             date: 2,
             size: '',
-            id: 'this is another double quoted string for some dumb reason'
-          }
+            id: 'this is another double quoted string for some dumb reason',
+          },
         ], {
           Key: 'first.gif',
           LastModified: 1,
           Size: '',
-          ETag: '"this is a double quoted string for some dumb reason"'
+          ETag: '"this is a double quoted string for some dumb reason"',
         })).toEqual([
           {
             src: 'second.gif',
             date: 2,
             size: '',
-            id: 'this is another double quoted string for some dumb reason'
+            id: 'this is another double quoted string for some dumb reason',
           },
           {
             src: 'first.gif',
             date: 1,
             size: '',
-            id: 'this is a double quoted string for some dumb reason'
-          }
+            id: 'this is a double quoted string for some dumb reason',
+          },
         ]);
       });
     });
@@ -125,16 +122,16 @@ describe('gifs reducer file', () => {
         expect(gifs([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ], {
           type: GET_IMAGE_SIZE_SUCCEEDED,
           payload: {
@@ -143,12 +140,12 @@ describe('gifs reducer file', () => {
             height: 10,
             width: 10,
             observedHeight: 5,
-            observedWidth: 5
-          }
+            observedWidth: 5,
+          },
         })).toEqual([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
@@ -156,12 +153,12 @@ describe('gifs reducer file', () => {
             height: 10,
             width: 10,
             observedHeight: 5,
-            observedWidth: 5
+            observedWidth: 5,
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ]);
       });
 
@@ -169,16 +166,16 @@ describe('gifs reducer file', () => {
         expect(gifs([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ], {
           type: GET_IMAGE_SIZE_SUCCEEDED,
           payload: {
@@ -187,8 +184,8 @@ describe('gifs reducer file', () => {
             height: 10,
             width: 10,
             observedHeight: 5,
-            observedWidth: 5
-          }
+            observedWidth: 5,
+          },
         })).toEqual([
           {
             id: 1,
@@ -196,16 +193,16 @@ describe('gifs reducer file', () => {
             height: 10,
             width: 10,
             observedHeight: 5,
-            observedWidth: 5
+            observedWidth: 5,
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ]);
       });
 
@@ -213,16 +210,16 @@ describe('gifs reducer file', () => {
         expect(gifs([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ], {
           type: GET_IMAGE_SIZE_SUCCEEDED,
           payload: {
@@ -231,16 +228,16 @@ describe('gifs reducer file', () => {
             height: 10,
             width: 10,
             observedHeight: 5,
-            observedWidth: 5
-          }
+            observedWidth: 5,
+          },
         })).toEqual([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
@@ -248,8 +245,8 @@ describe('gifs reducer file', () => {
             height: 10,
             width: 10,
             observedHeight: 5,
-            observedWidth: 5
-          }
+            observedWidth: 5,
+          },
         ]);
       });
 
@@ -257,35 +254,35 @@ describe('gifs reducer file', () => {
         expect(gifs([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ], {
           type: GET_IMAGE_SIZE_SUCCEEDED,
           payload: {
             id: 4,
-            src: 'blergh'
-          }
+            src: 'blergh',
+          },
         })).toEqual([
           {
             id: 1,
-            src: 'foo'
+            src: 'foo',
           },
           {
             id: 2,
-            src: 'bar'
+            src: 'bar',
           },
           {
             id: 3,
-            src: 'bizz'
-          }
+            src: 'bizz',
+          },
         ]);
       });
     });
@@ -302,11 +299,11 @@ describe('gifs reducer file', () => {
           type: FOUND_VISIBLE_GIFS,
           payload: {
             visibleLowRange: 0,
-            visibleHighRange: 10
-          }
+            visibleHighRange: 10,
+          },
         })).toEqual({
           start: 0,
-          end: 10
+          end: 10,
         });
       });
     });

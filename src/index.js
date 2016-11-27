@@ -1,4 +1,7 @@
-import 'core-js';
+import 'core-js/fn/object/assign';
+import 'core-js/fn/object/keys';
+import 'core-js/es6/promise';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
@@ -6,27 +9,21 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import persistState from 'redux-localstorage';
 
-import './stylesheets';
+import './stylesheets/index.css';
 import Main from './components/Main';
 import reducer from './reducers';
 import { SHOW_DEV_TOOLS } from './constants';
 
-const middlewares = [
-  applyMiddleware(thunk),
-  persistState('auth')
-];
+const composeEnhancers = (SHOW_DEV_TOOLS && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;  // eslint-disable-line max-len, no-underscore-dangle
 
-if (SHOW_DEV_TOOLS) {
-  middlewares.push(window.devToolsExtension ? window.devToolsExtension() : f => f);
-}
-
-const composedCreateStore = compose.apply(this, middlewares)(createStore);
-
-const store = composedCreateStore(reducer);
+const store = createStore(reducer, {}, composeEnhancers(
+  applyMiddleware(...[thunk]),
+  persistState('auth'),
+));
 
 ReactDOM.render(
   <Provider store={ store }>
     <Main />
   </Provider>,
-  document.getElementById('main')
+  document.getElementById('main'),
 );

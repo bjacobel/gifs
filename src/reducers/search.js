@@ -1,6 +1,6 @@
 import {
   UPDATE_INDEX_SUCCEEDED,
-  SEARCH_SUCCEEDED
+  SEARCH_SUCCEEDED,
 } from '../actions/search';
 
 export const searchIndex = (state = {}, action) => {

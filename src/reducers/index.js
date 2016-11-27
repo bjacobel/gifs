@@ -2,17 +2,17 @@ import { combineReducers } from 'redux';
 
 import {
   gifs,
-  visible
+  visible,
 } from './gifs';
 import tags from './tags';
 import {
   animation,
-  activeGif
+  activeGif,
 } from './animation';
 import auth from './auth';
 import {
   searchIndex,
-  searchResults
+  searchResults,
 } from './search';
 
 export default combineReducers({
@@ -23,5 +23,5 @@ export default combineReducers({
   searchIndex,
   searchResults,
   tags,
-  visible
+  visible,
 });

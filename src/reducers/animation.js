@@ -1,7 +1,7 @@
 import {
   ANIMATE_GIF,
   FREEZE_GIF,
-  SAVE_ANIMATION
+  SAVE_ANIMATION,
 } from '../actions/animation';
 
 export const animation = (state = {}, action) => {

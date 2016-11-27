@@ -1,5 +1,3 @@
-jest.unmock('../../src/services/clipboard');
-
 import { copy } from '../../src/services/clipboard';
 
 describe('clipboard service', () => {
@@ -10,13 +8,13 @@ describe('clipboard service', () => {
         focus: jest.fn(),
         setSelectionRange: jest.fn(),
         value: {
-          length: 1
-        }
+          length: 1,
+        },
       })),
       queryCommandSupported: jest.fn(() => true),
       getSelection: jest.fn(() => ({
-        removeAllRanges: jest.fn()
-      }))
+        removeAllRanges: jest.fn(),
+      })),
     });
 
     it('copies passed text to the clipboard', () => {

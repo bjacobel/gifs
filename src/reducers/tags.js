@@ -1,13 +1,13 @@
 import {
   GET_TAGS_SUCCEEDED,
   ADD_TAG_SUCCEEDED,
-  DELETE_TAG_SUCCEEDED
+  DELETE_TAG_SUCCEEDED,
 } from '../actions/tags';
 
 const addToState = (state, newKey, newData) => {
-  if (state.hasOwnProperty(newKey)) {
+  if (newKey in state) {
     return Object.assign({}, state, {
-      [newKey]: state[newKey].concat(newData)
+      [newKey]: state[newKey].concat(newData),
     });
   } else {
     return Object.assign({}, state, { [newKey]: newData });
@@ -23,12 +23,12 @@ export default (state = {}, action) => {
       if (tagMap[tag.gif_id.S]) {
         tagMap[tag.gif_id.S].push({
           text: tag.tag.S,
-          id: tag.id.S
+          id: tag.id.S,
         });
       } else {
         tagMap[tag.gif_id.S] = [{
           text: tag.tag.S,
-          id: tag.id.S
+          id: tag.id.S,
         }];
       }
     });
@@ -47,7 +47,7 @@ export default (state = {}, action) => {
   }
   case DELETE_TAG_SUCCEEDED: {
     return Object.assign({}, state, {
-      [action.payload.gifId]: state[action.payload.gifId].filter((x) => x.id !== action.payload.tagId)
+      [action.payload.gifId]: state[action.payload.gifId].filter(x => x.id !== action.payload.tagId),
     });
   }
   default:
