@@ -7,6 +7,7 @@
     "start": "webpack-dev-server",
     "compile": "webpack -pc",
     "test": "jest",
+    "e2e": "nightwatch",
     "lint": "eslint . && stylelint src/stylesheets/*.css"
   },
   "author": "Brian Jacobel",
@@ -35,6 +36,7 @@
     "babel-preset-es2016": "^6.16.0",
     "babel-preset-es2017": "^6.16.0",
     "babel-preset-react": "^6.3.13",
+    "chromedriver": "^2.25.1",
     "core-js": "^2.3.0",
     "css-loader": "^0.26.0",
     "enzyme": "^2.4.1",
@@ -49,6 +51,7 @@
     "imports-loader": "^0.6.5",
     "jest-cli": "^17.0.3",
     "json-loader": "^0.5.4",
+    "nightwatch": "^0.9.9",
     "postcss-import": "^8.0.2",
     "postcss-loader": "^1.1.1",
     "precss": "^1.4.0",

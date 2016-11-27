@@ -57,15 +57,12 @@ export const obtainCurrentRole = (authState) => {
 
   if (google && google.expires_at < (new Date()).getTime()) {
     // Google creds are expired
-    console.log('refreshing google creds');
     return requestAccessToken().then(() => obtainAuthRole(google));
   } else if (google && google.id_token && google.expires_at >= (new Date()).getTime()) {
     // Google creds are fine, get Cognito authed role
-    console.log('getting authed role');
     return obtainAuthRole(google);
   } else {
     // We're not in a position where we can auth, return the unauthed role
-    console.log('getting unauthed role');
     return obtainUnauthedRole();
   }
 };
