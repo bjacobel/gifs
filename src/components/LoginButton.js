@@ -6,12 +6,12 @@ import { getGoogleAuthAsync } from '../actions/auth';
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
 const mapDispatchToProps = {
-  getGoogleAuthAsync
+  getGoogleAuthAsync,
 };
 
 class LoginButton extends Component {
@@ -31,5 +31,5 @@ class LoginButton extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(LoginButton);

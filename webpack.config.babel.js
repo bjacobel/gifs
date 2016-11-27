@@ -11,12 +11,12 @@ const isProd = process.env.NODE_ENV === 'production';
 const wpconfig = {
   entry: {
     main: [
-      './src/index.js'
-    ]
+      './src/index.js',
+    ],
   },
   output: {
     path: `${__dirname}/dist`,
-    filename: '[name].js'
+    filename: '[name].js',
   },
   debug: true,
   devtool: isProd ? null : 'source-map',
@@ -25,38 +25,38 @@ const wpconfig = {
       {
         test: /\.js$/,
         include: path.join(__dirname, 'src'),
-        loader: 'babel'
+        loader: 'babel',
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
+        loader: 'style-loader!css-loader!postcss-loader',
       },
       {
         test: /\.(eot|ttf|woff|svg)(\?[a-z0-9=]+)?$/,
-        loader: 'file-loader'
-      }
-    ]
+        loader: 'file-loader',
+      },
+    ],
   },
   postcss(wp) {
     return [
       stylelint,
       postcssImport({
-        addDependencyTo: wp
+        addDependencyTo: wp,
       }),
       precss,
       postcssFontMagician,
-      autoprefixer({ browsers: ['last 2 versions'] })
+      autoprefixer({ browsers: ['last 2 versions'] }),
     ];
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.css']
+    extensions: ['', '.js', '.json', '.css'],
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
-  ]
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    }),
+  ],
 };
 
 if (!isProd) {

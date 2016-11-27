@@ -1,17 +1,17 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { gotGoogleAuthInfo } from '../actions/auth.js';
-import { parseGooglePostback } from '../services/google.js';
+import { gotGoogleAuthInfo } from '../actions/auth';
+import { parseGooglePostback } from '../services/google';
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
 const mapDispatchToProps = {
-  gotGoogleAuthInfo
+  gotGoogleAuthInfo,
 };
 
 class Router extends Component {
@@ -35,5 +35,5 @@ class Router extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Router);

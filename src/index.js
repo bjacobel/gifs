@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import persistState from 'redux-localstorage';
 
-import './stylesheets';
+import './stylesheets/index.css';
 import Main from './components/Main';
 import reducer from './reducers';
 import { SHOW_DEV_TOOLS } from './constants';
@@ -15,12 +15,12 @@ const composeEnhancers = (SHOW_DEV_TOOLS && window.__REDUX_DEVTOOLS_EXTENSION_CO
 
 const store = createStore(reducer, {}, composeEnhancers(
   applyMiddleware(...[thunk]),
-  persistState('auth')
+  persistState('auth'),
 ));
 
 ReactDOM.render(
   <Provider store={ store }>
     <Main />
   </Provider>,
-  document.getElementById('main')
+  document.getElementById('main'),
 );

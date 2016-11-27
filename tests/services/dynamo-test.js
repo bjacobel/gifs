@@ -1,33 +1,33 @@
-jest.unmock('../../src/constants/aws');
-jest.unmock('../../src/services/dynamo');
-
-import AWS from 'aws-sdk-umd';
+import AWS from 'aws-sdk';
 import shortid from 'shortid';
 
 import {
   getAllTags,
   addTag,
-  deleteTag
+  deleteTag,
 } from '../../src/services/dynamo';
 import {
   DYNAMO_TABLE,
-  REGION
+  REGION,
 } from '../../src/constants/aws';
+
+jest.unmock('../../src/constants/aws');
+jest.unmock('../../src/services/dynamo');
 
 describe('Dynamo service', () => {
   describe('getAllTags', () => {
     it('creates a new Dynamo client with authInfo', () => {
       const authInfo = {
         params: {
-          username: 'password'
-        }
+          username: 'password',
+        },
       };
 
       getAllTags(authInfo);
 
       expect(AWS.DynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
@@ -35,7 +35,7 @@ describe('Dynamo service', () => {
       return getAllTags({ params: {} }).then((data) => {
         expect(AWS.DynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
-          ProjectionExpression: 'gif_id,tag,id'
+          ProjectionExpression: 'gif_id,tag,id',
         }, jasmine.any(Function));
 
         expect(data).toEqual({ objects: [] });
@@ -52,7 +52,7 @@ describe('Dynamo service', () => {
       return getAllTags({ params: {} }).catch((error) => {
         expect(AWS.DynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
-          ProjectionExpression: 'gif_id,tag,id'
+          ProjectionExpression: 'gif_id,tag,id',
         }, jasmine.any(Function));
 
         expect(error).toEqual(err);
@@ -66,15 +66,15 @@ describe('Dynamo service', () => {
     it('creates a new Dynamo client with authInfo', () => {
       const authInfo = {
         params: {
-          username: 'password'
-        }
+          username: 'password',
+        },
       };
 
       addTag(null, null, authInfo);
 
       expect(AWS.DynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
@@ -85,14 +85,14 @@ describe('Dynamo service', () => {
           Item: {
             id: { S: 'shortid' },
             gif_id: { S: 1 },
-            tag: { S: 'tag' }
-          }
+            tag: { S: 'tag' },
+          },
         }, jasmine.any(Function));
 
         expect(data).toEqual({
           id: 'shortid',
           gif_id: 1,
-          tag: 'tag'
+          tag: 'tag',
         });
       });
     });
@@ -110,8 +110,8 @@ describe('Dynamo service', () => {
           Item: {
             id: { S: 'shortid' },
             gif_id: { S: 1 },
-            tag: { S: 'tag' }
-          }
+            tag: { S: 'tag' },
+          },
         }, jasmine.any(Function));
 
         expect(error).toEqual(err);
@@ -123,15 +123,15 @@ describe('Dynamo service', () => {
     it('creates a new Dynamo client with authInfo', () => {
       const authInfo = {
         params: {
-          username: 'password'
-        }
+          username: 'password',
+        },
       };
 
       deleteTag(null, authInfo);
 
       expect(AWS.DynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 
@@ -140,8 +140,8 @@ describe('Dynamo service', () => {
         expect(AWS.DynamoDB.prototype.deleteItem).lastCalledWith({
           TableName: DYNAMO_TABLE,
           Key: {
-            id: { S: '1' }
-          }
+            id: { S: '1' },
+          },
         }, jasmine.any(Function));
 
         expect(data).toEqual('1');
@@ -159,8 +159,8 @@ describe('Dynamo service', () => {
         expect(AWS.DynamoDB.prototype.deleteItem).lastCalledWith({
           TableName: DYNAMO_TABLE,
           Key: {
-            id: { S: '1' }
-          }
+            id: { S: '1' },
+          },
         }, jasmine.any(Function));
 
         expect(error).toEqual(err);

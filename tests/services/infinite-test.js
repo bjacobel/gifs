@@ -1,6 +1,6 @@
-jest.unmock('../../src/services/infinite.js');
+import { isGifVisible } from '../../src/services/infinite';
 
-import { isGifVisible } from '../../src/services/infinite.js';
+jest.unmock('../../src/services/infinite.js');
 
 describe('infinite scrolling helper services', () => {
   describe('isGifVisible', () => {

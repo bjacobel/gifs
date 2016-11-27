@@ -69,14 +69,11 @@ export function updateVisibleGifs(gifs) {
     } else {
       const visibles = [];
 
-      for (let i = 0; i < gifs.length; i++) {
+      for (let i = 0; i < gifs.length; i += 1) {
         if (isGifVisible(gifs, i)) {
           visibles.push(i);
-        } else {
-          // the first non-visible gif after any visible ones means we don't need to look anymore
-          if (visibles.length > 0) {
-            break;
-          }
+        } else if (visibles.length > 0) {
+          break;
         }
       }
 

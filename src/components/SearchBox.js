@@ -8,12 +8,12 @@ const mapStateToProps = () => {
 };
 
 const mapDispatchToProps = {
-  searchGifsAsync
+  searchGifsAsync,
 };
 
 class SearchBox extends Component {
   search(event) {
-    const { searchGifsAsync } = this.props;
+    const { searchGifsAsync } = this.props;  // eslint-disable-line no-shadow
 
     searchGifsAsync(event.currentTarget.value);
   }
@@ -24,8 +24,8 @@ class SearchBox extends Component {
         <input
           placeholder="Search"
           type="search"
-          onChange={ (event) => this.search(event) }
-        ></input>
+          onChange={ event => this.search(event) }
+        />
       </div>
     );
   }
@@ -33,5 +33,5 @@ class SearchBox extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SearchBox);

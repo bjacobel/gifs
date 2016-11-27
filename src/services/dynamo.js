@@ -1,21 +1,21 @@
-import AWS from 'aws-sdk-umd';
+import AWS from 'aws-sdk';
 import shortid from 'shortid';
 
 import {
   DYNAMO_TABLE,
-  REGION
+  REGION,
 } from '../constants/aws';
 
 export const getAllTags = (authInfo) => {
   const dynamo = new AWS.DynamoDB({
     region: REGION,
-    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
 
   return new Promise((resolve, reject) => {
     dynamo.scan({
       TableName: DYNAMO_TABLE,
-      ProjectionExpression: 'gif_id,tag,id'
+      ProjectionExpression: 'gif_id,tag,id',
     }, (err, data) => {
       if (err) {
         reject(err);
@@ -29,7 +29,7 @@ export const getAllTags = (authInfo) => {
 export const addTag = (tag, id, authInfo) => {
   const dynamo = new AWS.DynamoDB({
     region: REGION,
-    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
 
   const uuid = shortid.generate();
@@ -40,8 +40,8 @@ export const addTag = (tag, id, authInfo) => {
       Item: {
         id: { S: uuid },
         gif_id: { S: id },
-        tag: { S: tag }
-      }
+        tag: { S: tag },
+      },
     }, (err) => {
       if (err) {
         reject(err);
@@ -50,7 +50,7 @@ export const addTag = (tag, id, authInfo) => {
         resolve({
           id: uuid,
           gif_id: id,
-          tag
+          tag,
         });
       }
     });
@@ -60,15 +60,15 @@ export const addTag = (tag, id, authInfo) => {
 export const deleteTag = (id, authInfo) => {
   const dynamo = new AWS.DynamoDB({
     region: REGION,
-    credentials: new AWS.CognitoIdentityCredentials(authInfo.params)
+    credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
 
   return new Promise((resolve, reject) => {
     dynamo.deleteItem({
       TableName: DYNAMO_TABLE,
       Key: {
-        id: { S: id }
-      }
+        id: { S: id },
+      },
     }, (err) => {
       if (err) {
         reject(err);

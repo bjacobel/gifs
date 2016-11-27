@@ -1,34 +1,34 @@
-jest.unmock('../../src/reducers/auth');
-
 import {
   COGNITO_AUTH_SUCCEEDED,
   COGNITO_AUTH_FAILED,
   GOOGLE_AUTH_SUCCEEDED,
-  GOOGLE_AUTH_FAILED
+  GOOGLE_AUTH_FAILED,
 } from '../../src/actions/auth';
 import auth from '../../src/reducers/auth';
+
+jest.unmock('../../src/reducers/auth');
 
 describe('`auth` reducer', () => {
   it(`sets isAuthed to \`authedWithGoogle\` and adds auth info to the cognito key on ${COGNITO_AUTH_SUCCEEDED}`, () => {
     expect(auth({
       isAuthenticated: false,
       cognito: {
-        foo: 'bar'
-      }
+        foo: 'bar',
+      },
     }, {
       type: COGNITO_AUTH_SUCCEEDED,
       payload: {
         authInfo: {
           authedWithGoogle: true,
-          foo: 'biff'
-        }
-      }
+          foo: 'biff',
+        },
+      },
     })).toEqual({
       isAuthenticated: true,
       cognito: {
         authedWithGoogle: true,
-        foo: 'biff'
-      }
+        foo: 'biff',
+      },
     });
   });
 
@@ -36,18 +36,18 @@ describe('`auth` reducer', () => {
     expect(auth({
       isAuthenticated: true,
       cognito: {
-        foo: 'bar'
-      }
+        foo: 'bar',
+      },
     }, {
       type: COGNITO_AUTH_FAILED,
       payload: {
-        err: 'foo error'
-      }
+        err: 'foo error',
+      },
     })).toEqual({
       isAuthenticated: false,
       cognito: {
-        error: 'foo error'
-      }
+        error: 'foo error',
+      },
     });
   });
 
@@ -56,13 +56,13 @@ describe('`auth` reducer', () => {
       type: GOOGLE_AUTH_SUCCEEDED,
       payload: {
         authInfo: {
-          id_token: 'foo'
-        }
-      }
+          id_token: 'foo',
+        },
+      },
     })).toEqual({
       google: {
-        id_token: 'foo'
-      }
+        id_token: 'foo',
+      },
     });
   });
 
@@ -71,18 +71,18 @@ describe('`auth` reducer', () => {
     expect(auth({
       isAuthenticated: true,
       google: {
-        foo: 'bar'
-      }
+        foo: 'bar',
+      },
     }, {
       type: GOOGLE_AUTH_FAILED,
       payload: {
-        err: 'foo error'
-      }
+        err: 'foo error',
+      },
     })).toEqual({
       isAuthenticated: false,
       google: {
-        error: 'foo error'
-      }
+        error: 'foo error',
+      },
     });
   });
 

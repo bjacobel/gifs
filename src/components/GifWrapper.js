@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import Gif from './Gif';
 import {
   ROOT_URL,
-  THUMB_URL
+  THUMB_URL,
 } from '../constants';
 import { watchForSize } from '../actions/gifs';
 import {
   animateGif,
   freezeGif,
-  saveMostRecentAnimation
+  saveMostRecentAnimation,
 } from '../actions/animation';
 
 function mapStateToProps(state) {
   return {
-    animation: state.animation
+    animation: state.animation,
   };
 }
 
@@ -23,7 +23,7 @@ const mapDispatchToProps = {
   animateGif,
   freezeGif,
   saveMostRecentAnimation,
-  watchForSize
+  watchForSize,
 };
 
 class GifWrapper extends Component {
@@ -32,8 +32,8 @@ class GifWrapper extends Component {
 
     const { animation, gif } = this.props;
 
-    if (nextProps.animation.hasOwnProperty([gif.id])) {
-      if (animation.hasOwnProperty([gif.id])) {
+    if (nextProps.animation[gif.id]) {
+      if (animation[gif.id]) {
         return animation[gif.id] !== nextProps.animation[gif.id];
       }
       return true;
@@ -46,10 +46,12 @@ class GifWrapper extends Component {
     const {
       gif,
       animation,
+      /* eslint-disable no-shadow */
       animateGif,
       freezeGif,
       saveMostRecentAnimation,
-      watchForSize
+      watchForSize,
+      /* eslint-enable no-shadow */
     } = this.props;
 
     const enabled = animation[gif.id] || false;
@@ -63,11 +65,16 @@ class GifWrapper extends Component {
     };
     const disableMotion = () => { freezeGif(gif.id); };
     const toggleMotion = () => {
-      enabled ? disableMotion() : enableMotion();
+      if (enabled) {
+        disableMotion();
+      } else {
+        enableMotion();
+      }
     };
 
     return (
-      <div className="gif-wrapper"
+      <div
+        className="gif-wrapper"
         onMouseOver={ enableMotion }
         onMouseOut={ disableMotion }
         onTouchEnd={ toggleMotion }
@@ -86,11 +93,11 @@ class GifWrapper extends Component {
 GifWrapper.propTypes = {
   gif: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired
-  }).isRequired
+    src: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(GifWrapper);

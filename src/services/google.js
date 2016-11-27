@@ -4,7 +4,7 @@ import {
   OAUTH_ENDPOINT,
   EXPIRY_ENDPOINT,
   CLIENT_ID,
-  SCOPES
+  SCOPES,
 } from '../constants/google';
 import { redirectToError } from './error';
 
@@ -16,7 +16,7 @@ export const requestAccessToken = () => {
       client_id: CLIENT_ID,
       redirect_uri: `${window.location.origin}/googleAuth`,
       scope: SCOPES,
-      hd: ROOT_DOMAIN
+      hd: ROOT_DOMAIN,
     })}`;
 
     resolve(window.location.assign(authURL));

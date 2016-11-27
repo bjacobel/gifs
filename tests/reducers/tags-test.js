@@ -1,12 +1,12 @@
-jest.unmock('../../src/reducers/tags');
-jest.unmock('../../src/actions/tags');
-
 import tags from '../../src/reducers/tags';
 import {
   GET_TAGS_SUCCEEDED,
   ADD_TAG_SUCCEEDED,
-  DELETE_TAG_SUCCEEDED
+  DELETE_TAG_SUCCEEDED,
 } from '../../src/actions/tags';
+
+jest.unmock('../../src/reducers/tags');
+jest.unmock('../../src/actions/tags');
 
 describe('`tags` reducer', () => {
   describe(`with action type ${GET_TAGS_SUCCEEDED}`, () => {
@@ -14,8 +14,8 @@ describe('`tags` reducer', () => {
       const reduced = tags({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       }, {
         type: GET_TAGS_SUCCEEDED,
         payload: {
@@ -24,22 +24,22 @@ describe('`tags` reducer', () => {
               {
                 id: { S: 'id of bar tag' },
                 gif_id: { S: 'gif2' },
-                tag: { S: 'this tag says bar' }
-              }
-            ]
-          }
-        }
+                tag: { S: 'this tag says bar' },
+              },
+            ],
+          },
+        },
       });
 
       expect(reduced).toEqual({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
+          id: 'id of foo tag',
         }],
         gif2: [{
           text: 'this tag says bar',
-          id: 'id of bar tag'
-        }]
+          id: 'id of bar tag',
+        }],
       });
     });
 
@@ -47,8 +47,8 @@ describe('`tags` reducer', () => {
       const reduced = tags({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       }, {
         type: GET_TAGS_SUCCEEDED,
         payload: {
@@ -57,24 +57,24 @@ describe('`tags` reducer', () => {
               {
                 id: { S: 'id of bar tag' },
                 gif_id: { S: 'gif1' },
-                tag: { S: 'this tag says bar' }
-              }
-            ]
-          }
-        }
+                tag: { S: 'this tag says bar' },
+              },
+            ],
+          },
+        },
       });
 
       expect(reduced).toEqual({
         gif1: [
           {
             text: 'this tag says foo',
-            id: 'id of foo tag'
+            id: 'id of foo tag',
           },
           {
             text: 'this tag says bar',
-            id: 'id of bar tag'
-          }
-        ]
+            id: 'id of bar tag',
+          },
+        ],
       });
     });
 
@@ -82,8 +82,8 @@ describe('`tags` reducer', () => {
       const reduced = tags({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       }, {
         type: GET_TAGS_SUCCEEDED,
         payload: {
@@ -92,44 +92,44 @@ describe('`tags` reducer', () => {
               {
                 id: { S: 'id of bar tag' },
                 gif_id: { S: 'gif1' },
-                tag: { S: 'this tag says bar' }
+                tag: { S: 'this tag says bar' },
               },
               {
                 id: { S: 'id of bizz tag' },
                 gif_id: { S: 'gif2' },
-                tag: { S: 'this tag says bizz' }
+                tag: { S: 'this tag says bizz' },
               },
               {
                 id: { S: 'id of buzz tag' },
                 gif_id: { S: 'gif2' },
-                tag: { S: 'this tag says buzz' }
-              }
-            ]
-          }
-        }
+                tag: { S: 'this tag says buzz' },
+              },
+            ],
+          },
+        },
       });
 
       expect(reduced).toEqual({
         gif1: [
           {
             text: 'this tag says foo',
-            id: 'id of foo tag'
+            id: 'id of foo tag',
           },
           {
             text: 'this tag says bar',
-            id: 'id of bar tag'
-          }
+            id: 'id of bar tag',
+          },
         ],
         gif2: [
           {
             text: 'this tag says bizz',
-            id: 'id of bizz tag'
+            id: 'id of bizz tag',
           },
           {
             text: 'this tag says buzz',
-            id: 'id of buzz tag'
-          }
-        ]
+            id: 'id of buzz tag',
+          },
+        ],
       });
     });
   });
@@ -139,28 +139,28 @@ describe('`tags` reducer', () => {
       expect(tags({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       }, {
         type: ADD_TAG_SUCCEEDED,
         payload: {
           tagDocument: {
             id: 'id of bar tag',
             tag: 'tag for gif1: bar!',
-            gif_id: 'gif1'
-          }
-        }
+            gif_id: 'gif1',
+          },
+        },
       })).toEqual({
         gif1: [
           {
             text: 'this tag says foo',
-            id: 'id of foo tag'
+            id: 'id of foo tag',
           },
           {
             text: 'tag for gif1: bar!',
-            id: 'id of bar tag'
-          }
-        ]
+            id: 'id of bar tag',
+          },
+        ],
       });
     });
 
@@ -168,26 +168,26 @@ describe('`tags` reducer', () => {
       expect(tags({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       }, {
         type: ADD_TAG_SUCCEEDED,
         payload: {
           tagDocument: {
             id: 'id of bar tag',
             tag: 'tag for gif2',
-            gif_id: 'gif2'
-          }
-        }
+            gif_id: 'gif2',
+          },
+        },
       })).toEqual({
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
+          id: 'id of foo tag',
         }],
         gif2: [{
           text: 'tag for gif2',
-          id: 'id of bar tag'
-        }]
+          id: 'id of bar tag',
+        }],
       });
     });
   });
@@ -197,16 +197,16 @@ describe('`tags` reducer', () => {
       const preState = {
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       };
 
       expect(tags(preState, {
         type: DELETE_TAG_SUCCEEDED,
         payload: {
           tagId: 'id of bar tag',
-          gifId: 'gif1'
-        }
+          gifId: 'gif1',
+        },
       })).toEqual(preState);
     });
 
@@ -214,16 +214,16 @@ describe('`tags` reducer', () => {
       const preState = {
         gif1: [{
           text: 'this tag says foo',
-          id: 'id of foo tag'
-        }]
+          id: 'id of foo tag',
+        }],
       };
 
       expect(tags(preState, {
         type: DELETE_TAG_SUCCEEDED,
         payload: {
           tagId: 'id of foo tag',
-          gifId: 'gif1'
-        }
+          gifId: 'gif1',
+        },
       })).toEqual({ gif1: [] });
     });
   });

@@ -10,12 +10,12 @@ function mapStateToProps(state) {
   return {
     activeGif: state.activeGif,
     gifs: state.gifs,
-    tags: state.tags
+    tags: state.tags,
   };
 }
 
 const mapDispatchToProps = {
-  getTagsAsync
+  getTagsAsync,
 };
 
 class TagBox extends Component {
@@ -32,7 +32,7 @@ class TagBox extends Component {
 
     if (!activeGifId) {
       const tagValues = Object.values(tags);
-      const flatTagList = [].concat.apply([], tagValues);
+      const flatTagList = [].concat(...tagValues);
 
       tagBoxContents = (
         <div>
@@ -42,7 +42,7 @@ class TagBox extends Component {
     } else {
       let tagList = null;
 
-      if (tags.hasOwnProperty(activeGifId)) {
+      if (tags.activeGifId) {
         tagList = tags[activeGifId].map((tag) => {
           return (
             <Tag key={ tag.id } id={ tag.id } content={ tag.text } />
@@ -84,5 +84,5 @@ class TagBox extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TagBox);

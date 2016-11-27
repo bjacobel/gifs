@@ -1,7 +1,7 @@
-export const isGifVisible = (gifs, index) => {
+export const isGifVisible = (gifs, index) => {  // eslint-disable-line import/prefer-default-export
   let gifScrollTop = 0;
 
-  for (let i = 0; i < index; i++) {
+  for (let i = 0; i < index; i += 1) {
     gifScrollTop += gifs[i].observedHeight + 5;  // 5 for padding
   }
 

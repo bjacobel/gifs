@@ -1,11 +1,12 @@
-jest.unmock('../../src/services/s3');
+import AWS from 'aws-sdk';
 
-import AWS from 'aws-sdk-umd';
 import {
   REGION,
-  BUCKET
+  BUCKET,
 } from '../../src/constants/aws';
 import { getBucketContents } from '../../src/services/s3';
+
+jest.unmock('../../src/services/s3');
 
 describe('S3 service', () => {
   describe('getBucketContents', () => {
@@ -13,8 +14,8 @@ describe('S3 service', () => {
       const authInfo = {
         params: {
           username: 'foo',
-          password: 'bar'
-        }
+          password: 'bar',
+        },
       };
 
       getBucketContents(authInfo);
@@ -22,7 +23,7 @@ describe('S3 service', () => {
       expect(AWS.CognitoIdentityCredentials).lastCalledWith(authInfo.params);
       expect(AWS.S3).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params
+        credentials: authInfo.params,
       });
     });
 

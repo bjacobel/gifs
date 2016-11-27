@@ -9,20 +9,22 @@ const mapStateToProps = (state) => {
     gifs: state.gifs,
     searchResults: state.searchResults,
     tags: state.tags,
-    visible: state.visible
+    visible: state.visible,
   };
 };
 
 const mapDispatchToProps = {
   getGifsAsync,
-  updateVisibleGifs
+  updateVisibleGifs,
 };
 
 class GifColumn extends Component {
   componentDidMount() {
     const {
+      /* eslint-disable no-shadow */
       updateVisibleGifs,
-      getGifsAsync
+      getGifsAsync,
+      /* eslint-enable no-shadow */
     } = this.props;
 
     getGifsAsync();
@@ -65,7 +67,7 @@ class GifColumn extends Component {
 
     if (searchResults.length > 0) {
       filteredGifs = searchResults.map((result) => {
-        return gifs.find((gif) => result === gif.id);
+        return gifs.find(gif => result === gif.id);
       });
     }
 
@@ -79,5 +81,5 @@ class GifColumn extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(GifColumn);

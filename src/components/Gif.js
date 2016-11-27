@@ -7,13 +7,13 @@ export default class Gif extends Component {
 
     this.state = {
       loaded: false,
-      loading: false
+      loading: false,
     };
 
     this.onImageLoad = () => {
       this.setState({
         loaded: true,
-        loading: false
+        loading: false,
       });
       image.removeEventListener('load', this.onImageLoad);
     };
@@ -50,9 +50,9 @@ export default class Gif extends Component {
 
 Gif.propTypes = {
   image: PropTypes.shape({
-    src: PropTypes.string.isRequired
+    src: PropTypes.string.isRequired,
   }).isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  watchForSize: PropTypes.func.isRequired
+  watchForSize: PropTypes.func.isRequired,
 };

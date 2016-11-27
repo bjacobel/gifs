@@ -1,44 +1,44 @@
-jest.unmock('../../src/reducers/animation');
-
 import {
   ANIMATE_GIF,
   FREEZE_GIF,
-  SAVE_ANIMATION
+  SAVE_ANIMATION,
 } from '../../src/actions/animation';
 import {
   animation,
-  activeGif
+  activeGif,
 } from '../../src/reducers/animation';
+
+jest.unmock('../../src/reducers/animation');
 
 describe('animation reducer file', () => {
   describe('`animation` reducer', () => {
     it(`sets the state subkey you pass to false if you pass ${FREEZE_GIF}`, () => {
       expect(animation({
         frozen: false,
-        animating: true
+        animating: true,
       }, {
         type: FREEZE_GIF,
         payload: {
-          id: 'animating'
-        }
+          id: 'animating',
+        },
       })).toEqual({
         frozen: false,
-        animating: false
+        animating: false,
       });
     });
 
     it(`sets the state subkey you pass to true if you pass ${ANIMATE_GIF}`, () => {
       expect(animation({
         frozen: false,
-        animating: true
+        animating: true,
       }, {
         type: ANIMATE_GIF,
         payload: {
-          id: 'frozen'
-        }
+          id: 'frozen',
+        },
       })).toEqual({
         frozen: true,
-        animating: true
+        animating: true,
       });
     });
 
@@ -52,8 +52,8 @@ describe('animation reducer file', () => {
       expect(activeGif('foo', {
         type: SAVE_ANIMATION,
         payload: {
-          id: 'bar'
-        }
+          id: 'bar',
+        },
       })).toEqual('bar');
     });
 

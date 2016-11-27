@@ -23,7 +23,7 @@ GifTags.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+      text: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
 };

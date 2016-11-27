@@ -1,11 +1,11 @@
+import { requestAccessToken } from '../../src/services/google';
+import {
+  OAUTH_ENDPOINT,
+} from '../../src/constants/google';
+
 jest.unmock('../../src/services/google');
 jest.unmock('../../src/constants/google');
 jest.unmock('querystring');
-
-import { requestAccessToken } from '../../src/services/google';
-import {
-  OAUTH_ENDPOINT
-} from '../../src/constants/google';
 
 describe('Google auth service', () => {
   describe('requestAccessToken', () => {

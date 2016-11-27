@@ -4,18 +4,18 @@ import classNames from 'classnames';
 
 import {
   addTagAsync,
-  deleteTagAsync
+  deleteTagAsync,
 } from '../actions/tags';
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
 const mapDispatchToProps = {
   addTagAsync,
-  deleteTagAsync
+  deleteTagAsync,
 };
 
 class Tag extends Component {
@@ -28,9 +28,9 @@ class Tag extends Component {
       content,
       id,
       meta,
-      addTagAsync,
-      deleteTagAsync,
-      auth
+      addTagAsync,  // eslint-disable-line no-shadow
+      deleteTagAsync,  // eslint-disable-line no-shadow
+      auth,
     } = this.props;
 
     const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };
@@ -61,7 +61,7 @@ class Tag extends Component {
         type="text"
         value={ this.state.value }
         disabled={ !auth.isAuthenticated }
-      ></input>
+      />
     );
 
 
@@ -85,7 +85,7 @@ class Tag extends Component {
           { content }
           { addOrDel }
         </span>
-        <span className="break"> </span>
+        <span className="break" />
       </span>
     );
   }
@@ -94,10 +94,10 @@ class Tag extends Component {
 Tag.propTypes = {
   content: PropTypes.string,
   id: PropTypes.string,
-  meta: PropTypes.string
+  meta: PropTypes.string,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Tag);
