@@ -18,7 +18,7 @@ const composeEnhancers = (SHOW_DEV_TOOLS && window.__REDUX_DEVTOOLS_EXTENSION_CO
 
 const store = createStore(reducer, {}, composeEnhancers(
   applyMiddleware(...[thunk]),
-  persistState('auth'),
+  persistState('auth.google'),
 ));
 
 ReactDOM.render(

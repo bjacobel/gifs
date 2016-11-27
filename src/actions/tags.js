@@ -31,7 +31,7 @@ export function getTagsAsync() {
   return (dispatch, getState) => {
     dispatch(getTagsRequested());
 
-    return obtainCurrentRole(getState().auth.google)
+    return obtainCurrentRole(getState().auth)
       .then((authInfo) => {
         return getAllTags(authInfo);
       })
@@ -73,7 +73,8 @@ export function addTagAsync(tag) {
     const { activeGif, auth } = getState();
     dispatch(addTagRequested(tag, activeGif));
 
-    return obtainCurrentRole(auth.google)
+    // Need the authed role to do this. If we don't have it, this will trigger a login flow
+    return obtainCurrentRole(auth)
       .then((authInfo) => {
         return addTag(tag, activeGif, authInfo);
       })
@@ -115,7 +116,8 @@ export function deleteTagAsync(tag) {
     const { activeGif, auth } = getState();
     dispatch(deleteTagRequested(tag, activeGif));
 
-    return obtainCurrentRole(auth.google)
+    // Need the authed role to do this. If we don't have it, this will trigger a login flow
+    return obtainCurrentRole(auth)
       .then((authInfo) => {
         return deleteTag(tag, authInfo);
       })

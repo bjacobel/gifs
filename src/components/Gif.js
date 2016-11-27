@@ -37,7 +37,6 @@ export default class Gif extends Component {
     image.removeEventListener('load', this.finishLoad);
 
     if (this.gif) {
-      console.log(`killing ${this.gif.src}`);
       this.gif.removeEventListener('load', this.finishLoad);
       this.gif.src = '//:0';
     }

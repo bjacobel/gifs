@@ -29,9 +29,7 @@ export const parseGooglePostback = (callback) => {
   const authInfo = queryString.parse(window.location.hash);
   const { id_token } = authInfo;
 
-  window.history.replaceState({}, null, '/');
-
-  fetch(`${EXPIRY_ENDPOINT}?${queryString.stringify({ id_token })}`).then((response) => {
+  return fetch(`${EXPIRY_ENDPOINT}?${queryString.stringify({ id_token })}`).then((response) => {
     return response.json();
   }).then((json) => {
     if (json.email.split('@')[1] !== ROOT_DOMAIN) {
@@ -39,7 +37,10 @@ export const parseGooglePostback = (callback) => {
     }
 
     const expires_at = json.exp * 1000;  // eslint-disable-line camelcase
+
     callback(Object.assign({}, authInfo, { expires_at }));
+
+    window.history.replaceState({}, null, '/');
   }).catch((err) => {
     redirectToError(err);
   });

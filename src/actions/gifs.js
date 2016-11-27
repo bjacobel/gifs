@@ -26,7 +26,7 @@ export function getGifsAsync() {
   return (dispatch, getState) => {
     dispatch(getGifsRequested());
 
-    return obtainCurrentRole(getState().auth.google)
+    return obtainCurrentRole(getState().auth)
       .then((authInfo) => {
         return getBucketContents(authInfo);
       })

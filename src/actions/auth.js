@@ -38,7 +38,7 @@ export const getCognitoAuthAsync = () => {
   return (dispatch, getState) => {
     dispatch(cognitoAuthRequested());
 
-    return obtainCurrentRole(getState().auth.google)
+    return obtainCurrentRole(getState().auth)
       .then((authInfo) => {
         dispatch(cognitoAuthSucceeded(authInfo));
       })

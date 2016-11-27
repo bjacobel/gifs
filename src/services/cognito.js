@@ -6,8 +6,9 @@ import {
   REGION,
   UNAUTHED_ROLE_ARN,
 } from '../constants/aws';
+import { requestAccessToken } from './google';
 
-export const obtainAuthRole = (idToken) => {
+export const obtainAuthRole = (googleAuth) => {
   return new Promise((resolve, reject) => {
     AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -17,16 +18,17 @@ export const obtainAuthRole = (idToken) => {
     Object.assign(AWS.config.credentials.params, {
       RoleArn: AUTHED_ROLE_ARN,
       Logins: {
-        'accounts.google.com': idToken,
+        'accounts.google.com': googleAuth.id_token,
       },
     });
 
-    AWS.config.credentials.refresh((err) => {
+    return AWS.config.credentials.refresh((err) => {
       if (err) {
         reject(err);
+      } else {
+        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: true }));
       }
     });
-    resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: true }));
   });
 };
 
@@ -38,20 +40,32 @@ export const obtainUnauthedRole = () => {
       IdentityPoolId: COGNITO_POOL,
     });
 
-    AWS.config.credentials.refresh((err) => {
+    return AWS.config.credentials.refresh((err) => {
       if (err) {
         reject(err);
+      } else {
+        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: false }));
       }
     });
-
-    resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: false }));
   });
 };
 
-export const obtainCurrentRole = (googleAuthState) => {
-  if (googleAuthState && googleAuthState.id_token && googleAuthState.expires_at > (new Date()).getTime()) {
-    return obtainAuthRole(googleAuthState.id_token);
+// Will trigger a google auth flow if credentials are expired on Google's end
+// AWS can refresh automatically
+export const obtainCurrentRole = (authState) => {
+  const { google } = authState;
+
+  if (google && google.expires_at < (new Date()).getTime()) {
+    // Google creds are expired
+    console.log('refreshing google creds');
+    return requestAccessToken().then(() => obtainAuthRole(google));
+  } else if (google && google.id_token && google.expires_at >= (new Date()).getTime()) {
+    // Google creds are fine, get Cognito authed role
+    console.log('getting authed role');
+    return obtainAuthRole(google);
   } else {
+    // We're not in a position where we can auth, return the unauthed role
+    console.log('getting unauthed role');
     return obtainUnauthedRole();
   }
 };
