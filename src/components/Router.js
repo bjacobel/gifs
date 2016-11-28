@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { gotGoogleAuthInfo } from '../actions/auth';
 import { parseGooglePostback } from '../services/google';
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-  };
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDispatchToProps = {

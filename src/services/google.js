@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import 'whatwg-fetch';
+import fetch from './fetch';
 
 import { ROOT_DOMAIN } from '../constants';
 import {
@@ -37,6 +37,8 @@ export const parseGooglePostback = (callback) => {
     }
 
     const expires_at = json.exp * 1000;  // eslint-disable-line camelcase
+
+    console.log(callback);
 
     callback(Object.assign({}, authInfo, { expires_at }));
 
