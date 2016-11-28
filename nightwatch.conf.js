@@ -39,7 +39,10 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         chromeOptions: {
-          args: ['--no-sandbox'],
+          args: [
+            '--no-sandbox',
+            '--auto-open-devtools-for-tabs',
+          ],
         },
         acceptSslCerts: true,
       },
