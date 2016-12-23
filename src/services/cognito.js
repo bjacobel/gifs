@@ -6,13 +6,9 @@ import {
   REGION,
   UNAUTHED_ROLE_ARN,
 } from '../constants/aws';
-import AuthService from '../services/auth0';
-import {
-  CLIENT_ID,
-  DOMAIN,
-} from '../constants/auth0';
+import { DOMAIN } from '../constants/auth0';
 
-export const obtainAuthRole = (token) => {
+export const obtainAuthRole = (idToken) => {
   return new Promise((resolve, reject) => {
     AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -22,7 +18,7 @@ export const obtainAuthRole = (token) => {
     Object.assign(AWS.config.credentials.params, {
       RoleArn: AUTHED_ROLE_ARN,
       Logins: {
-        [DOMAIN]: token,
+        [DOMAIN]: idToken,
       },
     });
 
@@ -54,11 +50,9 @@ export const obtainUnauthedRole = () => {
   });
 };
 
-export const obtainCurrentRole = () => {
-  const auth = new AuthService(CLIENT_ID, DOMAIN);
-
-  if (auth.loggedIn()) {
-    return obtainAuthRole(auth.getToken());
+export const obtainCurrentRole = (auth) => {
+  if (auth.idToken) {
+    return obtainAuthRole(auth.idToken);
   } else {
     // We're not in a position where we can auth, return the unauthed role
     return obtainUnauthedRole();

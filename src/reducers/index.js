@@ -9,14 +9,14 @@ import {
   animation,
   activeGif,
 } from './animation';
-import cognito from './cognito';
+import auth from './auth';
 import {
   searchIndex,
   searchResults,
 } from './search';
 
 export default combineReducers({
-  cognito,
+  auth,
   gifs,
   animation,
   activeGif,

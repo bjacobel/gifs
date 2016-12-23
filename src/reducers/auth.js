@@ -1,7 +1,9 @@
 import {
   COGNITO_AUTH_SUCCEEDED,
   COGNITO_AUTH_FAILED,
-} from '../actions/cognito';
+  AUTH0_AUTH_SUCCEEDED,
+  AUTH0_SERVICE_CREATED,
+} from '../actions/auth';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -17,6 +19,10 @@ export default (state = {}, action) => {
         error: action.payload.err,
       },
     });
+  case AUTH0_AUTH_SUCCEEDED:
+    return Object.assign({}, state, { idToken: action.payload.idToken });
+  case AUTH0_SERVICE_CREATED:
+    return Object.assign({}, state, { auth0Service: action.payload.auth0Service });
   default:
     return state;
   }

@@ -1,22 +1,31 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import AuthService from '../services/auth0';
-import {
-  CLIENT_ID,
-  DOMAIN,
-} from '../constants/auth0';
+import { getAuth0AuthAsync } from '../actions/auth';
 
-export default class LoginButton extends Component {
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {
+  getAuth0AuthAsync,
+};
+
+class LoginButton extends Component {
   componentWillMount() {
-    this.auth = new AuthService(CLIENT_ID, DOMAIN);
+    this.props.getAuth0AuthAsync();
   }
 
   render() {
+    const { auth } = this.props;
+    const isAuthenticated = auth.isAuthenticated || false;
+    const auth0Service = auth.auth0Service || { login: () => false };
+
     return (
       <button
-        className={ classNames('login-btn', { authed: this.auth.loggedIn() }) }
-        onClick={ this.auth.login }
+        className={ classNames('login-btn', { authed: isAuthenticated }) }
+        onClick={ auth0Service.login }
       >
         Sign in
       </button>
@@ -24,6 +33,7 @@ export default class LoginButton extends Component {
   }
 }
 
-LoginButton.propTypes = {
-  auth: PropTypes.instanceOf(AuthService)
-};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LoginButton);

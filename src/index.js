@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import persistState from 'redux-localstorage';
 import { createStore, applyMiddleware, compose } from 'redux';
 
 import './stylesheets/index.css';
@@ -17,6 +18,14 @@ const composeEnhancers = (SHOW_DEV_TOOLS && window.__REDUX_DEVTOOLS_EXTENSION_CO
 
 const store = createStore(reducer, {}, composeEnhancers(
   applyMiddleware(...[thunk]),
+  persistState('auth', {
+    slicer: () => {
+      return (state) => {
+        const { isAuthenticated, idToken } = state.auth;
+        return { auth: { isAuthenticated, idToken } };
+      };
+    },
+  }),
 ));
 
 ReactDOM.render(

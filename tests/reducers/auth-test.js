@@ -1,8 +1,8 @@
 import {
   COGNITO_AUTH_SUCCEEDED,
   COGNITO_AUTH_FAILED,
-} from '../../src/actions/cognito';
-import auth from '../../src/reducers/cognito';
+} from '../../src/actions/auth';
+import auth from '../../src/reducers/auth';
 
 describe('`auth` reducer', () => {
   it(`sets isAuthed to \`isAuthed\` and adds auth info to the cognito key on ${COGNITO_AUTH_SUCCEEDED}`, () => {
