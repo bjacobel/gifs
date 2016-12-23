@@ -1,9 +1,18 @@
+// @flow
+
 export const copy = () => {  // eslint-disable-line import/prefer-default-export
-  document.getSelection().removeAllRanges();
+  const selection = document.getSelection();
+
+  if (selection) {
+    selection.removeAllRanges();
+  }
 
   const copyInput = document.querySelector('.gif-fullname-hidden');
-  copyInput.focus();
-  copyInput.setSelectionRange(0, copyInput.value.length);
+
+  if (copyInput) {
+    copyInput.focus();
+    copyInput.setSelectionRange(0, copyInput.value.length);
+  }
 
   if (document.queryCommandSupported('copy') && document.execCommand('copy')) {
     return true;

@@ -1,3 +1,5 @@
+// @flow
+
 import AWS from 'aws-sdk/global';
 import AWSS3 from 'aws-sdk/clients/s3';
 import {
@@ -5,7 +7,7 @@ import {
   REGION,
 } from '../constants/aws';
 
-export function getBucketContents(authInfo) {  // eslint-disable-line import/prefer-default-export
+export function getBucketContents(authInfo: { params: Object }) {  // eslint-disable-line import/prefer-default-export
   const S3 = new AWSS3({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),

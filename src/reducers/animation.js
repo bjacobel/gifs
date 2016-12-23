@@ -1,10 +1,19 @@
+// @flow
+
 import {
   ANIMATE_GIF,
   FREEZE_GIF,
   SAVE_ANIMATION,
 } from '../actions/animation';
 
-export const animation = (state = {}, action) => {
+type AnimationAction = {
+  type: string,
+  payload: {
+    id: number,
+  },
+};
+
+export const animation = (state: { [key: number]: boolean } = {}, action: AnimationAction) => {
   switch (action.type) {
   case ANIMATE_GIF:
     return { ...state, [action.payload.id]: true };
@@ -15,7 +24,7 @@ export const animation = (state = {}, action) => {
   }
 };
 
-export const activeGif = (state = null, action) => {
+export const activeGif = (state: ?number = null, action: AnimationAction) => {
   switch (action.type) {
   case SAVE_ANIMATION:
     return action.payload.id;

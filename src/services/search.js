@@ -1,6 +1,8 @@
+// @flow
+
 import Fuse from 'fuse.js';
 
-export const updateIndex = (gifs, tags) => {
+export const updateIndex = (gifs: Array<Gif>, tags: Array<number>) => {
   return new Promise((resolve) => {
     // enrich gifs with tag info. We keep these seaparate in state because Reasons
     resolve(gifs.map((gif) => {
@@ -15,7 +17,7 @@ export const updateIndex = (gifs, tags) => {
   });
 };
 
-export const searchFor = (searchTerm, fuseIndex) => {
+export const searchFor = (searchTerm: string, fuseIndex: {}) => {
   return new Promise((resolve) => {
     const fuse = new Fuse(fuseIndex, {
       keys: ['tags.text', 'src'],

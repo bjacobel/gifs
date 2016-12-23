@@ -1,3 +1,5 @@
+// @flow
+
 import AWS from 'aws-sdk/global';
 import AWSDynamoDB from 'aws-sdk/clients/dynamodb';
 import shortid from 'shortid';
@@ -7,7 +9,7 @@ import {
   REGION,
 } from '../constants/aws';
 
-export const getAllTags = (authInfo) => {
+export const getAllTags = (authInfo: { params: Object }) => {
   const dynamo = new AWSDynamoDB({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
@@ -19,7 +21,7 @@ export const getAllTags = (authInfo) => {
   }).promise();
 };
 
-export const addTag = (tag, id, authInfo) => {
+export const addTag = (tag: string, id: number, authInfo: { params: Object }) => {
   const dynamo = new AWSDynamoDB({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
@@ -43,7 +45,7 @@ export const addTag = (tag, id, authInfo) => {
     }));
 };
 
-export const deleteTag = (id, authInfo) => {
+export const deleteTag = (id: string, authInfo: { params: Object }) => {
   const dynamo = new AWSDynamoDB({
     region: REGION,
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),

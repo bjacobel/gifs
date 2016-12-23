@@ -1,10 +1,30 @@
+// @flow
+
 import {
   GET_GIFS_SUCCEEDED,
   GET_IMAGE_SIZE_SUCCEEDED,
   FOUND_VISIBLE_GIFS,
 } from '../actions/gifs';
 
-export const gifs = (state = [], action) => {
+type S3Object = {
+  Key: string,
+  LastModified: string,
+  Size: number,
+  ETag: string,
+};
+
+type GifsAction = {
+  type: string,
+  payload: {
+    gifs?: {
+      Contents: Array<S3Object>,
+    },
+    height: number,
+    width: number,
+  },
+};
+
+export const gifs = (state: Array<Gif> = [], action: GifsAction) => {
   switch (action.type) {
   case GET_GIFS_SUCCEEDED:   // eslint-disable-line no-case-declarations
     const newGifs = action.payload.gifs.Contents.filter((gif) => {

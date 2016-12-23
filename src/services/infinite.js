@@ -1,4 +1,6 @@
-export const isGifVisible = (gifs, index) => {  // eslint-disable-line import/prefer-default-export
+// @flow
+
+export const isGifVisible = (gifs: Array<Gif>, index: number) => {  // eslint-disable-line import/prefer-default-export
   let gifScrollTop = 0;
 
   for (let i = 0; i < index; i += 1) {

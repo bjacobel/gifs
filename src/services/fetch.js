@@ -1,3 +1,5 @@
+// @flow
+
 // This approach makes fetch much easier to mock in tests
 import 'whatwg-fetch';
 
