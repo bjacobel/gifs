@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import persistState from 'redux-localstorage';
 
 import './stylesheets/index.css';
 import Main from './components/Main';
@@ -18,7 +17,6 @@ const composeEnhancers = (SHOW_DEV_TOOLS && window.__REDUX_DEVTOOLS_EXTENSION_CO
 
 const store = createStore(reducer, {}, composeEnhancers(
   applyMiddleware(...[thunk]),
-  // persistState('auth.google'),
 ));
 
 ReactDOM.render(

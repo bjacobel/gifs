@@ -9,7 +9,7 @@ import {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
+    cognito: state.cognito,
   };
 };
 
@@ -32,7 +32,7 @@ class Tag extends Component {
       addTagAsync,
       deleteTagAsync,
       /* eslint-enable no-shadow */
-      auth,
+      cognito,
     } = this.props;
 
     const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };
@@ -62,7 +62,7 @@ class Tag extends Component {
         spellCheck="false"
         type="text"
         value={ this.state.value }
-        disabled={ !auth.isAuthenticated }
+        disabled={ !cognito.isAuthenticated }
       />
     );
 
@@ -82,7 +82,7 @@ class Tag extends Component {
 
 
     return (
-      <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated, adder: meta === 'add-tag' }) }>
+      <span className={ classNames('tag-wrapper', { disabled: !cognito.isAuthenticated, adder: meta === 'add-tag' }) }>
         <span className="tag">
           { content }
           { addOrDel }

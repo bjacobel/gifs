@@ -1,27 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import { getGoogleAuthAsync } from '../actions/auth';
+import AuthService from '../services/auth0';
+import {
+  CLIENT_ID,
+  DOMAIN,
+} from '../constants/auth0';
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-  };
-};
+export default class LoginButton extends Component {
+  componentWillMount() {
+    this.auth = new AuthService(CLIENT_ID, DOMAIN);
+  }
 
-const mapDispatchToProps = {
-  getGoogleAuthAsync,
-};
-
-class LoginButton extends Component {
   render() {
-    const { auth } = this.props;
-
     return (
       <button
-        className={ classNames('login-btn', { authed: auth.isAuthenticated }) }
-        onClick={ this.props.getGoogleAuthAsync }
+        className={ classNames('login-btn', { authed: this.auth.loggedIn() }) }
+        onClick={ this.auth.login }
       >
         Sign in
       </button>
@@ -29,7 +24,6 @@ class LoginButton extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginButton);
+LoginButton.propTypes = {
+  auth: PropTypes.instanceOf(AuthService)
+};

@@ -1,13 +1,11 @@
 import {
   COGNITO_AUTH_SUCCEEDED,
   COGNITO_AUTH_FAILED,
-  GOOGLE_AUTH_SUCCEEDED,
-  GOOGLE_AUTH_FAILED,
-} from '../../src/actions/auth';
-import auth from '../../src/reducers/auth';
+} from '../../src/actions/cognito';
+import auth from '../../src/reducers/cognito';
 
 describe('`auth` reducer', () => {
-  it(`sets isAuthed to \`authedWithGoogle\` and adds auth info to the cognito key on ${COGNITO_AUTH_SUCCEEDED}`, () => {
+  it(`sets isAuthed to \`isAuthed\` and adds auth info to the cognito key on ${COGNITO_AUTH_SUCCEEDED}`, () => {
     expect(auth({
       isAuthenticated: false,
       cognito: {
@@ -17,14 +15,14 @@ describe('`auth` reducer', () => {
       type: COGNITO_AUTH_SUCCEEDED,
       payload: {
         authInfo: {
-          authedWithGoogle: true,
+          isAuthed: true,
           foo: 'biff',
         },
       },
     })).toEqual({
       isAuthenticated: true,
       cognito: {
-        authedWithGoogle: true,
+        isAuthed: true,
         foo: 'biff',
       },
     });
@@ -44,41 +42,6 @@ describe('`auth` reducer', () => {
     })).toEqual({
       isAuthenticated: false,
       cognito: {
-        error: 'foo error',
-      },
-    });
-  });
-
-  it(`adds auth info to the google key on ${GOOGLE_AUTH_SUCCEEDED}`, () => {
-    expect(auth({}, {
-      type: GOOGLE_AUTH_SUCCEEDED,
-      payload: {
-        authInfo: {
-          id_token: 'foo',
-        },
-      },
-    })).toEqual({
-      google: {
-        id_token: 'foo',
-      },
-    });
-  });
-
-
-  it(`sets isAuthed false and adds an err to the google key on ${GOOGLE_AUTH_FAILED}`, () => {
-    expect(auth({
-      isAuthenticated: true,
-      google: {
-        foo: 'bar',
-      },
-    }, {
-      type: GOOGLE_AUTH_FAILED,
-      payload: {
-        err: 'foo error',
-      },
-    })).toEqual({
-      isAuthenticated: false,
-      google: {
         error: 'foo error',
       },
     });

@@ -6,9 +6,13 @@ import {
   REGION,
   UNAUTHED_ROLE_ARN,
 } from '../constants/aws';
-import { requestAccessToken } from './google';
+import AuthService from '../services/auth0';
+import {
+  CLIENT_ID,
+  DOMAIN,
+} from '../constants/auth0';
 
-export const obtainAuthRole = (googleAuth) => {
+export const obtainAuthRole = (token) => {
   return new Promise((resolve, reject) => {
     AWS.config.region = REGION;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -18,7 +22,7 @@ export const obtainAuthRole = (googleAuth) => {
     Object.assign(AWS.config.credentials.params, {
       RoleArn: AUTHED_ROLE_ARN,
       Logins: {
-        'accounts.google.com': googleAuth.id_token,
+        [DOMAIN]: token,
       },
     });
 
@@ -26,7 +30,7 @@ export const obtainAuthRole = (googleAuth) => {
       if (err) {
         reject(err);
       } else {
-        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: true }));
+        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { isAuthed: true }));
       }
     });
   });
@@ -44,23 +48,17 @@ export const obtainUnauthedRole = () => {
       if (err) {
         reject(err);
       } else {
-        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: false }));
+        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { isAuthed: false }));
       }
     });
   });
 };
 
-// Will trigger a google auth flow if credentials are expired on Google's end
-// AWS can refresh automatically
-export const obtainCurrentRole = (authState) => {
-  const { google } = authState;
+export const obtainCurrentRole = () => {
+  const auth = new AuthService(CLIENT_ID, DOMAIN);
 
-  if (google && google.expires_at < (new Date()).getTime()) {
-    // Google creds are expired
-    return requestAccessToken().then(() => obtainAuthRole(google));
-  } else if (google && google.id_token && google.expires_at >= (new Date()).getTime()) {
-    // Google creds are fine, get Cognito authed role
-    return obtainAuthRole(google);
+  if (auth.loggedIn()) {
+    return obtainAuthRole(auth.getToken());
   } else {
     // We're not in a position where we can auth, return the unauthed role
     return obtainUnauthedRole();
