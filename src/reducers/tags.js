@@ -6,11 +6,15 @@ import {
 
 const addToState = (state, newKey, newData) => {
   if (newKey in state) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       [newKey]: state[newKey].concat(newData),
-    });
+    };
   } else {
-    return Object.assign({}, state, { [newKey]: newData });
+    return {
+      ...state,
+      [newKey]: newData,
+    };
   }
 };
 
@@ -46,9 +50,10 @@ export default (state = {}, action) => {
     return addToState(state, tag.gif_id, [{ text: tag.tag, id: tag.id }]);
   }
   case DELETE_TAG_SUCCEEDED: {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       [action.payload.gifId]: state[action.payload.gifId].filter(x => x.id !== action.payload.tagId),
-    });
+    };
   }
   default:
     return state;

@@ -28,12 +28,13 @@ export const gifs = (state = [], action) => {
     if (gifIndex >= 0) {
       return [
         ...state.slice(0, gifIndex),
-        Object.assign({}, gif, {
+        {
+          ...gif,
           height: action.payload.height,
           width: action.payload.width,
           observedHeight: action.payload.observedHeight,
           observedWidth: action.payload.observedWidth,
-        }),
+        },
         ...state.slice(gifIndex + 1, state.length),
       ];
     } else {

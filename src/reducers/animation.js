@@ -7,9 +7,9 @@ import {
 export const animation = (state = {}, action) => {
   switch (action.type) {
   case ANIMATE_GIF:
-    return Object.assign({}, state, { [action.payload.id]: true });
+    return { ...state, [action.payload.id]: true };
   case FREEZE_GIF:
-    return Object.assign({}, state, { [action.payload.id]: false });
+    return { ...state, [action.payload.id]: false };
   default:
     return state;
   }
