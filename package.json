@@ -62,6 +62,7 @@
   },
   "jest": {
     "mocksPattern": "(?:[\\/]|^)mocks[\\/]",
+    "collectCoverageFrom": ["src/**/*.js"],
     "moduleNameMapper": {
       "aws-sdk/global": "<rootDir>/mocks/aws-sdk/global.js",
       "aws-sdk/clients/s3": "<rootDir>/mocks/aws-sdk/clients/s3.js",
