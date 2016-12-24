@@ -23,7 +23,7 @@ export const obtainAuthRole = (idToken) => {
     },
   };
 
-  return AWS.config.credentials.refresh().promise()
+  return AWS.config.credentials.refreshPromise()
     .catch((err) => {
       return err;
     })
@@ -40,7 +40,7 @@ export const obtainUnauthedRole = () => {
     IdentityPoolId: COGNITO_POOL,
   });
 
-  return AWS.config.credentials.refresh().promise()
+  return AWS.config.credentials.refreshPromise()
     .catch((err) => {
       return err;
     })

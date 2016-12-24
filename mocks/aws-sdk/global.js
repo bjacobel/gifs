@@ -6,16 +6,14 @@ const config = {
 
 const CognitoIdentityCredentials = jest.fn(authInfo => ({
   ...authInfo,
-  refresh: jest.fn(() => ({
-    promise: jest.fn(() => {
-      if (!authInfo.RoleArn) {
-        authInfo.RoleArn = AUTHED_ROLE_ARN; // eslint-disable-line no-param-reassign
-      }
+  refreshPromise: jest.fn(() => {
+    if (!authInfo.RoleArn) {
+      authInfo.RoleArn = AUTHED_ROLE_ARN; // eslint-disable-line no-param-reassign
+    }
 
-      config.credentials.webIdentityCredentials = { params: authInfo };
-      return Promise.resolve();
-    }),
-  })),
+    config.credentials.webIdentityCredentials = { params: authInfo };
+    return Promise.resolve();
+  }),
   params: {},
 }));
 

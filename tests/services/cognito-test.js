@@ -30,12 +30,12 @@ describe('cognito service', () => {
 
     it('refreshes creds', () => {
       return obtainAuthRole('token').then(() => {
-        expect(AWS.config.credentials.refresh).toHaveBeenCalled();
+        expect(AWS.config.credentials.refreshPromise).toHaveBeenCalled();
       });
     });
 
     it('refreshes creds and rejects if refresh throws an err', () => {
-      AWS.config.credentials.refresh.mockImplementationOnce(() => Promise.reject(new Error()));
+      AWS.config.credentials.refreshPromise.mockImplementationOnce(() => Promise.reject(new Error()));
       return obtainAuthRole('token').catch((err) => {
         expect(err).toBeInstanceOf(Error);
       });
@@ -57,12 +57,12 @@ describe('cognito service', () => {
 
     it('refreshes creds', () => {
       return obtainUnauthedRole().then(() => {
-        expect(AWS.config.credentials.refresh).toHaveBeenCalled();
+        expect(AWS.config.credentials.refreshPromise).toHaveBeenCalled();
       });
     });
 
     it('refreshes creds and rejects if refresh throws an err', () => {
-      AWS.config.credentials.refresh.mockImplementationOnce(() => Promise.reject(new Error()));
+      AWS.config.credentials.refreshPromise.mockImplementationOnce(() => Promise.reject(new Error()));
       return obtainUnauthedRole().catch((err) => {
         expect(err).toBeInstanceOf(Error);
       });
