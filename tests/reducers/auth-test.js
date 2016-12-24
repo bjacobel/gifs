@@ -59,9 +59,11 @@ describe('`auth` reducer', () => {
         type: AUTH0_AUTH_SUCCEEDED,
         payload: {
           idToken: 'token',
+          idTokenExpiry: 100,
         },
       })).toEqual({
         idToken: 'token',
+        idTokenExpiry: 100,
       });
     });
   });

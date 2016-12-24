@@ -20,7 +20,7 @@ export default (state = {}, action) => {
       },
     });
   case AUTH0_AUTH_SUCCEEDED:
-    return Object.assign({}, state, { idToken: action.payload.idToken });
+    return Object.assign({}, state, { idToken: action.payload.idToken, idTokenExpiry: action.payload.idTokenExpiry });
   case AUTH0_SERVICE_CREATED:
     return Object.assign({}, state, { auth0Service: action.payload.auth0Service });
   default:
