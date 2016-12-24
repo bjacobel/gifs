@@ -13,18 +13,10 @@ export const getAllTags = (authInfo) => {
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
 
-  return new Promise((resolve, reject) => {
-    dynamo.scan({
-      TableName: DYNAMO_TABLE,
-      ProjectionExpression: 'gif_id,tag,id',
-    }, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
+  return dynamo.scan({
+    TableName: DYNAMO_TABLE,
+    ProjectionExpression: 'gif_id,tag,id',
+  }).promise();
 };
 
 export const addTag = (tag, id, authInfo) => {
@@ -35,27 +27,20 @@ export const addTag = (tag, id, authInfo) => {
 
   const uuid = shortid.generate();
 
-  return new Promise((resolve, reject) => {
-    dynamo.putItem({
-      TableName: DYNAMO_TABLE,
-      Item: {
-        id: { S: uuid },
-        gif_id: { S: id },
-        tag: { S: tag },
-      },
-    }, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        // Data returned by dynamo.putItem is null, so just make it up
-        resolve({
-          id: uuid,
-          gif_id: id,
-          tag,
-        });
-      }
-    });
-  });
+  return dynamo.putItem({
+    TableName: DYNAMO_TABLE,
+    Item: {
+      id: { S: uuid },
+      gif_id: { S: id },
+      tag: { S: tag },
+    },
+  }).promise()
+    .then(() => ({
+      // Data returned by dynamo.putItem is null, so just make it up
+      id: uuid,
+      gif_id: id,
+      tag,
+    }));
 };
 
 export const deleteTag = (id, authInfo) => {
@@ -64,18 +49,11 @@ export const deleteTag = (id, authInfo) => {
     credentials: new AWS.CognitoIdentityCredentials(authInfo.params),
   });
 
-  return new Promise((resolve, reject) => {
-    dynamo.deleteItem({
-      TableName: DYNAMO_TABLE,
-      Key: {
-        id: { S: id },
-      },
-    }, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(id);
-      }
-    });
-  });
+  return dynamo.deleteItem({
+    TableName: DYNAMO_TABLE,
+    Key: {
+      id: { S: id },
+    },
+  }).promise()
+    .then(() => id);
 };

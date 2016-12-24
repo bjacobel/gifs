@@ -27,7 +27,7 @@ describe('Dynamo service', () => {
 
       expect(AWSDynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params,
+        credentials: expect.objectContaining(authInfo.params),
       });
     });
 
@@ -36,7 +36,7 @@ describe('Dynamo service', () => {
         expect(AWSDynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
           ProjectionExpression: 'gif_id,tag,id',
-        }, expect.any(Function));
+        });
 
         expect(data).toEqual({ objects: [] });
       });
@@ -45,15 +45,15 @@ describe('Dynamo service', () => {
     it('returns a Promise that rejects with the errors from the scan', () => {
       const err = { itDidnt: 'work' };
 
-      AWSDynamoDB.prototype.scan.mockImplementationOnce((params, callback) => {
-        callback(err);
-      });
+      AWSDynamoDB.prototype.scan.mockImplementationOnce(() => ({
+        promise: jest.fn(() => Promise.reject(err)),
+      }));
 
       return getAllTags({ params: {} }).catch((error) => {
         expect(AWSDynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
           ProjectionExpression: 'gif_id,tag,id',
-        }, expect.any(Function));
+        });
 
         expect(error).toEqual(err);
       });
@@ -74,7 +74,7 @@ describe('Dynamo service', () => {
 
       expect(AWSDynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params,
+        credentials: expect.objectContaining(authInfo.params),
       });
     });
 
@@ -87,7 +87,7 @@ describe('Dynamo service', () => {
             gif_id: { S: 1 },
             tag: { S: 'tag' },
           },
-        }, expect.any(Function));
+        });
 
         expect(data).toEqual({
           id: 'shortid',
@@ -100,9 +100,9 @@ describe('Dynamo service', () => {
     it('returns a Promise that rejects with the errors from the put op', () => {
       const err = { itDidnt: 'work' };
 
-      AWSDynamoDB.prototype.putItem.mockImplementationOnce((params, callback) => {
-        callback(err);
-      });
+      AWSDynamoDB.prototype.putItem.mockImplementationOnce(() => ({
+        promise: jest.fn(() => Promise.reject(err)),
+      }));
 
       return addTag('tag', 1, { params: {} }).catch((error) => {
         expect(AWSDynamoDB.prototype.putItem).lastCalledWith({
@@ -112,7 +112,7 @@ describe('Dynamo service', () => {
             gif_id: { S: 1 },
             tag: { S: 'tag' },
           },
-        }, expect.any(Function));
+        });
 
         expect(error).toEqual(err);
       });
@@ -131,7 +131,7 @@ describe('Dynamo service', () => {
 
       expect(AWSDynamoDB).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params,
+        credentials: expect.objectContaining(authInfo.params),
       });
     });
 
@@ -142,7 +142,7 @@ describe('Dynamo service', () => {
           Key: {
             id: { S: '1' },
           },
-        }, expect.any(Function));
+        });
 
         expect(data).toEqual('1');
       });
@@ -151,9 +151,9 @@ describe('Dynamo service', () => {
     it('returns a Promise that rejects with the errors from the delete op', () => {
       const err = { itDidnt: 'work' };
 
-      AWSDynamoDB.prototype.deleteItem.mockImplementationOnce((params, callback) => {
-        callback(err);
-      });
+      AWSDynamoDB.prototype.deleteItem.mockImplementationOnce(() => ({
+        promise: jest.fn(() => Promise.reject(err)),
+      }));
 
       return deleteTag('1', { params: {} }).catch((error) => {
         expect(AWSDynamoDB.prototype.deleteItem).lastCalledWith({
@@ -161,7 +161,7 @@ describe('Dynamo service', () => {
           Key: {
             id: { S: '1' },
           },
-        }, expect.any(Function));
+        });
 
         expect(error).toEqual(err);
       });
