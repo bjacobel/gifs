@@ -7,6 +7,7 @@ import {
   UNAUTHED_ROLE_ARN,
 } from '../constants/aws';
 import { DOMAIN } from '../constants/auth0';
+import { isAuthed } from './auth0';
 
 export const obtainAuthRole = (idToken) => {
   return new Promise((resolve, reject) => {
@@ -51,10 +52,10 @@ export const obtainUnauthedRole = () => {
 };
 
 export const obtainCurrentRole = (auth) => {
-  if (auth.idToken) {
+  if (isAuthed(auth)) {
     return obtainAuthRole(auth.idToken);
   } else {
-    // We're not in a position where we can auth, return the unauthed role
+    // Either there is no token or it has expired, so get the unauthed role
     return obtainUnauthedRole();
   }
 };

@@ -38,8 +38,8 @@ export const getCognitoAuthAsync = () => {
   };
 };
 
-const auth0AuthSucceeded = (idToken) => {
-  return { type: AUTH0_AUTH_SUCCEEDED, payload: { idToken } };
+const auth0AuthSucceeded = (idToken, idTokenExpiry) => {
+  return { type: AUTH0_AUTH_SUCCEEDED, payload: { idToken, idTokenExpiry } };
 };
 
 const auth0ServiceCreated = (auth0Service) => {
@@ -51,7 +51,7 @@ export const getAuth0AuthAsync = () => {
     const { auth0Service } = getState().auth;
 
     const callback = (authResult) => {
-      dispatch(auth0AuthSucceeded(authResult.idToken));
+      dispatch(auth0AuthSucceeded(authResult.idToken, authResult.idTokenPayload.exp));
       dispatch(getCognitoAuthAsync());
     };
 

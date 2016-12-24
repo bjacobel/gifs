@@ -1,7 +1,10 @@
-// Borrowed mostly wholesale from the Auth0 SPA documentation
-
 import Auth0Lock from 'auth0-lock';
 import { REDIRECT_URL } from '../constants/auth0';
+
+export const isAuthed = (auth) => {
+  const { idToken, idTokenExpiry } = auth;
+  return idToken && idTokenExpiry && ((new Date()).getTime() / 1000) < idTokenExpiry;
+};
 
 export default class Auth0Service {
   constructor(clientId, domain, callback) {
