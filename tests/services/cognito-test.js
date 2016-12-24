@@ -35,7 +35,7 @@ describe('cognito service', () => {
     });
 
     it('refreshes creds and rejects if refresh throws an err', () => {
-      AWS.config.credentials.refresh.mockImplementationOnce(cb => cb(new Error()));
+      AWS.config.credentials.refresh.mockImplementationOnce(() => Promise.reject(new Error()));
       return obtainAuthRole('token').catch((err) => {
         expect(err).toBeInstanceOf(Error);
       });
@@ -62,7 +62,7 @@ describe('cognito service', () => {
     });
 
     it('refreshes creds and rejects if refresh throws an err', () => {
-      AWS.config.credentials.refresh.mockImplementationOnce(cb => cb(new Error()));
+      AWS.config.credentials.refresh.mockImplementationOnce(() => Promise.reject(new Error()));
       return obtainUnauthedRole().catch((err) => {
         expect(err).toBeInstanceOf(Error);
       });

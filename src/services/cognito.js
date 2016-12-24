@@ -10,45 +10,44 @@ import { DOMAIN } from '../constants/auth0';
 import { isAuthed } from './auth0';
 
 export const obtainAuthRole = (idToken) => {
-  return new Promise((resolve, reject) => {
-    AWS.config.region = REGION;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: COGNITO_POOL,
-    });
-
-    Object.assign(AWS.config.credentials.params, {
-      RoleArn: AUTHED_ROLE_ARN,
-      Logins: {
-        [DOMAIN]: idToken,
-      },
-    });
-
-    return AWS.config.credentials.refresh((err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { isAuthed: true }));
-      }
-    });
+  AWS.config.region = REGION;
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: COGNITO_POOL,
   });
+
+  AWS.config.credentials.params = {
+    ...AWS.config.credentials.params,
+    RoleArn: AUTHED_ROLE_ARN,
+    Logins: {
+      [DOMAIN]: idToken,
+    },
+  };
+
+  return AWS.config.credentials.refresh().promise()
+    .catch((err) => {
+      return err;
+    })
+    .then(() => ({
+      ...AWS.config.credentials.webIdentityCredentials,
+      isAuthed: true,
+    }));
 };
 
 export const obtainUnauthedRole = () => {
-  return new Promise((resolve, reject) => {
-    AWS.config.region = REGION;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      RoleArn: UNAUTHED_ROLE_ARN,
-      IdentityPoolId: COGNITO_POOL,
-    });
-
-    return AWS.config.credentials.refresh((err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { isAuthed: false }));
-      }
-    });
+  AWS.config.region = REGION;
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    RoleArn: UNAUTHED_ROLE_ARN,
+    IdentityPoolId: COGNITO_POOL,
   });
+
+  return AWS.config.credentials.refresh().promise()
+    .catch((err) => {
+      return err;
+    })
+    .then(() => ({
+      ...AWS.config.credentials.webIdentityCredentials,
+      isAuthed: false,
+    }));
 };
 
 export const obtainCurrentRole = (auth) => {
