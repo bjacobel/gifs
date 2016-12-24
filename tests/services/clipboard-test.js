@@ -18,8 +18,12 @@ describe('clipboard service', () => {
     });
 
     it('copies passed text to the clipboard', () => {
-      // @TODO: idk. these are all native browser functions so idk how to test other than just running it
-      copy();
+      expect(copy()).toBeTruthy();
+    });
+
+    it("throws an error if your browser doesn't support execCommand('copy')", () => {
+      Object.assign(document, { queryCommandSupported: jest.fn(() => false) });
+      expect(copy).toThrowError('Copying not supported in your browser');
     });
   });
 });

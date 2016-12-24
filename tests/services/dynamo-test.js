@@ -36,7 +36,7 @@ describe('Dynamo service', () => {
         expect(AWSDynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
           ProjectionExpression: 'gif_id,tag,id',
-        }, jasmine.any(Function));
+        }, expect.any(Function));
 
         expect(data).toEqual({ objects: [] });
       });
@@ -53,7 +53,7 @@ describe('Dynamo service', () => {
         expect(AWSDynamoDB.prototype.scan).lastCalledWith({
           TableName: DYNAMO_TABLE,
           ProjectionExpression: 'gif_id,tag,id',
-        }, jasmine.any(Function));
+        }, expect.any(Function));
 
         expect(error).toEqual(err);
       });
@@ -87,7 +87,7 @@ describe('Dynamo service', () => {
             gif_id: { S: 1 },
             tag: { S: 'tag' },
           },
-        }, jasmine.any(Function));
+        }, expect.any(Function));
 
         expect(data).toEqual({
           id: 'shortid',
@@ -112,7 +112,7 @@ describe('Dynamo service', () => {
             gif_id: { S: 1 },
             tag: { S: 'tag' },
           },
-        }, jasmine.any(Function));
+        }, expect.any(Function));
 
         expect(error).toEqual(err);
       });
@@ -142,7 +142,7 @@ describe('Dynamo service', () => {
           Key: {
             id: { S: '1' },
           },
-        }, jasmine.any(Function));
+        }, expect.any(Function));
 
         expect(data).toEqual('1');
       });
@@ -161,7 +161,7 @@ describe('Dynamo service', () => {
           Key: {
             id: { S: '1' },
           },
-        }, jasmine.any(Function));
+        }, expect.any(Function));
 
         expect(error).toEqual(err);
       });

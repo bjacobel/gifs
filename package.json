@@ -47,7 +47,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "imports-loader": "^0.6.5",
-    "jest-cli": "^17.0.3",
+    "jest-cli": "^18.0.0",
     "json-loader": "^0.5.4",
     "postcss-import": "^8.0.2",
     "postcss-loader": "^1.1.1",

@@ -31,7 +31,7 @@ describe('S3 service', () => {
 
     it('calls S3.listObjects with the bucket', () => {
       getBucketContents({ params: {} });
-      expect(AWSS3.prototype.listObjects).lastCalledWith({ Bucket: BUCKET }, jasmine.any(Function));
+      expect(AWSS3.prototype.listObjects).lastCalledWith({ Bucket: BUCKET }, expect.any(Function));
     });
 
     it('returns a promise that resolves with the data S3.listObjects callsback with', () => {
