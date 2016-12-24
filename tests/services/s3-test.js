@@ -25,7 +25,7 @@ describe('S3 service', () => {
       expect(AWS.CognitoIdentityCredentials).lastCalledWith(authInfo.params);
       expect(AWSS3).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params,
+        credentials: expect.objectContaining(authInfo.params),
       });
     });
 
