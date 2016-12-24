@@ -1,0 +1,13 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/fbjs/flow/include/fetchWithRetries.js
+<PROJECT_ROOT>/node_modules/fbjs/flow/include/PromiseMap.js
+<PROJECT_ROOT>/node_modules/reqwest/tests/fixtures/fixtures_with_prefix.json
+<PROJECT_ROOT>/node_modules/reqwest/tests/fixtures/invalidJSON.json
+
+[include]
+
+[libs]
+<PROJECT_ROOT>/flow-typed/*
+
+[options]
+

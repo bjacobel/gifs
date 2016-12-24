@@ -1,5 +1,8 @@
 module.exports = {
-  extends: 'eslint-config-airbnb',
+  extends: [
+    'eslint-config-airbnb',
+    'plugin:flowtype/recommended',
+  ],
   rules: {
     'arrow-body-style': 0,
     'comma-dangle': [2, {
@@ -29,6 +32,9 @@ module.exports = {
       modules: true,
     },
   },
+  presets: [
+    'eslint-plugin-flowtype',
+  ],
   env: {
     browser: true,
     commonjs: true,
