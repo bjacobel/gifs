@@ -2,26 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { getGoogleAuthAsync } from '../actions/auth';
+import { getAuth0AuthAsync } from '../actions/auth';
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-  };
-};
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
 const mapDispatchToProps = {
-  getGoogleAuthAsync,
+  getAuth0AuthAsync,
 };
 
 class LoginButton extends Component {
+  componentWillMount() {
+    this.props.getAuth0AuthAsync();
+  }
+
   render() {
     const { auth } = this.props;
+    const isAuthenticated = auth.isAuthenticated || false;
+    const auth0Service = auth.auth0Service || { login: () => false };
 
     return (
       <button
-        className={ classNames('login-btn', { authed: auth.isAuthenticated }) }
-        onClick={ this.props.getGoogleAuthAsync }
+        className={ classNames('login-btn', { authed: isAuthenticated }) }
+        onClick={ auth0Service.login }
       >
         Sign in
       </button>

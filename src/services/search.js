@@ -6,7 +6,11 @@ export const updateIndex = (gifs, tags) => {
     resolve(gifs.map((gif) => {
       const { id } = gif;
       const src = gif.src.slice(0, -4);
-      return Object.assign({}, { id, src }, { tags: tags[id] });
+      return {
+        id,
+        src,
+        tags: tags[id],
+      };
     }));
   });
 };

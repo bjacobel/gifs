@@ -25,13 +25,13 @@ describe('S3 service', () => {
       expect(AWS.CognitoIdentityCredentials).lastCalledWith(authInfo.params);
       expect(AWSS3).lastCalledWith({
         region: REGION,
-        credentials: authInfo.params,
+        credentials: expect.objectContaining(authInfo.params),
       });
     });
 
     it('calls S3.listObjects with the bucket', () => {
       getBucketContents({ params: {} });
-      expect(AWSS3.prototype.listObjects).lastCalledWith({ Bucket: BUCKET }, jasmine.any(Function));
+      expect(AWSS3.prototype.listObjects).lastCalledWith({ Bucket: BUCKET });
     });
 
     it('returns a promise that resolves with the data S3.listObjects callsback with', () => {
@@ -42,7 +42,9 @@ describe('S3 service', () => {
 
     it('returns a promise that rejects with the error S3.listObjects callsback with', () => {
       const err = { error: 'ya dun goofed' };
-      AWSS3.prototype.listObjects.mockImplementationOnce((params, callback) => callback(err));
+      AWSS3.prototype.listObjects.mockImplementationOnce(() => ({
+        promise: jest.fn(() => Promise.reject(err)),
+      }));
 
       return getBucketContents({ params: {} }).catch((s3Error) => {
         expect(s3Error).toEqual(err);

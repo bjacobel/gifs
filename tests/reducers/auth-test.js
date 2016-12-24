@@ -1,86 +1,83 @@
 import {
   COGNITO_AUTH_SUCCEEDED,
   COGNITO_AUTH_FAILED,
-  GOOGLE_AUTH_SUCCEEDED,
-  GOOGLE_AUTH_FAILED,
+  AUTH0_AUTH_SUCCEEDED,
+  AUTH0_SERVICE_CREATED,
 } from '../../src/actions/auth';
 import auth from '../../src/reducers/auth';
 
 describe('`auth` reducer', () => {
-  it(`sets isAuthed to \`authedWithGoogle\` and adds auth info to the cognito key on ${COGNITO_AUTH_SUCCEEDED}`, () => {
-    expect(auth({
-      isAuthenticated: false,
-      cognito: {
-        foo: 'bar',
-      },
-    }, {
-      type: COGNITO_AUTH_SUCCEEDED,
-      payload: {
-        authInfo: {
-          authedWithGoogle: true,
+  describe(`when type is ${COGNITO_AUTH_SUCCEEDED}`, () => {
+    it('sets isAuthenticated to `true` and adds auth info to the cognito key', () => {
+      expect(auth({
+        isAuthenticated: false,
+        cognito: {
+          foo: 'bar',
+        },
+      }, {
+        type: COGNITO_AUTH_SUCCEEDED,
+        payload: {
+          authInfo: {
+            isAuthed: true,
+            foo: 'biff',
+          },
+        },
+      })).toEqual({
+        isAuthenticated: true,
+        cognito: {
+          isAuthed: true,
           foo: 'biff',
         },
-      },
-    })).toEqual({
-      isAuthenticated: true,
-      cognito: {
-        authedWithGoogle: true,
-        foo: 'biff',
-      },
+      });
     });
   });
 
-  it(`sets isAuthed false and adds an err to the cognito key on ${COGNITO_AUTH_FAILED}`, () => {
-    expect(auth({
-      isAuthenticated: true,
-      cognito: {
-        foo: 'bar',
-      },
-    }, {
-      type: COGNITO_AUTH_FAILED,
-      payload: {
-        err: 'foo error',
-      },
-    })).toEqual({
-      isAuthenticated: false,
-      cognito: {
-        error: 'foo error',
-      },
-    });
-  });
-
-  it(`adds auth info to the google key on ${GOOGLE_AUTH_SUCCEEDED}`, () => {
-    expect(auth({}, {
-      type: GOOGLE_AUTH_SUCCEEDED,
-      payload: {
-        authInfo: {
-          id_token: 'foo',
+  describe(`when type is ${COGNITO_AUTH_FAILED}`, () => {
+    it('sets isAuthed to `false` and adds an err to the cognito key', () => {
+      expect(auth({
+        isAuthenticated: true,
+        cognito: {
+          foo: 'bar',
         },
-      },
-    })).toEqual({
-      google: {
-        id_token: 'foo',
-      },
+      }, {
+        type: COGNITO_AUTH_FAILED,
+        payload: {
+          err: 'foo error',
+        },
+      })).toEqual({
+        isAuthenticated: false,
+        cognito: {
+          error: 'foo error',
+        },
+      });
     });
   });
 
+  describe(`when type is ${AUTH0_AUTH_SUCCEEDED}`, () => {
+    it('adds the passed idToken to auth state', () => {
+      expect(auth(undefined, {
+        type: AUTH0_AUTH_SUCCEEDED,
+        payload: {
+          idToken: 'token',
+          idTokenExpiry: 100,
+        },
+      })).toEqual({
+        idToken: 'token',
+        idTokenExpiry: 100,
+      });
+    });
+  });
 
-  it(`sets isAuthed false and adds an err to the google key on ${GOOGLE_AUTH_FAILED}`, () => {
-    expect(auth({
-      isAuthenticated: true,
-      google: {
-        foo: 'bar',
-      },
-    }, {
-      type: GOOGLE_AUTH_FAILED,
-      payload: {
-        err: 'foo error',
-      },
-    })).toEqual({
-      isAuthenticated: false,
-      google: {
-        error: 'foo error',
-      },
+  describe(`when type is ${AUTH0_SERVICE_CREATED}`, () => {
+    it('adds some complex object representing the auth0 service class to state', () => {
+      expect(auth(undefined, {
+        type: AUTH0_SERVICE_CREATED,
+        payload: {
+          auth0Service: { a: 1 },
+        },
+      })).toEqual({
+        auth0Service: { a: 1 },
+      });
     });
   });
 

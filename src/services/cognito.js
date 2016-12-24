@@ -6,52 +6,49 @@ import {
   REGION,
   UNAUTHED_ROLE_ARN,
 } from '../constants/aws';
+import { DOMAIN } from '../constants/auth0';
+import { isAuthed } from './auth0';
 
 export const obtainAuthRole = (idToken) => {
-  return new Promise((resolve, reject) => {
-    AWS.config.region = REGION;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: COGNITO_POOL,
-    });
-
-    Object.assign(AWS.config.credentials.params, {
-      RoleArn: AUTHED_ROLE_ARN,
-      Logins: {
-        'accounts.google.com': idToken,
-      },
-    });
-
-    AWS.config.credentials.refresh((err) => {
-      if (err) {
-        reject(err);
-      }
-    });
-    resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: true }));
+  AWS.config.region = REGION;
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: COGNITO_POOL,
   });
+
+  AWS.config.credentials.params = {
+    ...AWS.config.credentials.params,
+    RoleArn: AUTHED_ROLE_ARN,
+    Logins: {
+      [DOMAIN]: idToken,
+    },
+  };
+
+  return AWS.config.credentials.refreshPromise()
+    .then(() => ({
+      ...AWS.config.credentials.webIdentityCredentials,
+      isAuthed: true,
+    }));
 };
 
 export const obtainUnauthedRole = () => {
-  return new Promise((resolve, reject) => {
-    AWS.config.region = REGION;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      RoleArn: UNAUTHED_ROLE_ARN,
-      IdentityPoolId: COGNITO_POOL,
-    });
-
-    AWS.config.credentials.refresh((err) => {
-      if (err) {
-        reject(err);
-      }
-    });
-
-    resolve(Object.assign({}, AWS.config.credentials.webIdentityCredentials, { authedWithGoogle: false }));
+  AWS.config.region = REGION;
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    RoleArn: UNAUTHED_ROLE_ARN,
+    IdentityPoolId: COGNITO_POOL,
   });
+
+  return AWS.config.credentials.refreshPromise()
+    .then(() => ({
+      ...AWS.config.credentials.webIdentityCredentials,
+      isAuthed: false,
+    }));
 };
 
-export const obtainCurrentRole = (googleAuthState) => {
-  if (googleAuthState && googleAuthState.id_token && googleAuthState.expires_at > (new Date()).getTime()) {
-    return obtainAuthRole(googleAuthState.id_token);
+export const obtainCurrentRole = (auth) => {
+  if (isAuthed(auth)) {
+    return obtainAuthRole(auth.idToken);
   } else {
+    // Either there is no token or it has expired, so get the unauthed role
     return obtainUnauthedRole();
   }
 };

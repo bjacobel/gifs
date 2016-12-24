@@ -14,13 +14,5 @@ export function getBucketContents(authInfo) {  // eslint-disable-line import/pre
     Bucket: BUCKET,
   };
 
-  return new Promise((resolve, reject) => {
-    S3.listObjects(S3params, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
+  return S3.listObjects(S3params).promise();
 }

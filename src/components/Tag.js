@@ -66,7 +66,6 @@ class Tag extends Component {
       />
     );
 
-
     let addOrDel;
 
     if (meta === 'add-tag') {
@@ -79,7 +78,6 @@ class Tag extends Component {
     } else {
       addOrDel = <span className="del-tag" onMouseUp={ deleteTag }>✕</span>;
     }
-
 
     return (
       <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated, adder: meta === 'add-tag' }) }>
