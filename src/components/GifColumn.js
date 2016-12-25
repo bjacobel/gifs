@@ -1,64 +1,25 @@
 import React, { Component } from 'react';
+import Infinite from 'react-infinite';
 import { connect } from 'react-redux';
 
 import GifWrapper from './GifWrapper';
-import { getGifsAsync, updateVisibleGifs } from '../actions/gifs';
+import { getGifsAsync } from '../actions/gifs';
 
 const mapStateToProps = (state) => {
   return {
     gifs: state.gifs,
     searchResults: state.searchResults,
     tags: state.tags,
-    visible: state.visible,
   };
 };
 
 const mapDispatchToProps = {
   getGifsAsync,
-  updateVisibleGifs,
 };
 
 class GifColumn extends Component {
   componentDidMount() {
-    const {
-      /* eslint-disable no-shadow */
-      updateVisibleGifs,
-      getGifsAsync,
-      /* eslint-enable no-shadow */
-    } = this.props;
-
-    getGifsAsync();
-    updateVisibleGifs();
-
-    this.renderGif = this.renderGif.bind(this);
-
-    const onScroll = () => {
-      updateVisibleGifs(this.props.gifs);
-    };
-
-    window.addEventListener('scroll', () => {
-      requestAnimationFrame(() => {
-        onScroll();
-      });
-    });
-  }
-
-  renderGif(gif, index) {
-    const { start, end } = this.props.visible;
-
-    let spacerOrGif;
-
-    if (start <= index && index <= end) {
-      spacerOrGif = <GifWrapper gif={ gif } />;
-    } else {
-      spacerOrGif = <div className="spacer" style={ { height: gif.observedHeight } } />;
-    }
-
-    return (
-      <div className="gif" key={ gif.id + gif.src }>
-        { spacerOrGif }
-      </div>
-    );
+    this.props.getGifsAsync();
   }
 
   render() {
@@ -72,9 +33,17 @@ class GifColumn extends Component {
     }
 
     return (
-      <div className="gif-column">
-        { filteredGifs.map((gif, index) => this.renderGif(gif, index)) }
-      </div>
+      <Infinite
+        className="gif-column"
+        elementHeight={ filteredGifs.map(gif => gif.observedHeight || 400) }
+        useWindowAsScrollContainer
+      >
+        { filteredGifs.map(gif => (
+          <div className="gif" key={ gif.id + gif.src }>
+            <GifWrapper gif={ gif } />
+          </div>
+        )) }
+      </Infinite>
     );
   }
 }

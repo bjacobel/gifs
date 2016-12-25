@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 
 import {
   gifs,
-  visible,
 } from './gifs';
 import tags from './tags';
 import {
@@ -23,5 +22,4 @@ export default combineReducers({
   searchIndex,
   searchResults,
   tags,
-  visible,
 });

@@ -21,6 +21,7 @@
     "query-string": "^4.2.2",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
+    "react-infinite": "^0.10.0",
     "react-redux": "^4.4.6",
     "redux": "^3.2.1",
     "redux-localstorage": "^0.4.1",
@@ -62,7 +63,9 @@
   },
   "jest": {
     "mocksPattern": "(?:[\\/]|^)mocks[\\/]",
-    "collectCoverageFrom": ["src/**/*.js"],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
     "moduleNameMapper": {
       "aws-sdk/global": "<rootDir>/mocks/aws-sdk/global.js",
       "aws-sdk/clients/s3": "<rootDir>/mocks/aws-sdk/clients/s3.js",

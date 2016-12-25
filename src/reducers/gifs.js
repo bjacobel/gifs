@@ -1,7 +1,6 @@
 import {
   GET_GIFS_SUCCEEDED,
   GET_IMAGE_SIZE_SUCCEEDED,
-  FOUND_VISIBLE_GIFS,
 } from '../actions/gifs';
 
 export const gifs = (state = [], action) => {
@@ -40,18 +39,6 @@ export const gifs = (state = [], action) => {
     } else {
       return state;
     }
-  default:
-    return state;
-  }
-};
-
-export const visible = (state = {}, action) => {
-  switch (action.type) {
-  case FOUND_VISIBLE_GIFS:
-    return {
-      start: action.payload.visibleLowRange,
-      end: action.payload.visibleHighRange,
-    };
   default:
     return state;
   }

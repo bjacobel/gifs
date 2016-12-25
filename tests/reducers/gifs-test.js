@@ -1,11 +1,7 @@
-import {
-  gifs,
-  visible,
-} from '../../src/reducers/gifs';
+import { gifs } from '../../src/reducers/gifs';
 import {
   GET_GIFS_SUCCEEDED,
   GET_IMAGE_SIZE_SUCCEEDED,
-  FOUND_VISIBLE_GIFS,
 } from '../../src/actions/gifs';
 
 describe('gifs reducer file', () => {
@@ -289,27 +285,6 @@ describe('gifs reducer file', () => {
 
     it('does nothing by default', () => {
       expect(gifs(undefined, {})).toEqual([]);
-    });
-  });
-
-  describe('`visible` reducer', () => {
-    describe(`with action type ${FOUND_VISIBLE_GIFS}`, () => {
-      it('returns a range object from the payload passed', () => {
-        expect(visible({}, {
-          type: FOUND_VISIBLE_GIFS,
-          payload: {
-            visibleLowRange: 0,
-            visibleHighRange: 10,
-          },
-        })).toEqual({
-          start: 0,
-          end: 10,
-        });
-      });
-    });
-
-    it('does nothing by default', () => {
-      expect(visible(undefined, {})).toEqual({});
     });
   });
 });
