@@ -1,3 +1,5 @@
+// @flow
+
 import AWS from 'aws-sdk/global';
 
 import {

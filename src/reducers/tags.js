@@ -1,3 +1,5 @@
+// @flow
+
 import {
   GET_TAGS_SUCCEEDED,
   ADD_TAG_SUCCEEDED,

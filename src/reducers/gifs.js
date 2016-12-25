@@ -19,15 +19,19 @@ type GifsAction = {
     gifs?: {
       Contents: Array<S3Object>,
     },
-    height: number,
-    width: number,
   },
 };
 
 export const gifs = (state: Array<Gif> = [], action: GifsAction) => {
   switch (action.type) {
   case GET_GIFS_SUCCEEDED:   // eslint-disable-line no-case-declarations
-    const newGifs = action.payload.gifs.Contents.filter((gif) => {
+    const { gifs } = action.payload;
+    let newGifs = [];
+
+    if (gifs && gifs.Contents) {
+      newGifs = gifs.Contents;
+    }
+    newGifs = newGifs.filter((gif) => {
       return gif.Key.slice(-4) === '.gif';
     }).map((gif) => {
       return {

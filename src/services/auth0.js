@@ -1,3 +1,5 @@
+// @flow
+
 import Auth0Lock from 'auth0-lock';
 import { REDIRECT_URL } from '../constants/auth0';
 

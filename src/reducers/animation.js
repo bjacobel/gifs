@@ -7,7 +7,7 @@ import {
 } from '../actions/animation';
 
 type AnimationAction = {
-  type: string,
+  type: ANIMATE_GIF | FREEZE_GIF | SAVE_ANIMATION,
   payload: {
     id: number,
   },

@@ -1,3 +1,5 @@
+// @flow
+
 import {
   UPDATE_INDEX_SUCCEEDED,
   SEARCH_SUCCEEDED,
