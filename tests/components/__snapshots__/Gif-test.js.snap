@@ -1,0 +1,41 @@
+exports[`Gif component matches snapshot after load of the full gif is finished 1`] = `
+<div>
+  <div
+    className="loading-indicator loaded">
+    <div
+      className="spinner" />
+  </div>
+  <img
+    onMouseOver={[Function]}
+    role="presentation"
+    src="https://gifs.bjacobel.com/partyparrot.gif" />
+</div>
+`;
+
+exports[`Gif component matches snapshot after load of the full gif is triggered 1`] = `
+<div>
+  <div
+    className="loading-indicator loading">
+    <div
+      className="spinner" />
+  </div>
+  <img
+    onMouseOver={[Function]}
+    role="presentation"
+    src="https://gifs.bjacobel.com/partyparrot.gif" />
+</div>
+`;
+
+exports[`Gif component matches the initial state snapshot 1`] = `
+<div>
+  <div
+    className="loading-indicator">
+    <div
+      className="spinner" />
+  </div>
+  <img
+    onMouseOver={[Function]}
+    role="presentation"
+    src="https://gifthumbs.bjacobel.com/partyparrot.gif" />
+</div>
+`;

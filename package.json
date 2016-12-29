@@ -39,6 +39,8 @@
     "babel-preset-react": "^6.3.13",
     "core-js": "^2.3.0",
     "css-loader": "^0.26.1",
+    "enzyme": "^2.7.0",
+    "enzyme-to-json": "^1.4.5",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.1.0",
@@ -53,6 +55,7 @@
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.2.1",
     "precss": "^1.4.0",
+    "react-addons-test-utils": "^15.4.1",
     "react-test-renderer": "^15.4.1",
     "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.13.0",
@@ -73,6 +76,7 @@
       "\\.(jpe?g|png|gif)$": "<rootDir>/mocks/fileMock.js",
       "\\.css$": "<rootDir>/mocks/styleMock.js"
     },
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "testRegex": "tests/.*/.*-test.js$",
     "unmockedModulePathPatterns": [
       "node_modules/react/",
