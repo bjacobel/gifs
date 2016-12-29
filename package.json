@@ -53,6 +53,7 @@
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.2.1",
     "precss": "^1.4.0",
+    "react-test-renderer": "^15.4.1",
     "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.13.0",
     "stylelint": "^7.7.0",
@@ -68,7 +69,9 @@
     "moduleNameMapper": {
       "aws-sdk/global": "<rootDir>/mocks/aws-sdk/global.js",
       "aws-sdk/clients/s3": "<rootDir>/mocks/aws-sdk/clients/s3.js",
-      "aws-sdk/clients/dynamodb": "<rootDir>/mocks/aws-sdk/clients/dynamodb.js"
+      "aws-sdk/clients/dynamodb": "<rootDir>/mocks/aws-sdk/clients/dynamodb.js",
+      "\\.(jpe?g|png|gif)$": "<rootDir>/mocks/fileMock.js",
+      "\\.css$": "<rootDir>/mocks/styleMock.js"
     },
     "testRegex": "tests/.*/.*-test.js$",
     "unmockedModulePathPatterns": [
