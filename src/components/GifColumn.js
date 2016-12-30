@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Infinite from 'react-infinite';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,6 @@ const mapStateToProps = (state) => {
   return {
     gifs: state.gifs,
     searchResults: state.searchResults,
-    tags: state.tags,
   };
 };
 
@@ -47,6 +46,15 @@ class GifColumn extends Component {
     );
   }
 }
+
+GifColumn.propTypes = {
+  gifs: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    observedHeight: PropTypes.number,
+    src: PropTypes.string,
+  })),
+  searchResults: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default connect(
   mapStateToProps,

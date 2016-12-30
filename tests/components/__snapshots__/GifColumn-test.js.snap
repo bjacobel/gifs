@@ -1,0 +1,191 @@
+exports[`GifColumn component matches snapshot when displaying all gifs 1`] = `
+<Infinite
+  className="gif-column"
+  displayBottomUpwards={false}
+  elementHeight={
+    Array [
+      400,
+      400,
+      400,
+      400,
+      400,
+      400,
+      400,
+      400,
+      400,
+      400,
+    ]
+  }
+  handleScroll={[Function]}
+  isInfiniteLoading={false}
+  loadingSpinnerDelegate={<div />}
+  onInfiniteLoad={[Function]}
+  styles={Object {}}
+  timeScrollStateLastsForAfterUserScrolls={150}
+  useWindowAsScrollContainer={true}>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "0",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "1",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "2",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "3",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "4",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "5",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "6",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "7",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "8",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "9",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+</Infinite>
+`;
+
+exports[`GifColumn component matches snapshot when filtering by search results 1`] = `
+<Infinite
+  className="gif-column"
+  displayBottomUpwards={false}
+  elementHeight={
+    Array [
+      400,
+      400,
+      400,
+    ]
+  }
+  handleScroll={[Function]}
+  isInfiniteLoading={false}
+  loadingSpinnerDelegate={<div />}
+  onInfiniteLoad={[Function]}
+  styles={Object {}}
+  timeScrollStateLastsForAfterUserScrolls={150}
+  useWindowAsScrollContainer={true}>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "1",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "2",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+  <div
+    className="gif">
+    <Connect(GifWrapper)
+      gif={
+        Object {
+          "id": "3",
+          "observedHeight": 400,
+          "src": "//:0",
+        }
+      } />
+  </div>
+</Infinite>
+`;
