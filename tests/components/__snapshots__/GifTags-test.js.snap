@@ -1,0 +1,25 @@
+exports[`GifTags component matches snapshot with no tags passed 1`] = `
+<p
+  className="tag-list">
+  <Connect(Tag)
+    meta="add-tag" />
+</p>
+`;
+
+exports[`GifTags component when passed tags matches snapshot 1`] = `
+<p
+  className="tag-list">
+  <Connect(Tag)
+    content="1" />
+  <Connect(Tag)
+    content="2" />
+  <Connect(Tag)
+    content="3" />
+  <Connect(Tag)
+    content="4" />
+  <Connect(Tag)
+    content="5" />
+  <Connect(Tag)
+    meta="add-tag" />
+</p>
+`;
