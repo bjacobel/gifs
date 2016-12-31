@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import { searchGifsAsync } from '../actions/search';
 
-const mapStateToProps = () => {
-  return {};
-};
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   searchGifsAsync,
@@ -13,9 +11,7 @@ const mapDispatchToProps = {
 
 class SearchBox extends Component {
   search(event) {
-    const { searchGifsAsync } = this.props;  // eslint-disable-line no-shadow
-
-    searchGifsAsync(event.currentTarget.value);
+    this.props.searchGifsAsync(event.currentTarget.value);
   }
 
   render() {
