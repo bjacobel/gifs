@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import Image from '../services/image';
+
 import Gif from './Gif';
 import {
   ROOT_URL,
@@ -13,11 +15,9 @@ import {
   saveMostRecentAnimation,
 } from '../actions/animation';
 
-function mapStateToProps(state) {
-  return {
-    animation: state.animation,
-  };
-}
+const mapStateToProps = state => ({
+  animation: state.animation,
+});
 
 const mapDispatchToProps = {
   animateGif,
