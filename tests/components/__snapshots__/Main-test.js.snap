@@ -1,0 +1,20 @@
+exports[`Main component matches snapshot 1`] = `
+<div>
+  <div
+    className="column-container">
+    <div
+      className="column gifs">
+      <Connect(GifColumn) />
+    </div>
+    <div
+      className="column info">
+      <div
+        className="info-liner">
+        <Connect(SearchBox) />
+        <Connect(TagBox) />
+      </div>
+    </div>
+  </div>
+  <Connect(LoginButton) />
+</div>
+`;
