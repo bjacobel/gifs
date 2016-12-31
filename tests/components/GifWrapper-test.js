@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 
 import GifWrapper from '../../src/components/GifWrapper';
 
@@ -88,8 +89,12 @@ describe('GifWrapper component', () => {
 
   describe('shouldComponentUpdate', () => {
     let component;
+    let renderSpy;
+    let sandbox;
 
     beforeEach(() => {
+      sandbox = sinon.sandbox.create();
+
       component = (
         <GifWrapper.WrappedComponent
           gif={ { id: '1', src: '//:0' } }
@@ -100,34 +105,36 @@ describe('GifWrapper component', () => {
           watchForSize={ jest.fn() }
         />
       );
+
+      renderSpy = sandbox.spy(GifWrapper.WrappedComponent.prototype, 'render');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
     });
 
     it("doesn't update unless animation[that gif's id] changes", () => {
-      GifWrapper.WrappedComponent.prototype.render = jest.fn();
       const enzymeRepr = shallow(component);
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(1);
+      expect(renderSpy.calledOnce).toBeTruthy();
       enzymeRepr.setProps({ animation: { 1: false } });
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(1);
+      expect(renderSpy.calledOnce).toBeTruthy();
     });
 
     it('does update when animation[id for that gif] changes', () => {
-      GifWrapper.WrappedComponent.prototype.render = jest.fn();
       const enzymeRepr = shallow(component);
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(1);
+      expect(renderSpy.calledOnce).toBeTruthy();
       enzymeRepr.setProps({ animation: { 1: true } });
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(2);
+      expect(renderSpy.calledTwice).toBeTruthy();
     });
 
     it("doesn't update when nextProps animation doesn't include the id for the gif", () => {
-      GifWrapper.WrappedComponent.prototype.render = jest.fn();
       const enzymeRepr = shallow(component);
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(1);
+      expect(renderSpy.calledOnce).toBeTruthy();
       enzymeRepr.setProps({ animation: { 2: false } });
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(1);
+      expect(renderSpy.calledOnce).toBeTruthy();
     });
 
     it("updates when original animation doesn't include the id for the gif, but nextProps does", () => {
-      GifWrapper.WrappedComponent.prototype.render = jest.fn();
       const enzymeRepr = shallow(
         <GifWrapper.WrappedComponent
           gif={ { id: '1', src: '//:0' } }
@@ -138,9 +145,9 @@ describe('GifWrapper component', () => {
           watchForSize={ jest.fn() }
         />,
       );
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(1);
+      expect(renderSpy.calledOnce).toBeTruthy();
       enzymeRepr.setProps({ animation: { 1: true } });
-      expect(GifWrapper.WrappedComponent.prototype.render).toHaveBeenCalledTimes(2);
+      expect(renderSpy.calledTwice).toBeTruthy();
     });
   });
 });

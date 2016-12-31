@@ -58,6 +58,7 @@
     "react-addons-test-utils": "^15.4.1",
     "react-test-renderer": "^15.4.1",
     "react-transform-hmr": "^1.0.4",
+    "sinon": "^1.17.6",
     "style-loader": "^0.13.0",
     "stylelint": "^7.7.0",
     "stylelint-config-standard": "^15.0.1",
@@ -76,7 +77,9 @@
       "\\.(jpe?g|png|gif)$": "<rootDir>/mocks/fileMock.js",
       "\\.css$": "<rootDir>/mocks/styleMock.js"
     },
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "testRegex": "tests/.*/.*-test.js$",
     "unmockedModulePathPatterns": [
       "node_modules/react/",
