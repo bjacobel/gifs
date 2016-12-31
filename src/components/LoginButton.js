@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
@@ -32,6 +32,15 @@ class LoginButton extends Component {
     );
   }
 }
+
+LoginButton.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.boolean,
+    auth0Service: PropTypes.shape({
+      login: PropTypes.func,
+    }),
+  }),
+};
 
 export default connect(
   mapStateToProps,
