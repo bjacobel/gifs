@@ -1,0 +1,9 @@
+exports[`SearchBox component matches snapshot 1`] = `
+<div
+  className="search-box">
+  <input
+    onChange={[Function]}
+    placeholder="Search"
+    type="search" />
+</div>
+`;

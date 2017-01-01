@@ -1,3 +1,5 @@
+import 'core-js/fn/object/keys';
+
 import {
   GET_TAGS_SUCCEEDED,
   ADD_TAG_SUCCEEDED,

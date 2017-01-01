@@ -1,0 +1,61 @@
+exports[`GifWrapper component matches the snapshot 1`] = `
+<div
+  className="gif-wrapper"
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
+  onTouchEnd={[Function]}>
+  <Gif
+    id="1"
+    image={
+      HTMLImageElement {
+        "addEventListener": [Function],
+        "appendChild": [Function],
+        "blur": [Function],
+        "click": [Function],
+        "cloneNode": [Function],
+        "compareDocumentPosition": [Function],
+        "constructor": [Function],
+        "contains": [Function],
+        "dispatchEvent": [Function],
+        "focus": [Function],
+        "getAttribute": [Function],
+        "getAttributeNS": [Function],
+        "getAttributeNames": [Function],
+        "getAttributeNode": [Function],
+        "getAttributeNodeNS": [Function],
+        "getBoundingClientRect": [Function],
+        "getClientRects": [Function],
+        "getElementsByClassName": [Function],
+        "getElementsByTagName": [Function],
+        "getElementsByTagNameNS": [Function],
+        "hasAttribute": [Function],
+        "hasAttributeNS": [Function],
+        "hasAttributes": [Function],
+        "hasChildNodes": [Function],
+        "insertAdjacentHTML": [Function],
+        "insertBefore": [Function],
+        "isEqualNode": [Function],
+        "matches": [Function],
+        "normalize": [Function],
+        "querySelector": [Function],
+        "querySelectorAll": [Function],
+        "remove": [Function],
+        "removeAttribute": [Function],
+        "removeAttributeNS": [Function],
+        "removeAttributeNode": [Function],
+        "removeChild": [Function],
+        "removeEventListener": [Function],
+        "replaceChild": [Function],
+        "setAttribute": [Function],
+        "setAttributeNS": [Function],
+        "setAttributeNode": [Function],
+        "setAttributeNodeNS": [Function],
+        "src": "https://gifthumbs.bjacobel.com///:0",
+        "toString": [Function],
+        "webkitMatchesSelector": [Function],
+      }
+    }
+    name="//:0"
+    watchForSize={[Function]} />
+</div>
+`;

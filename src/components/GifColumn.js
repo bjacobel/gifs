@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Infinite from 'react-infinite';
 import { connect } from 'react-redux';
 
 import GifWrapper from './GifWrapper';
 import { getGifsAsync } from '../actions/gifs';
 
-const mapStateToProps = (state) => {
-  return {
-    gifs: state.gifs,
-    searchResults: state.searchResults,
-    tags: state.tags,
-  };
-};
+const mapStateToProps = state => ({
+  gifs: state.gifs,
+  searchResults: state.searchResults,
+});
 
 const mapDispatchToProps = {
   getGifsAsync,
@@ -47,6 +44,15 @@ class GifColumn extends Component {
     );
   }
 }
+
+GifColumn.propTypes = {
+  gifs: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    observedHeight: PropTypes.number,
+    src: PropTypes.string,
+  })),
+  searchResults: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default connect(
   mapStateToProps,

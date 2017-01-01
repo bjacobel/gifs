@@ -12,7 +12,7 @@ export const searchIndex = (state = {}, action) => {
   }
 };
 
-export const searchResults = (state = {}, action) => {
+export const searchResults = (state = [], action) => {
   switch (action.type) {
   case SEARCH_SUCCEEDED:
     return action.payload.searchResults;

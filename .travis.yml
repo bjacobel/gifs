@@ -1,24 +1,14 @@
 language: node_js
 node_js:
   - 6
-sudo: false
-cache:
-  directories:
-  - node_modules
-env:
-  global:
-    - NODE_ENV=production
-before_install:
-  - npm install -g yarnpkg
-install:
-  - yarn
+cache: yarn
 script:
   - yarn run lint
-  - yarn run test -- --coverage
+  - NODE_ENV=production yarn run test -- --coverage
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-  - yarn run compile
+  - NODE_ENV=production yarn run compile
   - mkdir -p dist
   - cp index.html dist/
 deploy:

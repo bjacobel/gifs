@@ -1,0 +1,15 @@
+exports[`LoginButton component matches snapshot when authenticated 1`] = `
+<button
+  className="login-btn authed"
+  onClick={[Function]}>
+  Sign in
+</button>
+`;
+
+exports[`LoginButton component matches snapshot when not authenticated 1`] = `
+<button
+  className="login-btn"
+  onClick={[Function]}>
+  Sign in
+</button>
+`;
