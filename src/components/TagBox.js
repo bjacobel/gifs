@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import 'core-js/fn/object/values';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Tag from './Tag';
@@ -6,13 +7,11 @@ import { getTagsAsync } from '../actions/tags';
 import { ROOT_URL } from '../constants';
 import { copy } from '../services/clipboard';
 
-function mapStateToProps(state) {
-  return {
-    activeGif: state.activeGif,
-    gifs: state.gifs,
-    tags: state.tags,
-  };
-}
+const mapStateToProps = state => ({
+  activeGif: state.activeGif,
+  gifs: state.gifs,
+  tags: state.tags,
+});
 
 const mapDispatchToProps = {
   getTagsAsync,
@@ -81,6 +80,15 @@ class TagBox extends Component {
     );
   }
 }
+
+TagBox.propTypes = {
+  gifs: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+  })).isRequired,
+  tags: React.PropTypes.objectOf(React.PropTypes.array).isRequired,
+  activeGif: PropTypes.string,
+};
 
 export default connect(
   mapStateToProps,

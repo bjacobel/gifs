@@ -1,0 +1,92 @@
+exports[`TagBox component matches snapshot when no activeGif is set 1`] = `
+<div
+  className="tag-box">
+  <div>
+    <p>
+      <i>
+        2
+         gifs, 
+        3
+         tags
+      </i>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`TagBox component matches snapshot when the activeGif doesn't have tags 1`] = `
+<div
+  className="tag-box">
+  <div>
+    <input
+      className="gif-fullname-hidden"
+      readOnly={true}
+      type="text"
+      value="https://gifs.bjacobel.com/2.com" />
+    <p
+      className="gif-name copy-icon"
+      onMouseUp={[Function]}>
+      <span
+        className="sliding-ul-container">
+        <span
+          className="sliding-ul">
+          <span
+            className="lightgrey">
+            https://gifs.bjacobel.com/
+          </span>
+          2.com
+        </span>
+      </span>
+    </p>
+    <p
+      className="tag-list">
+      <Connect(Tag)
+        className="adder"
+        meta="add-tag" />
+    </p>
+  </div>
+</div>
+`;
+
+exports[`TagBox component matches snapshot when the activeGif has tags 1`] = `
+<div
+  className="tag-box">
+  <div>
+    <input
+      className="gif-fullname-hidden"
+      readOnly={true}
+      type="text"
+      value="https://gifs.bjacobel.com/1.com" />
+    <p
+      className="gif-name copy-icon"
+      onMouseUp={[Function]}>
+      <span
+        className="sliding-ul-container">
+        <span
+          className="sliding-ul">
+          <span
+            className="lightgrey">
+            https://gifs.bjacobel.com/
+          </span>
+          1.com
+        </span>
+      </span>
+    </p>
+    <p
+      className="tag-list">
+      <Connect(Tag)
+        content="first tag for 1"
+        id="1" />
+      <Connect(Tag)
+        content="2nd tag for 1"
+        id="1" />
+      <Connect(Tag)
+        content="3rd tag for 1"
+        id="1" />
+      <Connect(Tag)
+        className="adder"
+        meta="add-tag" />
+    </p>
+  </div>
+</div>
+`;
