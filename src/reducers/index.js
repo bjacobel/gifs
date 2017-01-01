@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
 
-import {
-  gifs,
-} from './gifs';
+import gifs from './gifs';
 import tags from './tags';
+import auth from './auth';
 import {
   animation,
   activeGif,
 } from './animation';
-import auth from './auth';
 import {
   searchIndex,
   searchResults,

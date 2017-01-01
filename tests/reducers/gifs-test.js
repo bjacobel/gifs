@@ -1,4 +1,4 @@
-import { gifs } from '../../src/reducers/gifs';
+import gifs from '../../src/reducers/gifs';
 import {
   GET_GIFS_SUCCEEDED,
   GET_IMAGE_SIZE_SUCCEEDED,
