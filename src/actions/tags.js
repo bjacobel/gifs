@@ -1,3 +1,4 @@
+import { cognitoAuthSucceeded } from './auth';
 import { obtainCurrentRole } from '../services/cognito';
 import {
   getAllTags,
@@ -73,8 +74,11 @@ export function addTagAsync(tag) {
     const { activeGif, auth } = getState();
     dispatch(addTagRequested(tag, activeGif));
 
-    // Need the authed role to do this. If we don't have it, this will trigger a login flow
     return obtainCurrentRole(auth)
+      .then((authInfo) => {
+        dispatch(cognitoAuthSucceeded(authInfo));
+        return authInfo;
+      })
       .then((authInfo) => {
         return addTag(tag, activeGif, authInfo);
       })
@@ -116,8 +120,11 @@ export function deleteTagAsync(tag) {
     const { activeGif, auth } = getState();
     dispatch(deleteTagRequested(tag, activeGif));
 
-    // Need the authed role to do this. If we don't have it, this will trigger a login flow
     return obtainCurrentRole(auth)
+      .then((authInfo) => {
+        dispatch(cognitoAuthSucceeded(authInfo));
+        return authInfo;
+      })
       .then((authInfo) => {
         return deleteTag(tag, authInfo);
       })

@@ -44,9 +44,19 @@ export const obtainUnauthedRole = () => {
 
 export const obtainCurrentRole = (auth) => {
   if (isAuthed(auth)) {
-    return obtainAuthRole(auth.idToken);
+    if (auth.cognito && auth.cognito.params.RoleArn === AUTHED_ROLE_ARN) {
+      // we already have the role we need, don't refresh
+      return Promise.resolve(auth.cognito);
+    } else {
+      return obtainAuthRole(auth.idToken);
+    }
   } else {
+    if (auth.cognito && auth.cognito.params.RoleArn === UNAUTHED_ROLE_ARN) {  // eslint-disable-line no-lonely-if
+      // we already have the role we need, don't refresh
+      return Promise.resolve(auth.cognito);
+    } else {
     // Either there is no token or it has expired, so get the unauthed role
-    return obtainUnauthedRole();
+      return obtainUnauthedRole();
+    }
   }
 };
