@@ -22,12 +22,6 @@ describe('cognito service', () => {
       });
     });
 
-    it('has isAuthed: true after', () => {
-      return obtainAuthRole('token').then((creds) => {
-        expect(creds.isAuthed).toBeTruthy();
-      });
-    });
-
     it('refreshes creds', () => {
       return obtainAuthRole('token').then(() => {
         expect(AWS.config.credentials.refreshPromise).toHaveBeenCalled();
@@ -49,12 +43,6 @@ describe('cognito service', () => {
       });
     });
 
-    it('has isAuthed: false after', () => {
-      return obtainUnauthedRole().then((creds) => {
-        expect(creds.isAuthed).toBeFalsy();
-      });
-    });
-
     it('refreshes creds', () => {
       return obtainUnauthedRole().then(() => {
         expect(AWS.config.credentials.refreshPromise).toHaveBeenCalled();
@@ -72,15 +60,17 @@ describe('cognito service', () => {
   describe('obtainCurrentRole', () => {
     it('calls obtainAuthRole if there is an idToken passed', () => {
       isAuthed.mockImplementationOnce(() => true);
+
       return obtainCurrentRole({ idToken: 'foo' }).then((creds) => {
-        expect(creds.isAuthed).toBeTruthy();
+        expect(creds.params.RoleArn).toEqual(AUTHED_ROLE_ARN);
       });
     });
 
     it('calls obtainUnauthRole if there is no idToken passed', () => {
       isAuthed.mockImplementationOnce(() => false);
+
       return obtainCurrentRole({}).then((creds) => {
-        expect(creds.isAuthed).toBeFalsy();
+        expect(creds.params.RoleArn).toEqual(UNAUTHED_ROLE_ARN);
       });
     });
   });

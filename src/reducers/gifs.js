@@ -3,7 +3,7 @@ import {
   GET_IMAGE_SIZE_SUCCEEDED,
 } from '../actions/gifs';
 
-export const gifs = (state = [], action) => {
+export default (state = [], action) => {
   switch (action.type) {
   case GET_GIFS_SUCCEEDED:   // eslint-disable-line no-case-declarations
     const newGifs = action.payload.gifs.Contents.filter((gif) => {

@@ -10,13 +10,11 @@ export default (state = {}, action) => {
   case COGNITO_AUTH_SUCCEEDED:
     return {
       ...state,
-      isAuthenticated: action.payload.authInfo.isAuthed,
       cognito: action.payload.authInfo,
     };
   case COGNITO_AUTH_FAILED:
     return {
       ...state,
-      isAuthenticated: false,
       cognito: {
         error: action.payload.err,
       },

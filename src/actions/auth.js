@@ -15,7 +15,7 @@ const cognitoAuthRequested = () => {
   return { type: COGNITO_AUTH_REQUESTED };
 };
 
-const cognitoAuthSucceeded = (authInfo) => {
+export const cognitoAuthSucceeded = (authInfo) => {
   return { type: COGNITO_AUTH_SUCCEEDED, payload: { authInfo } };
 };
 
@@ -31,6 +31,7 @@ export const getCognitoAuthAsync = () => {
     return obtainCurrentRole(getState().auth)
       .then((authInfo) => {
         dispatch(cognitoAuthSucceeded(authInfo));
+        return authInfo;
       })
       .catch((err) => {
         dispatch(cognitoAuthFailed(err));

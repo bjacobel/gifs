@@ -6,6 +6,7 @@ import {
   addTagAsync,
   deleteTagAsync,
 } from '../actions/tags';
+import { isAuthed } from '../services/auth0';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -60,7 +61,7 @@ class Tag extends Component {
         spellCheck="false"
         type="text"
         value={ this.state.value }
-        disabled={ !auth.isAuthenticated }
+        disabled={ !isAuthed(auth) }
       />
     );
 
@@ -78,7 +79,7 @@ class Tag extends Component {
     }
 
     return (
-      <span className={ classNames('tag-wrapper', { disabled: !auth.isAuthenticated, adder: meta === 'add-tag' }) }>
+      <span className={ classNames('tag-wrapper', { disabled: !isAuthed(auth), adder: meta === 'add-tag' }) }>
         <span className="tag">
           { content }
           { addOrDel }
@@ -96,7 +97,8 @@ Tag.propTypes = {
   id: PropTypes.string,
   meta: PropTypes.oneOf(['add-tag', undefined]),
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool,
+    idToken: PropTypes.string,
+    idTokenExpiry: PropTypes.number,
   }),
 };
 

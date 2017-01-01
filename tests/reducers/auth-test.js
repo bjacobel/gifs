@@ -8,9 +8,8 @@ import auth from '../../src/reducers/auth';
 
 describe('`auth` reducer', () => {
   describe(`when type is ${COGNITO_AUTH_SUCCEEDED}`, () => {
-    it('sets isAuthenticated to `true` and adds auth info to the cognito key', () => {
+    it('adds auth info to the cognito key', () => {
       expect(auth({
-        isAuthenticated: false,
         cognito: {
           foo: 'bar',
         },
@@ -18,14 +17,11 @@ describe('`auth` reducer', () => {
         type: COGNITO_AUTH_SUCCEEDED,
         payload: {
           authInfo: {
-            isAuthed: true,
             foo: 'biff',
           },
         },
       })).toEqual({
-        isAuthenticated: true,
         cognito: {
-          isAuthed: true,
           foo: 'biff',
         },
       });
@@ -33,9 +29,8 @@ describe('`auth` reducer', () => {
   });
 
   describe(`when type is ${COGNITO_AUTH_FAILED}`, () => {
-    it('sets isAuthed to `false` and adds an err to the cognito key', () => {
+    it('adds an err to the cognito key', () => {
       expect(auth({
-        isAuthenticated: true,
         cognito: {
           foo: 'bar',
         },
@@ -45,7 +40,6 @@ describe('`auth` reducer', () => {
           err: 'foo error',
         },
       })).toEqual({
-        isAuthenticated: false,
         cognito: {
           error: 'foo error',
         },

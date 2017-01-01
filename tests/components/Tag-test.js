@@ -2,14 +2,21 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Tag from '../../src/components/Tag';
+import { isAuthed } from '../../src/services/auth0';
+
+jest.mock('../../src/services/auth0');
 
 describe('Tag component', () => {
   describe('when unauthenticated', () => {
+    beforeEach(() => {
+      isAuthed.mockImplementation(() => false);
+    });
+
     it('matches snapshot if displayed as an add-tag', () => {
       expect(shallow(
         <Tag.WrappedComponent
           meta="add-tag"
-          auth={ { isAuthenticated: false } }
+          auth={ {} }
           addTagAsync={ jest.fn() }
           deleteTagAsync={ jest.fn() }
         />,
@@ -21,7 +28,7 @@ describe('Tag component', () => {
         <Tag.WrappedComponent
           content="first tag"
           id="1"
-          auth={ { isAuthenticated: false } }
+          auth={ {} }
           addTagAsync={ jest.fn() }
           deleteTagAsync={ jest.fn() }
         />,
@@ -30,13 +37,17 @@ describe('Tag component', () => {
   });
 
   describe('when authenticated', () => {
+    beforeEach(() => {
+      isAuthed.mockImplementation(() => true);
+    });
+
     describe('a normal tag', () => {
       it('matches snapshot', () => {
         expect(shallow(
           <Tag.WrappedComponent
             content="first tag"
             id="1"
-            auth={ { isAuthenticated: true } }
+            auth={ {} }
             addTagAsync={ jest.fn() }
             deleteTagAsync={ jest.fn() }
           />,
@@ -49,7 +60,7 @@ describe('Tag component', () => {
           <Tag.WrappedComponent
             content="first tag"
             id="1"
-            auth={ { isAuthenticated: true } }
+            auth={ {} }
             addTagAsync={ jest.fn() }
             deleteTagAsync={ deleteTagAsync }
           />,
@@ -65,7 +76,7 @@ describe('Tag component', () => {
         expect(shallow(
           <Tag.WrappedComponent
             meta="add-tag"
-            auth={ { isAuthenticated: true } }
+            auth={ {} }
             addTagAsync={ jest.fn() }
             deleteTagAsync={ jest.fn() }
           />,
@@ -76,7 +87,7 @@ describe('Tag component', () => {
         const enzymeRepr = shallow(
           <Tag.WrappedComponent
             meta="add-tag"
-            auth={ { isAuthenticated: true } }
+            auth={ {} }
             addTagAsync={ jest.fn() }
             deleteTagAsync={ jest.fn() }
           />,
@@ -91,7 +102,7 @@ describe('Tag component', () => {
         const enzymeRepr = shallow(
           <Tag.WrappedComponent
             meta="add-tag"
-            auth={ { isAuthenticated: true } }
+            auth={ {} }
             addTagAsync={ addTagAsync }
             deleteTagAsync={ jest.fn() }
           />,
@@ -107,7 +118,7 @@ describe('Tag component', () => {
         const enzymeRepr = shallow(
           <Tag.WrappedComponent
             meta="add-tag"
-            auth={ { isAuthenticated: true } }
+            auth={ {} }
             addTagAsync={ addTagAsync }
             deleteTagAsync={ jest.fn() }
           />,

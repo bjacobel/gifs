@@ -2,25 +2,28 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import LoginButton from '../../src/components/LoginButton';
+import { isAuthed } from '../../src/services/auth0';
+
+jest.mock('../../src/services/auth0');
 
 describe('LoginButton component', () => {
   it('matches snapshot when not authenticated', () => {
+    isAuthed.mockImplementationOnce(() => false);
+
     expect(shallow(
       <LoginButton.WrappedComponent
-        auth={ {
-          isAuthenticated: false,
-        } }
+        auth={ {} }
         getAuth0AuthAsync={ jest.fn() }
       />,
     )).toMatchSnapshot();
   });
 
   it('matches snapshot when authenticated', () => {
+    isAuthed.mockImplementationOnce(() => true);
+
     expect(shallow(
       <LoginButton.WrappedComponent
-        auth={ {
-          isAuthenticated: true,
-        } }
+        auth={ {} }
         getAuth0AuthAsync={ jest.fn() }
       />,
     )).toMatchSnapshot();
@@ -35,12 +38,13 @@ describe('LoginButton component', () => {
   });
 
   it('calls auth0Service.login on click', () => {
+    isAuthed.mockImplementationOnce(() => true);
+
     const login = jest.fn();
 
     const enzymeRepr = shallow(
       <LoginButton.WrappedComponent
         auth={ {
-          isAuthenticated: true,
           auth0Service: { login },
         } }
         getAuth0AuthAsync={ jest.fn() }
