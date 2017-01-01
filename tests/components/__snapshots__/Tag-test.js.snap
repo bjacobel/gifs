@@ -1,0 +1,107 @@
+exports[`Tag component when authenticated a normal tag matches snapshot 1`] = `
+<span
+  className="tag-wrapper">
+  <span
+    className="tag">
+    first tag
+    <span
+      className="del-tag"
+      onMouseUp={[Function]}>
+      ✕
+    </span>
+  </span>
+  <span
+    className="break">
+     
+  </span>
+</span>
+`;
+
+exports[`Tag component when authenticated an add-tag matches snapshot 1`] = `
+<span
+  className="tag-wrapper adder">
+  <span
+    className="tag">
+    <span>
+      <input
+        autoCapitalize="off"
+        autoComplete="off"
+        autoCorrect="off"
+        autoFocus={true}
+        className="tag-to-add"
+        disabled={false}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Add tag"
+        spellCheck="false"
+        type="text"
+        value="" />
+      <span
+        className="add-tag"
+        onMouseUp={[Function]}>
+        <b>
+          ＋
+        </b>
+      </span>
+    </span>
+  </span>
+  <span
+    className="break">
+     
+  </span>
+</span>
+`;
+
+exports[`Tag component when unauthenticated matches snapshot if displayed as a normal tag 1`] = `
+<span
+  className="tag-wrapper disabled">
+  <span
+    className="tag">
+    first tag
+    <span
+      className="del-tag"
+      onMouseUp={[Function]}>
+      ✕
+    </span>
+  </span>
+  <span
+    className="break">
+     
+  </span>
+</span>
+`;
+
+exports[`Tag component when unauthenticated matches snapshot if displayed as an add-tag 1`] = `
+<span
+  className="tag-wrapper disabled adder">
+  <span
+    className="tag">
+    <span>
+      <input
+        autoCapitalize="off"
+        autoComplete="off"
+        autoCorrect="off"
+        autoFocus={true}
+        className="tag-to-add"
+        disabled={true}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Add tag"
+        spellCheck="false"
+        type="text"
+        value="" />
+      <span
+        className="add-tag"
+        onMouseUp={[Function]}>
+        <b>
+          ＋
+        </b>
+      </span>
+    </span>
+  </span>
+  <span
+    className="break">
+     
+  </span>
+</span>
+`;

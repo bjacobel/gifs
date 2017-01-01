@@ -7,11 +7,9 @@ import {
   deleteTagAsync,
 } from '../actions/tags';
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-  };
-};
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
 const mapDispatchToProps = {
   addTagAsync,
@@ -35,8 +33,8 @@ class Tag extends Component {
       auth,
     } = this.props;
 
-    const updateTagToAdd = (event) => { this.setState({ value: event.target.value }); };
-    const deleteTag = () => { deleteTagAsync(id); };
+    const updateTagToAdd = event => this.setState({ value: event.target.value });
+    const deleteTag = () => deleteTagAsync(id);
     const addNewTag = () => {
       if (this.state.value) {
         addTagAsync(this.state.value);
@@ -96,7 +94,10 @@ class Tag extends Component {
 Tag.propTypes = {
   content: PropTypes.string,
   id: PropTypes.string,
-  meta: PropTypes.string,
+  meta: PropTypes.oneOf(['add-tag', undefined]),
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+  }),
 };
 
 export default connect(
