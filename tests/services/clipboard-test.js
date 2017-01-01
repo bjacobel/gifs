@@ -1,3 +1,5 @@
+import 'core-js/fn/object/assign';
+
 import { copy } from '../../src/services/clipboard';
 
 describe('clipboard service', () => {
