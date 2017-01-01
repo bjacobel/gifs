@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import GifColumn from '../../src/components/GifColumn';
 
@@ -21,7 +21,7 @@ describe('GifColumn component', () => {
   it('matches snapshot when displaying all gifs', () => {
     const gifColumn = (
       <GifColumn.WrappedComponent
-        getGifsAsync={ jest.fn }
+        getGifsAsync={ jest.fn() }
         gifs={ makeGifs(10) }
         searchResults={ [] }
       />
@@ -33,7 +33,7 @@ describe('GifColumn component', () => {
   it('matches snapshot when filtering by search results', () => {
     const gifColumn = (
       <GifColumn.WrappedComponent
-        getGifsAsync={ jest.fn }
+        getGifsAsync={ jest.fn() }
         gifs={ makeGifs(10) }
         searchResults={ ['1', '2', '3'] }
       />
@@ -42,5 +42,12 @@ describe('GifColumn component', () => {
     const enzymeWrapperGifColumn = shallow(gifColumn);
     expect(enzymeWrapperGifColumn.find('Connect(GifWrapper)').length).toEqual(3);
     expect(enzymeWrapperGifColumn).toMatchSnapshot();
+  });
+
+  it('calls getGifsAsync on mount', () => {
+    const getGifsAsync = jest.fn();
+    mount(<GifColumn.WrappedComponent gifs={ [] } searchResults={ [] } getGifsAsync={ getGifsAsync } />);
+
+    expect(getGifsAsync).toBeCalled();
   });
 });

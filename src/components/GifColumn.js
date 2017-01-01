@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import GifWrapper from './GifWrapper';
 import { getGifsAsync } from '../actions/gifs';
 
-const mapStateToProps = (state) => {
-  return {
-    gifs: state.gifs,
-    searchResults: state.searchResults,
-  };
-};
+const mapStateToProps = state => ({
+  gifs: state.gifs,
+  searchResults: state.searchResults,
+});
 
 const mapDispatchToProps = {
   getGifsAsync,
