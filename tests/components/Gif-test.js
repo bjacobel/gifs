@@ -68,7 +68,6 @@ describe('Gif component', () => {
   });
 
   it('calls finishLoad if the load was already complete when image was passed', () => {
-    console.log = jest.fn();
     const loadSpy = spy(Gif.prototype, 'finishLoad');
     const renderedGif = shallow(gif);
 

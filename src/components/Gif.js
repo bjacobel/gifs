@@ -25,7 +25,6 @@ export default class Gif extends Component {
       this.gif = nextProps.image;
 
       if (this.gif.complete) {
-        console.log('gif is already loaded');
         this.finishLoad();
       } else {
         this.gif.addEventListener('load', this.finishLoad, { once: true });
