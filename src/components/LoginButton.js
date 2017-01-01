@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import { getAuth0AuthAsync } from '../actions/auth';
+import { isAuthed } from '../services/auth0';
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -19,12 +20,11 @@ class LoginButton extends Component {
 
   render() {
     const { auth } = this.props;
-    const isAuthenticated = auth.isAuthenticated || false;
     const auth0Service = auth.auth0Service || { login: () => false };
 
     return (
       <button
-        className={ classNames('login-btn', { authed: isAuthenticated }) }
+        className={ classNames('login-btn', { authed: isAuthed(auth) }) }
         onClick={ auth0Service.login }
       >
         Sign in
@@ -35,10 +35,11 @@ class LoginButton extends Component {
 
 LoginButton.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.boolean,
     auth0Service: PropTypes.shape({
       login: PropTypes.func,
     }),
+    idToken: PropTypes.string,
+    idTokenExpiry: PropTypes.number,
   }),
 };
 

@@ -26,7 +26,6 @@ export const obtainAuthRole = (idToken) => {
   return AWS.config.credentials.refreshPromise()
     .then(() => ({
       ...AWS.config.credentials.webIdentityCredentials,
-      isAuthed: true,
     }));
 };
 
@@ -40,7 +39,6 @@ export const obtainUnauthedRole = () => {
   return AWS.config.credentials.refreshPromise()
     .then(() => ({
       ...AWS.config.credentials.webIdentityCredentials,
-      isAuthed: false,
     }));
 };
 
