@@ -19,8 +19,8 @@ const store = createStore(reducer, {}, composeEnhancers(
   persistState('auth', {
     slicer: () => {
       return (state) => {
-        const { isAuthenticated, idToken } = state.auth;
-        return { auth: { isAuthenticated, idToken } };
+        const { isAuthenticated, idToken, idTokenExpiry } = state.auth;
+        return { auth: { isAuthenticated, idToken, idTokenExpiry } };
       };
     },
   }),
