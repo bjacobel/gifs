@@ -8,9 +8,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-  - NODE_ENV=production yarn run compile
-  - mkdir -p dist
-  - cp index.html dist/
+  - NODE_ENV=production $(yarn bin)/webpack
 deploy:
   provider: s3
   region: us-east-1
