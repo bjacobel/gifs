@@ -26,9 +26,19 @@ const store = createStore(reducer, {}, composeEnhancers(
   }),
 ));
 
-ReactDOM.render(
-  <Provider store={ store }>
-    <Main />
-  </Provider>,
-  document.getElementById('main'),
-);
+const render = () => {
+  ReactDOM.render(
+    <Provider store={ store }>
+      <Main />
+    </Provider>,
+    document.getElementById('main'),
+  );
+};
+
+if (module.hot) {
+  module.hot.accept('./components/Main', () => {
+    render();
+  });
+}
+
+render();

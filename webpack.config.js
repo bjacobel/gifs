@@ -31,6 +31,7 @@ const wpconfig = {
   },
   output: {
     path: `${__dirname}/dist`,
+    publicPath: isProd ? '/' : 'http://localhost:8080/',
     filename: '[name].js',
   },
   devtool: isProd ? false : 'source-map',
