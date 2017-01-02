@@ -22,7 +22,7 @@ export const updateSearchIndexAsync = () => {
 
     const { gifs, tags } = getState();
 
-    updateIndex(gifs, tags).then((newIndex) => {
+    return updateIndex(gifs, tags).then((newIndex) => {
       dispatch(updateSearchIndexSucceeded(newIndex));
     });
   };
@@ -42,7 +42,7 @@ export const searchGifsAsync = (searchTerm) => {
 
     const { searchIndex } = getState();
 
-    searchFor(searchTerm, searchIndex).then((searchResults) => {
+    return searchFor(searchTerm, searchIndex).then((searchResults) => {
       dispatch(searchGifsSucceeded(searchResults));
     });
   };

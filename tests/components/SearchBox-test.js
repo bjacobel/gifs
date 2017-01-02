@@ -17,4 +17,16 @@ describe('SearchBox component', () => {
       .simulate('change', { currentTarget: { value: 'c' } });
     expect(searchGifsAsync).toHaveBeenCalledTimes(3);
   });
+
+  it('calls searchGifsAsync with initialSearch if passed it', () => {
+    const searchGifsAsync = jest.fn();
+    shallow(
+      <SearchBox.WrappedComponent
+        searchGifsAsync={ searchGifsAsync }
+        initialSearch="foo"
+        searchIndex={ ['idk'] }
+      />,
+    );
+    expect(searchGifsAsync).lastCalledWith('foo');
+  });
 });

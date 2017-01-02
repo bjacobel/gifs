@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import GifColumn from './GifColumn';
 import SearchBox from './SearchBox';
@@ -7,6 +7,13 @@ import TagBox from './TagBox';
 
 export default class Main extends Component {
   render() {
+    const { params } = this.props;
+    let search;
+
+    if (params && params.search) {
+      search = params.search;
+    }
+
     return (
       <div>
         <div className="column-container">
@@ -15,7 +22,7 @@ export default class Main extends Component {
           </div>
           <div className="column info">
             <div className="info-liner">
-              <SearchBox />
+              <SearchBox initialSearch={ search } />
               <TagBox />
             </div>
           </div>
@@ -25,3 +32,9 @@ export default class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  params: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+};
