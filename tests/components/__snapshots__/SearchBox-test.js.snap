@@ -7,3 +7,22 @@ exports[`SearchBox component matches snapshot 1`] = `
     type="search" />
 </div>
 `;
+
+exports[`SearchBox component matches snapshot when it gets an initialSearch param 1`] = `
+<SearchBox
+  initialSearch="foo"
+  searchGifsAsync={[Function]}
+  searchIndex={
+    Array [
+      "idk",
+    ]
+  }>
+  <div
+    className="search-box">
+    <input
+      onChange={[Function]}
+      placeholder="Search"
+      type="search" />
+  </div>
+</SearchBox>
+`;

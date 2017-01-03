@@ -28,8 +28,12 @@ class SearchBox extends Component {
         <input
           placeholder="Search"
           type="search"
-          value={ initialSearch }
           onChange={ event => this.search(event) }
+          ref={ (input) => {
+            if (input && initialSearch && initialSearch.length > 1) {
+              input.value = initialSearch;  // eslint-disable-line no-param-reassign
+            }
+          } }
         />
       </div>
     );
