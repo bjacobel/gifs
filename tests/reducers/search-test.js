@@ -30,7 +30,7 @@ describe('search reducers', () => {
     });
 
     it('does nothing by default', () => {
-      expect(searchIndex({}, { type: 'none' })).toEqual({});
+      expect(searchIndex(undefined, { type: 'none' })).toEqual([]);
     });
   });
 
@@ -57,7 +57,7 @@ describe('search reducers', () => {
     });
 
     it('does nothing by default', () => {
-      expect(searchResults([], { type: 'none' })).toEqual([]);
+      expect(searchResults(undefined, { type: 'none' })).toEqual([]);
     });
   });
 });

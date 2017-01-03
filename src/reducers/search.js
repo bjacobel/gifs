@@ -3,7 +3,7 @@ import {
   SEARCH_SUCCEEDED,
 } from '../actions/search';
 
-export const searchIndex = (state = {}, action) => {
+export const searchIndex = (state = [], action) => {
   switch (action.type) {
   case UPDATE_INDEX_SUCCEEDED:
     return action.payload.newIndex;

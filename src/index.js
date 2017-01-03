@@ -8,7 +8,7 @@ import persistState from 'redux-localstorage';
 import { createStore, applyMiddleware, compose } from 'redux';
 
 import './stylesheets/index.css';
-import Main from './components/Main';
+import Main from './components/Routes';
 import reducer from './reducers';
 import { SHOW_DEV_TOOLS } from './constants';
 
@@ -36,7 +36,7 @@ const render = () => {
 };
 
 if (module.hot) {
-  module.hot.accept('./components/Main', () => {
+  module.hot.accept('./components/Routes', () => {
     render();
   });
 }
